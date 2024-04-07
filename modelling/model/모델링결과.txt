@@ -1,0 +1,18 @@
+K FOLD (n_splits=5, shuffle=True) 결과(하이퍼파라미터 튜닝 없는 경우)
+
+1. RandomForestRegressor
+rfr avg r2:  0.9314987906122925
+rfr avg rmse:  1469.4972511270892
+rfr avg mae:  530.8589139918782
+
+2. LGBM Regressor
+lgbm avg r2:  0.9182163307536015
+lgbm avg rmse:  1593.0477576970138
+lgbm avg mae:  606.206595666424
+
+3. XGB
+rfr avg r2:  0.91366198088901
+rfr avg rmse:  1639.084950557859
+rfr avg mae:  581.9415198116633
+
+3. 
