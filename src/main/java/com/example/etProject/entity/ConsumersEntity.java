@@ -1,12 +1,18 @@
 package com.example.etProject.entity;
 
+import java.util.List;
 import java.util.Random;
+import java.util.ArrayList;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -23,8 +29,10 @@ import lombok.Setter;
 @Setter
 @Getter
 @Builder
-@Table(name = "CUNSUMERS")
-public class CunsumersEntity {
+
+@Entity
+@Table(name = "CONSUMERS")
+public class ConsumersEntity {
 	
 	// * 아주 낮은 확률로 중복가능성이 있으므로 어떻게 처리하면 좋을지 다시 생각해보기
 	public class KeyGenerator {
@@ -48,7 +56,6 @@ public class CunsumersEntity {
 	@Column(name = "KEPCO_CUST_NUM")
 	private String kepcoCustNum;
 	
-	
 	public enum CustomerType {주택용, 일반용};
 	
 	@Column(name = "CUSTOMER_TYPE")
@@ -61,11 +68,18 @@ public class CunsumersEntity {
 	@Column(name = "CONTRACT_TYPE")
 	@Enumerated(EnumType.STRING)
 	private String contractType;
-	
+
+	@OneToMany(mappedBy = "consumersEntity",
+			cascade = CascadeType.REMOVE,
+			orphanRemoval = true,
+			fetch = FetchType.LAZY)
+	private List<ConsumptionsEntity> consumptionsEntity= new ArrayList<>();
+
 	@OneToOne
 	@JoinColumn(name = "MEMBER_ID")
-	private MembersEntity membersEntity; //@ 확인
-	
+	private MembersEntity membersEntity;
+
+
 }
 
 

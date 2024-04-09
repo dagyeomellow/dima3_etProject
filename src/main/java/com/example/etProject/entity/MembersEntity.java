@@ -92,5 +92,4 @@ public class MembersEntity {
 			fetch = FetchType.LAZY)
 	private List<SalesBoardEntity> salesBoardEntity= new ArrayList<>();
 	
-	
 }
