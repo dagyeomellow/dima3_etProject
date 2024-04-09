@@ -37,6 +37,8 @@ public class MembersDTO {
 				.memberAddrDetail(membersEntity.getMemberAddrDetail())
 				.memberRole(membersEntity.getMemberRole())
 				.isAgree(membersEntity.isAgree())
+				// .memberRole(membersEntity.getMemberRole())
+				// .enabled 보안설정 후 속성설정
 				.build();
 	}
 	
