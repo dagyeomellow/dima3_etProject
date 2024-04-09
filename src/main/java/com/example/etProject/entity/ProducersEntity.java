@@ -1,10 +1,16 @@
 package com.example.etProject.entity;
 
 import com.example.etProject.dto.ProducersDTO;
+import java.util.List;
+import java.util.ArrayList;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -18,6 +24,7 @@ import lombok.Setter;
 @Setter
 @Getter
 @Builder
+@Entity
 @Table(name = "PRODUCERS")
 public class ProducersEntity {
 	
@@ -59,6 +66,12 @@ public class ProducersEntity {
 	@OneToOne
 	@JoinColumn(name = "MEMBER_ID")
 	private MembersEntity membersEntity;
+
+	@OneToMany(mappedBy = "producersEntity",
+	cascade = CascadeType.REMOVE,
+	orphanRemoval = true,
+	fetch = FetchType.LAZY)
+	private List<ProductionsEntity> productionsEntity = new ArrayList<>();
 
 }
 
