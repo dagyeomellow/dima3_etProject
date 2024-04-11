@@ -2,6 +2,7 @@ package com.example.etProject.entity;
 
 import com.example.etProject.dto.ProducersDTO;
 import java.util.List;
+import java.util.Random;
 import java.util.ArrayList;
 
 import jakarta.persistence.CascadeType;
@@ -28,33 +29,44 @@ import lombok.Setter;
 @Table(name = "PRODUCERS")
 public class ProducersEntity {
 	
+	public class KeyGenerator {
+		public static String generateProducerId() {
+			Random random = new Random();
+			int randomNumber = random.nextInt(900_000_000) + 100_000_000; // 100_000_000 ~ 999_999_999
+			return "SPP" + randomNumber;
+			}
+		}
+	
+	
 	@Id
-	@Column(name = "PRODUCER_ID")
-	private String producerId;
+	@Column(name = "PRODUCER_ID", nullable = false)
+	// 전력생산회원 인조키, 예: SPP123456789(SP: 사이트약어, P: 생산, 숫자9자리: 난수발생), 중복불가
+	private String producerId= KeyGenerator.generateProducerId();
 	
-	@Column(name = "MEMBER_ID")
-	private String memberId;
+	@OneToOne
+	@JoinColumn(name = "MEMBER_ID")
+	private MembersEntity membersEntity;
 	
-	@Column(name = "MEMBER_ADDR")
+	@Column(name = "MEMBER_ADDR", nullable = false)
 	private String memberAddr;
 	
-	@Column(name = "LOCATION_X")
+	@Column(name = "LOCATION_X", nullable = false)
 	private double locationX;
 	
-	@Column(name = "LOCATION_Y")
+	@Column(name = "LOCATION_Y", nullable = false)
 	private double locationY;
 	
-	@Column(name = "INSTALLED_CAPACITY")
-	private Number installedCapacity; // 소수점 단위도 있다면 float/double 로 수정
+	@Column(name = "INSTALLED_CAPACITY", nullable = false)
+	private int installedCapacity; // 소수점 단위도 있다면 float/double 로 수정
 	
-	@Column(name = "MODULE_ID")
-	private String moduleId;
+	@Column(name = "MODULE_ID", nullable = false)
+	private String moduleId; // @확인
 	
 	
 	public static ProducersEntity toEntity(ProducersDTO producersDTO) {
 		return ProducersEntity.builder()
 				.producerId(producersDTO.getProducerId())
-				.memberId(producersDTO.getMemberId())
+				.membersEntity(MembersEntity.builder().memberId(producersDTO.getMemberId()).build())
 				.memberAddr(producersDTO.getMemberAddr())
 				.locationX(producersDTO.getLocationX())
 				.locationY(producersDTO.getLocationY())
@@ -63,9 +75,6 @@ public class ProducersEntity {
 				.build();
 	}
 	
-	@OneToOne
-	@JoinColumn(name = "MEMBER_ID")
-	private MembersEntity membersEntity;
 
 	@OneToMany(mappedBy = "producersEntity",
 	cascade = CascadeType.REMOVE,

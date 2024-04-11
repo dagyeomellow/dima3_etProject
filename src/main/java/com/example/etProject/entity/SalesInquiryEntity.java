@@ -4,11 +4,11 @@ import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,25 +25,44 @@ import lombok.Setter;
 @Table(name="SALES_INQUIRY")
 public class SalesInquiryEntity {
 
-    @SequenceGenerator(
-        name="sales_seq", sequenceName="sales_seq"
-        , initialValue=0, allocationSize=1
-    )
-
     @Id
-    @GeneratedValue(generator ="sales_seq")
-    private Long salesNum;
+    @OneToOne
+    @JoinColumn(name = "salesNum")
+    private SalesBoardEntity salesBoardEntity; // REFERENCES SALES_BOARD(SALES_NUM: value= seq)
 
-    @ManyToOne
-    @JoinColumn(name="MEMBER_ID")
-    private String memberId;
-    @Column(name="IS_SELLER")
-    private Boolean isSeller;
-    @Column(name="CONTENT")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="memberId")
+    private MembersEntity membersEntity; // REFERENCES MEMBERS(MEMBER_ID)
+    
+    @Column(name="IS_SELLER", nullable = false)
+    private boolean isSeller;
+    
+    @Column(name="CONTENT", nullable = false)
     private String content;
+    
     @Column(name="INQUIRY_DATE")
-    private LocalDateTime inquiryDate;
+    private LocalDateTime inquiryDate= LocalDateTime.now(); // DEFAULT SYSDATE
+    
     @Column(name="IS_READ")
-    private Boolean isRead;
+    private boolean isRead;
+    
+    
+    // public 
 
 }
+
+
+/*
+
+CREATE TABLE SALES_INQUIRY(
+	SALES_NUM NUMBER PRIMARY KEY REFERENCES SALES_BOARD(SALES_NUM)
+	, MEMBER_ID VARCHAR2(20) REFERENCES MEMBERS(MEMBER_ID)
+	, IS_SELLER CHAR(1) NOT NULL
+	, CONTENT VARCHAR2(4000) NOT NULL
+	, INQUIRY_DATE DATE DEFAULT SYSDATE
+	, IS_READ CHAR(1) 
+);
+
+*/
+
+

@@ -3,6 +3,7 @@ package com.example.etProject.dto;
 import java.time.LocalDateTime;
 
 import com.example.etProject.entity.MembersEntity;
+import com.example.etProject.entity.MembersEntity.memberRoles;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,7 +24,7 @@ public class MembersDTO {
 	private String nationalId;
 	private String memberAddr;
 	private String memberAddrDetail;
-	private String memberRole; // 확인
+	private memberRoles memberRole;
 	private boolean isAgree;
 	
 	public static MembersDTO toDTO(MembersEntity membersEntity) {
@@ -37,7 +38,7 @@ public class MembersDTO {
 				.memberAddrDetail(membersEntity.getMemberAddrDetail())
 				.memberRole(membersEntity.getMemberRole())
 				.isAgree(membersEntity.isAgree())
-				// .memberRole(membersEntity.getMemberRole())
+				// .getRole
 				// .enabled 보안설정 후 속성설정
 				.build();
 	}

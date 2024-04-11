@@ -23,7 +23,7 @@ public class SalesBoardDTO {
 	private LocalDateTime salesStartMonth;
 	private LocalDateTime salesEndMonth;
 	private Number totalMonth;
-	private float totalAmount; //*용량절약 확인
+	private float totalAmount;
 	private float totalPrice;
 	private float avgAmount;
 	private boolean status; 
@@ -32,7 +32,7 @@ public class SalesBoardDTO {
 	public static SalesBoardDTO toDTO(SalesBoardEntity salesBoardEntity) {
 		return SalesBoardDTO.builder()
 				.salesNum(salesBoardEntity.getSalesNum())
-				.memberId(salesBoardEntity.getMemberId())
+				.memberId(salesBoardEntity.getMembersEntity().getMemberId())
 				.title(salesBoardEntity.getTitle())
 				.contents(salesBoardEntity.getContents())
 				.salesStartMonth(salesBoardEntity.getSalesStartMonth())
