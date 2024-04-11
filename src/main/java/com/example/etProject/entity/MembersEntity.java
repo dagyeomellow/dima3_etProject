@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.annotations.ColumnDefault;
+
 import com.example.etProject.dto.MembersDTO;
 
 import jakarta.persistence.CascadeType;
@@ -35,28 +37,30 @@ import lombok.Setter;
 public class MembersEntity {
 	
 	@SequenceGenerator(
-			name="members_seq",
-			sequenceName = "MEMBERS_SEQ",
-			initialValue = 1,
+			name="member_seq",
+			sequenceName = "MEMBER_SEQ",
+			initialValue = 0,
 			allocationSize = 1
 			)
 	
 	
 	@Id
-	@Column(name="MEMBERS_NUM")
-	@GeneratedValue(generator = "members_seq")
-	private Long membersNum;
+	@Column(name="MEMBER_NUM")
+	@GeneratedValue(generator = "member_seq")
+	private Long memberNum;
 	
-	@Column(name="MEMBER_ID", nullable = false, unique = true)
+	@Column(name="MEMBER_ID", nullable = false)
 	private String memberId;
+	
 	
 	@Column(name="MEMBER_PW", nullable = false)
 	private String memberPw;
 	
 	@Column(name="JOIN_DATE", nullable = false)
-	private LocalDateTime joinDate= LocalDateTime.now(); ; // DEFAULT SYSDATE
+	@ColumnDefault("CURRENT_TIMESTAMP") // DEFAULT SYSDATE. 서버처리 딜레이를 줄이기 위해 @CreationTimestamp 사용x
+	private LocalDateTime joinDate;
 	
-	@Column(name="NATIONL_ID", nullable = false, unique = true)
+	@Column(name="NATIONL_ID", nullable = false)
 	private String nationalId;
 	
 	@Column(name="MEMBER_ADDR", nullable = false)
@@ -65,19 +69,18 @@ public class MembersEntity {
 	@Column(name="MEMBER_ADDR_DETAIL")
 	private String memberAddrDetail;
 	
-	public enum memberRoles {ROLE_CONSUMER, ROLE_PROSUMER};
-	
 	@Column(name="MEMBER_ROLE", nullable = false)
-	@Enumerated(EnumType.STRING)
-	private memberRoles memberRole= memberRoles.ROLE_CONSUMER; // DEFAULT 'CONSUMER'
+	@ColumnDefault("ROLE_CONSUMER") // DEFAULT 'ROLE_CONSUMER'
+	private String memberRole; 
 	
 	@Column(name="IS_AGREE", nullable = false)
-	private boolean isAgree= true; // DEFAULT 1
+	@ColumnDefault("1")// DEFAULT 1
+	private boolean isAgree;
 
 	
 	public static MembersEntity toEntity(MembersDTO membersDTO) {
 		return MembersEntity.builder()
-				.membersNum(membersDTO.getMembersNum())
+				.memberNum(membersDTO.getMemberNum())
 				.memberId(membersDTO.getMemberId())
 				.memberPw(membersDTO.getMemberPw())
 				.joinDate(membersDTO.getJoinDate())
@@ -89,3 +92,5 @@ public class MembersEntity {
 				.build();
 	}
 }
+
+
