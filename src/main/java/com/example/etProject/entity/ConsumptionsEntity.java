@@ -39,7 +39,7 @@ public class ConsumptionsEntity {
 	@Column(name = "CONSUMPTION_NUM")
 	private Long consumptionNum;
 	
-//	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "CONSUMER_ID") // FK
 	private ConsumersEntity consumersEntity;
 	

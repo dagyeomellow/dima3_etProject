@@ -46,14 +46,14 @@ public class ConsumersEntity {
 	private String consumerId;
 	
 
-//	@OneToMany(
-//			mappedBy = "consumersEntity",
-//			cascade = CascadeType.REMOVE,
-//			orphanRemoval = true,
-//			fetch = FetchType.LAZY
-//			)
-//	private List<ConsumptionsEntity> consumptionsEntity= new ArrayList<>();
-//	
+	@OneToMany(
+			mappedBy = "consumersEntity",
+			cascade = CascadeType.REMOVE,
+			orphanRemoval = true,
+			fetch = FetchType.LAZY
+			)
+	private List<ConsumptionsEntity> consumptionsEntity= new ArrayList<>();
+	
 	
 	@OneToOne
 	@JoinColumn(name = "MEMBER_ID")
