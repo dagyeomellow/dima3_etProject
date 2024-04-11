@@ -9,6 +9,8 @@ import com.example.etProject.dto.MembersDTO;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -22,7 +24,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-// sales board, sales inquiry, consumers 관계설정
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -46,28 +47,31 @@ public class MembersEntity {
 	@GeneratedValue(generator = "members_seq")
 	private Long membersNum;
 	
-	@Column(name="MEMBER_ID")
+	@Column(name="MEMBER_ID", nullable = false, unique = true)
 	private String memberId;
 	
-	@Column(name="MEMBER_PW")
+	@Column(name="MEMBER_PW", nullable = false)
 	private String memberPw;
 	
-	@Column(name="JOIN_DATE")
-	private LocalDateTime joinDate;
+	@Column(name="JOIN_DATE", nullable = false)
+	private LocalDateTime joinDate= LocalDateTime.now(); ; // DEFAULT SYSDATE
 	
-	@Column(name="NATIONL_ID")
+	@Column(name="NATIONL_ID", nullable = false, unique = true)
 	private String nationalId;
 	
-	@Column(name="MEMBER_ADDR")
+	@Column(name="MEMBER_ADDR", nullable = false)
 	private String memberAddr;
 	
 	@Column(name="MEMBER_ADDR_DETAIL")
 	private String memberAddrDetail;
 	
-	@Column(name="MEMBER_ROLE")
-	private String memberRole= "CONSUMER"; // DEFAULT 'CONSUMER'
+	public enum memberRoles {ROLE_CONSUMER, ROLE_PROSUMER};
 	
-	@Column(name="IS_AGREE")
+	@Column(name="MEMBER_ROLE", nullable = false)
+	@Enumerated(EnumType.STRING)
+	private memberRoles memberRole= memberRoles.ROLE_CONSUMER; // DEFAULT 'CONSUMER'
+	
+	@Column(name="IS_AGREE", nullable = false)
 	private boolean isAgree= true; // DEFAULT 1
 
 	
@@ -91,5 +95,15 @@ public class MembersEntity {
 			orphanRemoval = true,
 			fetch = FetchType.LAZY)
 	private List<SalesBoardEntity> salesBoardEntity= new ArrayList<>();
+	
+	// SALES_INQUIRY 일대다 관계설정
+	@OneToMany(mappedBy = "membersEntity",
+			cascade = CascadeType.REMOVE,
+			orphanRemoval = true,
+			fetch = FetchType.LAZY)
+	private List<SalesInquiryEntity> salesInquiryEntity= new ArrayList<>();
+	
+	
+	
 	
 }

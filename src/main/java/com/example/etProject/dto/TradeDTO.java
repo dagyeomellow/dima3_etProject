@@ -1,5 +1,7 @@
 package com.example.etProject.dto;
 
+import java.time.LocalDateTime;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -13,26 +15,22 @@ import lombok.Setter;
 @Builder
 public class TradeDTO {
 	
-	// private 
+	private Long tradeNum;
+	private int salesNum;
+	private String consMemberId;
+	private String consNationalId;
+	private String prodMemberId;
+	private String prodNationalId;
+	private LocalDateTime agreedStartdate;
+	private LocalDateTime agreedEndDate;
+	private double agreedTotalAmount;
+	private int agreedTotalPrice; // 원화이므로 소수점단위 사용하지 않음
+	private LocalDateTime tradeDate; // 엔티티에서 초기화 작업을 합니다. 확인
+	private String tradeDetail; // " + DEFAULT NULL
+	private String status; // " + 범주형
+	
+	// 
+	
+	
 }
 
-
-/*
- * 컬럼명	컬럼 ID	타입 및 길이	Not Null	PK	FK	IDX	기본값	설명
-								
-TRADE_NUM		NUMBER	1	1				TRADE_SEQ에 의해 자동 생성된 TRADE 엔티티의 주키
-SALES_NUM		NUMBER	1		1			거래의 대상이 된 게시글의 번호
-CONS_MEMBER_ID		VARCHAR2(20)	1		1			구매자의 MEMBER_ID(MEMBER(MEMBER_ID) 참조
-CONS_NATIONAL_ID		VARCHAR2(15)	1		1			구매자의 주민번호, MEMBER(NATIONAL_ID)참조
-PROD_MEMBER_ID		VARCHAR2(20)	1		1			판매자의 MEMBER_ID(MEMBER(MEMBER_ID) 참조
-PROD_NATIONAL_ID		VARCHAR2(15)	1		1			판매자의 주민번호, MEMBER(NATIONAL_ID)참조
-AGREED_STARTDATE		DATE	1					합의된 전력공급 시작 년월
-AGREED_ENDDATE		DATE	1					합의된 전력공급 종료 년월
-AGREED_TOTAL_AMOUNT		NUMBER	1					합의된 총전력공급량
-AGREED_TOTAL_PRICE		NUMBER	1					 합의된 총금액
-TRADE_DATE		DATE	1				SYSDATE	합의 일자(년월일)
-TRADE_DETAIL		VARCHAR2(4000)					NULL	구체적인 거래 내용(조건이나 위반시 문제 등)
-STATUS		VARCHAR2(20)					AGREED	거래상태: AGREED: 계약완료, CANCELED: 거래취소, COMPLETED: 거래완료(취소불가)
- * 
- * 
- */

@@ -2,6 +2,9 @@ package com.example.etProject.entity;
 
 import java.util.List;
 import java.util.Random;
+
+import com.example.etProject.dto.ConsumersDTO;
+
 import java.util.ArrayList;
 
 import jakarta.persistence.CascadeType;
@@ -21,15 +24,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-//sales board, sales inquiry, consumers 관계설정
-
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter
 @Getter
 @Builder
-
 @Entity
 @Table(name = "CONSUMERS")
 public class ConsumersEntity {
@@ -45,39 +45,49 @@ public class ConsumersEntity {
 	
 	
 	@Id
-	@Column(name = "CONSUMER_ID")
+	@Column(name = "CONSUMER_ID", nullable = false)
 	// 전력소비회원 인조키, 예: SPC123456789(SP: 사이트약어, C: 소비, 숫자9자리: 난수발생), 중복불가
 	private String consumerId= KeyGenerator.generateCustomerId();
 	
 	
-	@Column(name = "MEMBER_ID")
-	private String memberId;
+	@OneToOne
+	@JoinColumn(name = "memberId", nullable = false)
+	private MembersEntity membersEntity;
 	
-	@Column(name = "KEPCO_CUST_NUM")
+	
+	@Column(name = "KEPCO_CUST_NUM", nullable = false)
 	private String kepcoCustNum;
 	
 	public enum CustomerType {주택용, 일반용};
 	
-	@Column(name = "CUSTOMER_TYPE")
+	@Column(name = "CUSTOMER_TYPE", nullable = false)
 	@Enumerated(EnumType.STRING)
-	private String customerType;
+	private CustomerType customerType;
 	
 	
 	public enum ContractType {저압, 고압, 갑1, 갑2, 을};
 	
-	@Column(name = "CONTRACT_TYPE")
+	@Column(name = "CONTRACT_TYPE", nullable = false)
 	@Enumerated(EnumType.STRING)
-	private String contractType;
+	private ContractType contractType;
 
+	
 	@OneToMany(mappedBy = "consumersEntity",
 			cascade = CascadeType.REMOVE,
 			orphanRemoval = true,
 			fetch = FetchType.LAZY)
 	private List<ConsumptionsEntity> consumptionsEntity= new ArrayList<>();
-
-	@OneToOne
-	@JoinColumn(name = "MEMBER_ID")
-	private MembersEntity membersEntity;
+	
+	
+	public static ConsumersEntity toEntity(ConsumersDTO consumersDTO) {
+		return ConsumersEntity.builder()
+				.consumerId(consumersDTO.getConsumerId())
+				.membersEntity(MembersEntity.builder().memberId(consumersDTO.getMemberId()).build())
+				.kepcoCustNum(consumersDTO.getKepcoCustNum())
+				.customerType(consumersDTO.getCustomerType())
+				.contractType(consumersDTO.getContractType())
+				.build();
+	}
 
 
 }

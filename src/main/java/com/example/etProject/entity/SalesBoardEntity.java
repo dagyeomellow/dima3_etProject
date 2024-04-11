@@ -43,28 +43,29 @@ public class SalesBoardEntity {
 	@GeneratedValue(generator = "sales_seq")
 	private Long salesNum;
 	
-	@Column(name = "MEMBER_ID")
-	private String memberId;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "memberId")
+	private MembersEntity membersEntity; // REFERENCES MEMBERS(MEMBER_ID)
 	
-	@Column(name = "TITLE")
+	@Column(name = "TITLE", nullable = false)
 	private String title;
 	
 	@Column(name = "CONTENTS")
 	private String contents;
 	
-	@Column(name = "SALES_STARTMONTH")
+	@Column(name = "SALES_STARTMONTH", nullable = false)
 	private LocalDateTime salesStartMonth;
 	
-	@Column(name = "SALES_ENDMONTH")
+	@Column(name = "SALES_ENDMONTH", nullable = false)
 	private LocalDateTime salesEndMonth;
 	
 	@Column(name = "TOTAL_MONTH")
 	private Number totalMonth;
 	
-	@Column(name = "TOTAL_AMOUNT")
+	@Column(name = "TOTAL_AMOUNT", nullable = false)
 	private float totalAmount;
 	
-	@Column(name = "TOTAL_PRICE")
+	@Column(name = "TOTAL_PRICE", nullable = false)
 	private float totalPrice;
 	
 	@Column(name = "AVG_AMOUNT")
@@ -77,14 +78,10 @@ public class SalesBoardEntity {
 	private LocalDateTime writeDate= LocalDateTime.now(); // DEFAULT SYSDATE
 	
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "MEMBER_ID")
-	private MembersEntity membersEntity;
-	
-	public static SalesBoardEntity toEntity(SalesBoardDTO salesBoardDTO, MembersEntity memberEntity) {
+	public static SalesBoardEntity toEntity(SalesBoardDTO salesBoardDTO) {
 		return SalesBoardEntity.builder()
 				.salesNum(salesBoardDTO.getSalesNum())
-				.memberId(salesBoardDTO.getMemberId())
+				.membersEntity(MembersEntity.builder().memberId(salesBoardDTO.getMemberId()).build())
 				.title(salesBoardDTO.getTitle())
 				.contents(salesBoardDTO.getContents())
 				.salesStartMonth(salesBoardDTO.getSalesStartMonth())
@@ -95,7 +92,6 @@ public class SalesBoardEntity {
 				.avgAmount(salesBoardDTO.getAvgAmount())
 				.status(salesBoardDTO.isStatus())
 				.writeDate(salesBoardDTO.getWriteDate())
-				.membersEntity(memberEntity)
 				.build();
 	} 
 

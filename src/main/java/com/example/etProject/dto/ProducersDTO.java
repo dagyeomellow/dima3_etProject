@@ -19,7 +19,7 @@ public class ProducersDTO {
 	private String memberAddr;
 	private double locationX;
 	private double locationY;
-	private Number installedCapacity; 
+	private int installedCapacity; 
 	private String moduleId;
 	
 	public static ProducersDTO toDTO(ProducersEntity producersEntity) {
