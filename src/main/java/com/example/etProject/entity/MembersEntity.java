@@ -4,6 +4,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.CreationTimestamp;
+
 import com.example.etProject.dto.MembersDTO;
 
 import jakarta.persistence.CascadeType;
@@ -35,49 +38,49 @@ import lombok.Setter;
 public class MembersEntity {
 	
 	@SequenceGenerator(
-			name="members_seq",
-			sequenceName = "MEMBERS_SEQ",
-			initialValue = 1,
+			name="MEMBER_SEQ",
+			sequenceName = "MEMBER_SEQ",
+			initialValue = 0,
 			allocationSize = 1
 			)
 	
 	
 	@Id
-	@Column(name="MEMBERS_NUM")
-	@GeneratedValue(generator = "members_seq")
-	private Long membersNum;
+	@Column(name="MEMBER_NUM")
+	@GeneratedValue(generator = "MEMBER_SEQ")
+	private Long memberNum;
 	
-	@Column(name="MEMBER_ID", nullable = false, unique = true)
+	@Column(name="MEMBER_ID", unique = true)
 	private String memberId;
 	
-	@Column(name="MEMBER_PW", nullable = false)
+	@Column(name="MEMBER_PW")
 	private String memberPw;
 	
-	@Column(name="JOIN_DATE", nullable = false)
-	private LocalDateTime joinDate= LocalDateTime.now(); ; // DEFAULT SYSDATE
+	@Column(name="JOIN_DATE")
+	@CreationTimestamp
+	private LocalDateTime joinDate; // DEFAULT SYSDATE
 	
-	@Column(name="NATIONL_ID", nullable = false, unique = true)
+	@Column(name="NATIONL_ID")
 	private String nationalId;
 	
-	@Column(name="MEMBER_ADDR", nullable = false)
+	@Column(name="MEMBER_ADDR")
 	private String memberAddr;
 	
 	@Column(name="MEMBER_ADDR_DETAIL")
 	private String memberAddrDetail;
-	
-	public enum memberRoles {ROLE_CONSUMER, ROLE_PROSUMER};
-	
-	@Column(name="MEMBER_ROLE", nullable = false)
-	@Enumerated(EnumType.STRING)
-	private memberRoles memberRole= memberRoles.ROLE_CONSUMER; // DEFAULT 'CONSUMER'
+		
+	@Column(name="MEMBER_ROLE")
+	@ColumnDefault("ROLE_CONSUMER")
+	private String memberRole;
 	
 	@Column(name="IS_AGREE", nullable = false)
-	private boolean isAgree= true; // DEFAULT 1
+	@ColumnDefault("1")
+	private boolean isAgree; // DEFAULT 1
 
 	
 	public static MembersEntity toEntity(MembersDTO membersDTO) {
 		return MembersEntity.builder()
-				.membersNum(membersDTO.getMembersNum())
+				.memberNum(membersDTO.getMemberNum())
 				.memberId(membersDTO.getMemberId())
 				.memberPw(membersDTO.getMemberPw())
 				.joinDate(membersDTO.getJoinDate())
