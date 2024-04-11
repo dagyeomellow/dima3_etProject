@@ -53,6 +53,7 @@ public class MembersEntity {
 	@Column(name="MEMBER_ID", unique = true)
 	private String memberId;
 	
+	
 	@Column(name="MEMBER_PW")
 	private String memberPw;
 	
@@ -81,6 +82,7 @@ public class MembersEntity {
 	public static MembersEntity toEntity(MembersDTO membersDTO) {
 		return MembersEntity.builder()
 				.memberNum(membersDTO.getMemberNum())
+				.memberNum(membersDTO.getMemberNum())
 				.memberId(membersDTO.getMemberId())
 				.memberPw(membersDTO.getMemberPw())
 				.joinDate(membersDTO.getJoinDate())
@@ -92,3 +94,5 @@ public class MembersEntity {
 				.build();
 	}
 }
+
+
