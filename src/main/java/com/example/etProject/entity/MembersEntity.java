@@ -88,22 +88,4 @@ public class MembersEntity {
 				.isAgree(membersDTO.isAgree())
 				.build();
 	}
-	
-	// SALES_BOARD 일대다 관계설정
-	@OneToMany(mappedBy = "membersEntity",
-			cascade = CascadeType.REMOVE,
-			orphanRemoval = true,
-			fetch = FetchType.LAZY)
-	private List<SalesBoardEntity> salesBoardEntity= new ArrayList<>();
-	
-	// SALES_INQUIRY 일대다 관계설정
-	@OneToMany(mappedBy = "membersEntity",
-			cascade = CascadeType.REMOVE,
-			orphanRemoval = true,
-			fetch = FetchType.LAZY)
-	private List<SalesInquiryEntity> salesInquiryEntity= new ArrayList<>();
-	
-	
-	
-	
 }

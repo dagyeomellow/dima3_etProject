@@ -77,3 +77,49 @@ def predictRecentProduction(location_x, location_y, installed_capacity):
 
 # result=predictRecentProduction(127,35,5)
 # print(result)
+
+
+from fastapi import FastAPI
+import uvicorn
+from pydantic import BaseModel
+from starlette.responses import JSONResponse
+
+import pickle
+import numpy as np
+import pandas as pd
+
+# Model 생성
+class Item(BaseModel):
+    petalLength: float
+    petalWidth: float
+    sepalLength: float
+    sepalWidth: float
+
+# app 개발
+app= FastAPI()
+@app.post(path="/",status_code=201)
+async def myiris(item: Item):
+    # pickle 파일 로딩
+    with open('data.pickle', 'rb') as f:
+        model=pickle.load(f)
+        dicted=dict(item)
+
+        petalLength=dicted['petalLength']
+        petalWidth=dicted['petalWidth']
+        sepalLength=dicted['sepalLength']
+        sepalWidth=dicted['sepalWidth']
+        
+        arr=np.array([[petalLength,petalWidth,sepalLength,sepalWidth]])
+        pred= model.predict(arr)
+
+        target_names=['setosa','versicolor','virginica']
+        result={'predict_result': target_names[pred[0]]}
+        print("=======pred: ", pred)
+        print("=======pred: ", result)
+
+    return JSONResponse(result)
+
+
+if __name__ == "__main__":
+    uvicorn.run(app,host="127.0.0.1", port=8000) # terminal: uvicorn main:app --reload
+    # 항상 유비콘이 먼저 구동되ㅐ고서 스프링이 구동되어야해
