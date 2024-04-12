@@ -20,8 +20,13 @@ public class MainController {
 	private final UserService userService;
 	
 	@GetMapping({"","/"})
+<<<<<<< HEAD
 	public String idCheck() {
 		return "idCheck";
+=======
+	public String test_th() {
+		return "index";
+>>>>>>> ef81e0397825fd7abaaa48baf1e59c1268f31626
 	}
 	
 	/*
