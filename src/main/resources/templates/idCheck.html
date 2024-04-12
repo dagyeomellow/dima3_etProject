@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    /*
+    let text= $("#result").text();
+    let sendData= {"uncheckedId":text};
+
+    $.ajax({
+        url: "/idCheck",
+        async: true,
+        method: "GET",
+        data: sendData,
+        success: function(resp) {
+            alert("체크결과"+ JSON.stringify(resp));
+        }
+    }); */
+
+    $.ajax({
+        method: "get",
+        url: "/params",
+        data: 
+
+
+    });
+</script>
+
+<body>
+    <span id="result" name="uncheckedId">test_100</span>
+
+    <div id="dataSet" name="dataSet">
+    </div>
+</body>
+</html>
+

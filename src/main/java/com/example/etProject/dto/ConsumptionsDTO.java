@@ -34,7 +34,8 @@ public class ConsumptionsDTO {
 	/*
 	public static ConsumptionsDTO toDTO(ConsumptionsEntity consumptionsEntity) {
 		return ConsumptionsDTO.builder()
-				.consumptionNum(consumptionsEntity)
+				.consumptionNum(consumptionsEntity.getConsumptionNum())
+				.consumerId(consumptionsEntity.getco)
 	} */
 	
 
