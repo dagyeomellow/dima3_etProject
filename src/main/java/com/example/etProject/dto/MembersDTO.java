@@ -16,7 +16,6 @@ import lombok.Setter;
 @Getter
 @Builder
 public class MembersDTO {
-	// private Long memberNum;
 	private String memberId;
 	private String memberPw;
 	private LocalDateTime joinDate;
@@ -28,7 +27,6 @@ public class MembersDTO {
 	
 	public static MembersDTO toDTO(MembersEntity membersEntity) {
 		return MembersDTO.builder()
-				// .memberNum(membersEntity.getMemberNum())
 				.memberId(membersEntity.getMemberId())
 				.memberPw(membersEntity.getMemberPw())
 				.joinDate(membersEntity.getJoinDate())
@@ -37,8 +35,6 @@ public class MembersDTO {
 				.memberAddrDetail(membersEntity.getMemberAddrDetail())
 				.memberRole(membersEntity.getMemberRole())
 				.isAgree(membersEntity.isAgree())
-				// .getRole
-				// .enabled 보안설정 후 속성설정
 				.build();
 	}
 	

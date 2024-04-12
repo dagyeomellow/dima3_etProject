@@ -32,21 +32,8 @@ import lombok.Setter;
 @Table(name="MEMBERS")
 public class MembersEntity {
 	
-	// @SequenceGenerator(
-	// 		name="MEMBER_SEQ",
-	// 		sequenceName = "MEMBER_SEQ",
-	// 		initialValue = 0,
-	// 		allocationSize = 1
-	// 		)
-	
-	
-
-	// @Column(name="MEMBER_NUM")
-	// @GeneratedValue(generator = "MEMBER_SEQ")
-	// private Long memberNum;
-	
 	@Id
-	@Column(name="MEMBER_ID")
+	@Column(name="MEMBER_ID", unique = true)
 	private String memberId;
 	
 	
@@ -57,7 +44,7 @@ public class MembersEntity {
 	@CreationTimestamp
 	private LocalDateTime joinDate; // DEFAULT SYSDATE
 	
-	@Column(name="NATIONL_ID")
+	@Column(name="NATIONAL_ID")
 	private String nationalId;
 	
 	@Column(name="MEMBER_ADDR")
@@ -70,14 +57,13 @@ public class MembersEntity {
 	@ColumnDefault("ROLE_CONSUMER")
 	private String memberRole;
 	
-	@Column(name="IS_AGREE", nullable = false)
+	@Column(name="IS_AGREE")
 	@ColumnDefault("1")
 	private boolean isAgree; // DEFAULT 1
 
 	
 	public static MembersEntity toEntity(MembersDTO membersDTO) {
 		return MembersEntity.builder()
-				// .memberNum(membersDTO.getMemberNum())
 				.memberId(membersDTO.getMemberId())
 				.memberPw(membersDTO.getMemberPw())
 				.joinDate(membersDTO.getJoinDate())
@@ -88,9 +74,13 @@ public class MembersEntity {
 				.isAgree(membersDTO.isAgree())
 				.build();
 	}
+
 	@OneToOne(mappedBy = "membersEntity",
 		cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, orphanRemoval = true)
 	private ProducersEntity producersEntity = new ProducersEntity();
+	@OneToOne(mappedBy = "membersEntity",
+		cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, orphanRemoval = true)
+	private ConsumersEntity consumersEntity = new ConsumersEntity();
 	// @OneToMany(mappedBy = "boardEntity", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, orphanRemoval=true)
     // @OrderBy("reply_num desc")// 댓글을 정렬할건지
     // private List<ReplyEntity> replyList = new ArrayList<>();

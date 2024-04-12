@@ -27,7 +27,7 @@ def predictRecentProduction(location_x, location_y, installed_capacity):
 
         query="SELECT * FROM WEATHER_POINT_SOLAR"
         df=pd.read_sql(query,con)
-        con.close()
+        # con.close()
         for i,r in df.iterrows():
             df.loc[i,'geometry']=Point(r['LONGITUDE'],r['LATITUDE'])
         gdf=gpd.GeoDataFrame(df,geometry='geometry',crs='EPSG:4326')
@@ -43,7 +43,7 @@ def predictRecentProduction(location_x, location_y, installed_capacity):
         print(gdf[gdf["STN"]==stn])
 
         query=f"SELECT * FROM WEATHER WHERE STN = '{stn}'"
-        con = oracledb.connect(user="c##et", password="et", dsn="localhost:1521/orcl")
+        # con = oracledb.connect(user="c##et", password="et", dsn="localhost:1521/orcl")
         # 최단거리 지점의 기상데이터 수집
         df=pd.read_sql(query,con)
         con.close()
