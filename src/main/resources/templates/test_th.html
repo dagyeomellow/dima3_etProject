@@ -6,11 +6,11 @@
     <title>Document</title>
 </head>
 <body>
-    <div th:each="item : ${prodActual['ActualProduction']}">
-        <p th:text="${item}"></p>
-    </div>
-    <div th:text="${prodPredict}">
-        
-    </div>
+        <p>실제사용량(12개월전)</p>
+        <p th:text="${prodActual['ActualProduction']}"></p>
+        <p>추정사용량(12개월전)</p>
+        <p th:text="${prediction['PredictProduction']}"></p>
+        <p>예측소비량(0~4개월후)</p>
+        <p th:text="${prediction['PredictConsumption']}"></p>
 </body>
 </html>

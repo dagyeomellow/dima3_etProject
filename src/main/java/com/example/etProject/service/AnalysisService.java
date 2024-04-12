@@ -56,13 +56,14 @@ public class AnalysisService {
         Double LocationX = producersRepository.findLocationXByMemberId(memberId);
         Double LocationY = producersRepository.findLocationYByMemberId(memberId);
         Double installedCapacity = producersRepository.findInstalledCapacityByMemberId(memberId);
-        Map<String, Double> producerInfo = new HashMap<>();
+        Map<String, Object> producerInfo = new HashMap<>();
         producerInfo.put("locationX", LocationX);
         producerInfo.put("locationY", LocationY);
         producerInfo.put("installedCapacity", installedCapacity);
+        producerInfo.put("memberId",memberId);
 
         Map<String,List> error = new HashMap<>(); //에러용
-        Map<String,List> respData = null;//정상요
+        Map<String,List> respData = null;//정상용
         
         // try{
             //헤더설정 //임포트는 스프링걸로
