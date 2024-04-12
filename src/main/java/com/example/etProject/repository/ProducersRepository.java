@@ -1,5 +1,7 @@
 package com.example.etProject.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -10,8 +12,15 @@ import com.example.etProject.entity.ProducersEntity;
 @Repository
 public interface ProducersRepository extends JpaRepository<ProducersEntity, String> {
 
-    @Query("SELECT PRODUCER_ID FROM PRODUCERS P WHERE P.MEMBER_ID = %:memberId%")
+    @Query("SELECT p.producerId FROM ProducersEntity p WHERE p.membersEntity.memberId = :memberId")
     String findProducerIdByMemberId(@Param("memberId") String memberId);
+
+    @Query("SELECT p.locationX FROM ProducersEntity p WHERE p.membersEntity.memberId = :memberId")
+    Double findLocationXByMemberId(@Param("memberId") String memberId);
+    @Query("SELECT p.locationY FROM ProducersEntity p WHERE p.membersEntity.memberId = :memberId")
+    Double findLocationYByMemberId(@Param("memberId") String memberId);
+    @Query("SELECT p.installedCapacity FROM ProducersEntity p WHERE p.membersEntity.memberId = :memberId")
+    Double findInstalledCapacityByMemberId(@Param("memberId") String memberId);
 }
 
 /*

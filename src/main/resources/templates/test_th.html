@@ -6,9 +6,11 @@
     <title>Document</title>
 </head>
 <body>
-    <div id="result" th:text="${prodPred}">
-        test_th
+    <div th:each="item : ${prodActual['ActualProduction']}">
+        <p th:text="${item}"></p>
     </div>
-
+    <div th:text="${prodPredict}">
+        
+    </div>
 </body>
 </html>

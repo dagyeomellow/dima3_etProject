@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.example.etProject.entity.MembersEntity;
 
 @Repository
-public interface MembersRepository extends JpaRepository<MembersEntity,Long> {
+public interface MembersRepository extends JpaRepository<MembersEntity,String> {
 
 }

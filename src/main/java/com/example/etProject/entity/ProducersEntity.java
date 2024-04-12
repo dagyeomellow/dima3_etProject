@@ -12,7 +12,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Random;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -29,8 +28,9 @@ public class ProducersEntity {
     private String producerId;
     
     @OneToOne
-    @JoinColumn(name="MEMBER_ID")
+    @JoinColumn(name = "MEMBER_ID")
     private MembersEntity membersEntity;
+
     @Column(name="LOCATION_X")
     private Double locationX;
     @Column(name="LOCATION_Y")
