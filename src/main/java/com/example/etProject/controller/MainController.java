@@ -7,11 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class MainController {
 	@GetMapping({"","/"})
-	public String test_th(
-		Model model
-	) {
-		model.addAttribute("prodPred", "11");
-		return "test_th";
+	public String test_th() {
+		return "index";
 	}
 	
 	// 회원가입

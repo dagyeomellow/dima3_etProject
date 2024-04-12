@@ -1,8 +1,6 @@
 package com.example.etProject.entity;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
@@ -12,12 +10,9 @@ import com.example.etProject.dto.MembersDTO;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
@@ -37,21 +32,23 @@ import lombok.Setter;
 @Table(name="MEMBERS")
 public class MembersEntity {
 	
-	@SequenceGenerator(
-			name="MEMBER_SEQ",
-			sequenceName = "MEMBER_SEQ",
-			initialValue = 0,
-			allocationSize = 1
-			)
+	// @SequenceGenerator(
+	// 		name="MEMBER_SEQ",
+	// 		sequenceName = "MEMBER_SEQ",
+	// 		initialValue = 0,
+	// 		allocationSize = 1
+	// 		)
 	
+	
+
+	// @Column(name="MEMBER_NUM")
+	// @GeneratedValue(generator = "MEMBER_SEQ")
+	// private Long memberNum;
 	
 	@Id
-	@Column(name="MEMBER_NUM")
-	@GeneratedValue(generator = "MEMBER_SEQ")
-	private Long memberNum;
-	
-	@Column(name="MEMBER_ID", unique = true)
+	@Column(name="MEMBER_ID")
 	private String memberId;
+	
 	
 	@Column(name="MEMBER_PW")
 	private String memberPw;
@@ -80,7 +77,7 @@ public class MembersEntity {
 	
 	public static MembersEntity toEntity(MembersDTO membersDTO) {
 		return MembersEntity.builder()
-				.memberNum(membersDTO.getMemberNum())
+				// .memberNum(membersDTO.getMemberNum())
 				.memberId(membersDTO.getMemberId())
 				.memberPw(membersDTO.getMemberPw())
 				.joinDate(membersDTO.getJoinDate())
@@ -91,4 +88,12 @@ public class MembersEntity {
 				.isAgree(membersDTO.isAgree())
 				.build();
 	}
+	@OneToOne(mappedBy = "membersEntity",
+		cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, orphanRemoval = true)
+	private ProducersEntity producersEntity = new ProducersEntity();
+	// @OneToMany(mappedBy = "boardEntity", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, orphanRemoval=true)
+    // @OrderBy("reply_num desc")// 댓글을 정렬할건지
+    // private List<ReplyEntity> replyList = new ArrayList<>();
 }
+
+
