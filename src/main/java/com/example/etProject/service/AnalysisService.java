@@ -51,8 +51,7 @@ public class AnalysisService {
         return prodResult;
     }
 
-    @Transactional
-    public Map<String, String> readPredProd(String memberId){
+    public Map<String, List> readPredProd(String memberId){
         // 경도,위도,설비용량 조회
         Double LocationX = producersRepository.findLocationXByMemberId(memberId);
         Double LocationY = producersRepository.findLocationYByMemberId(memberId);
@@ -62,8 +61,8 @@ public class AnalysisService {
         producerInfo.put("locationY", LocationY);
         producerInfo.put("installedCapacity", installedCapacity);
 
-        Map<String,String> error = new HashMap<>(); //에러용
-        Map<String,String> respData = null;//정상요
+        Map<String,List> error = new HashMap<>(); //에러용
+        Map<String,List> respData = null;//정상요
         
         // try{
             //헤더설정 //임포트는 스프링걸로

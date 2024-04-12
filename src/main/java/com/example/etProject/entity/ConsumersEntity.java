@@ -14,7 +14,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
-import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -30,16 +29,6 @@ import lombok.Setter;
 @Entity
 @Table(name = "CONSUMERS")
 public class ConsumersEntity {
-	/*
-	public class KeyGenerator {
-		public static String generateCustomerId() {
-			Random random = new Random();
-			int randomNumber = random.nextInt(900_000_000) + 100_000_000; // 100_000_000 ~ 999_999_999
-			return "SPC" + randomNumber;
-			}
-		}
-		
-	*/
 	
 	@Id
 	@Column(name = "CONSUMER_ID")
@@ -54,7 +43,6 @@ public class ConsumersEntity {
 			)
 	private List<ConsumptionsEntity> consumptionsEntity= new ArrayList<>();
 	
-	
 	@OneToOne
 	@JoinColumn(name = "MEMBER_ID")
 	private MembersEntity membersEntity;
@@ -67,14 +55,18 @@ public class ConsumersEntity {
 	
 	@Column(name = "CONTRACT_TYPE")
 	private String contractType;
-	
-	/*
-	public static ConsumersEntity toEntity(ConsumersDTO consumersDTO) {
-		return ConsumersEntity.builder()
-				.consumerId(consumersDTO.getConsumerId())
-				
+
+	public static ConsumersEntity toEntity(ConsumersDTO consumersDTO, MembersEntity membersEntity){
+		ConsumersEntity consumersEntity = ConsumersEntity.builder()
+			.consumerId(consumersDTO.getConsumerId())
+			.membersEntity(membersEntity)
+			.kepcoCustNum(consumersDTO.getKepcoCustNum())
+			.customerType(consumersDTO.getCustomerType())
+			.contractType(consumersDTO.getContractType())
+			.build();
+		return consumersEntity;
 	}
-	*/
+
 	
 }
 

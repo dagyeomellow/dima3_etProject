@@ -20,22 +20,22 @@ public class ConsumersDTO {
 	private String kepcoCustNum;
 	private String customerType;
 	private String contractType;
-	
-	public static ConsumersDTO toDTO(ConsumersEntity consumersEntity) {
-		return ConsumersDTO.builder()
-				.consumerId(consumersEntity.getConsumerId())
-				.memberId(consumersEntity.getConsumerId())
-				.kepcoCustNum(consumersEntity.getConsumerId())
-				.customerType(consumersEntity.getCustomerType())
-				.contractType(consumersEntity.getContractType())
-				.build();
-	}
 
+	public static ConsumersDTO toDTO(ConsumersEntity consumersEntity){
+		ConsumersDTO consumersDTO = ConsumersDTO.builder()
+			.consumerId(consumersEntity.getConsumerId())
+			.memberId(consumersEntity.getMembersEntity().getMemberId())
+			.kepcoCustNum(consumersEntity.getKepcoCustNum())
+			.customerType(consumersEntity.getCustomerType())
+			.contractType(consumersEntity.getContractType())
+			.build();
+			
+		return consumersDTO;
+	}
 }
 
 /*
     CREATE TABLE CONSUMERS (
- 
 	CONSUMER_ID VARCHAR2(50) PRIMARY KEY NOT NULL,
 	MEMBER_ID VARCHAR2(50) FOREIGN KEY,
 	KEPCO_CUST_NUM VARCHAR2(50) NOT NULL,
