@@ -35,17 +35,9 @@ public class ConsumersEntity {
 	private String consumerId;
 	
 
-	@OneToMany(
-			mappedBy = "consumersEntity",
-			cascade = CascadeType.REMOVE,
-			orphanRemoval = true,
-			fetch = FetchType.LAZY
-			)
-	private List<ConsumptionsEntity> consumptionsEntity= new ArrayList<>();
-	
 	@OneToOne
 	@JoinColumn(name = "MEMBER_ID")
-	private MembersEntity membersEntity;
+	private MembersEntity membersConsumersEntity;
 	
 	@Column(name = "KEPCO_CUST_NUM")
 	private String kepcoCustNum;
@@ -59,7 +51,7 @@ public class ConsumersEntity {
 	public static ConsumersEntity toEntity(ConsumersDTO consumersDTO, MembersEntity membersEntity){
 		ConsumersEntity consumersEntity = ConsumersEntity.builder()
 			.consumerId(consumersDTO.getConsumerId())
-			.membersEntity(membersEntity)
+			.membersConsumersEntity(membersEntity)
 			.kepcoCustNum(consumersDTO.getKepcoCustNum())
 			.customerType(consumersDTO.getCustomerType())
 			.contractType(consumersDTO.getContractType())

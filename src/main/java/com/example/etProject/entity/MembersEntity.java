@@ -75,15 +75,17 @@ public class MembersEntity {
 				.build();
 	}
 
-	@OneToOne(mappedBy = "membersEntity",
+	@OneToOne(mappedBy = "membersProducersEntity",
 		cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, orphanRemoval = true)
 	private ProducersEntity producersEntity = new ProducersEntity();
-	@OneToOne(mappedBy = "membersEntity",
+	@OneToOne(mappedBy = "membersConsumersEntity",
 		cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, orphanRemoval = true)
 	private ConsumersEntity consumersEntity = new ConsumersEntity();
 	// @OneToMany(mappedBy = "boardEntity", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, orphanRemoval=true)
     // @OrderBy("reply_num desc")// 댓글을 정렬할건지
     // private List<ReplyEntity> replyList = new ArrayList<>();
 }
+
+
 
 

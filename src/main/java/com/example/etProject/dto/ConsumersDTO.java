@@ -24,7 +24,7 @@ public class ConsumersDTO {
 	public static ConsumersDTO toDTO(ConsumersEntity consumersEntity){
 		ConsumersDTO consumersDTO = ConsumersDTO.builder()
 			.consumerId(consumersEntity.getConsumerId())
-			.memberId(consumersEntity.getMembersEntity().getMemberId())
+			.memberId(consumersEntity.getMembersConsumersEntity().getMemberId())
 			.kepcoCustNum(consumersEntity.getKepcoCustNum())
 			.customerType(consumersEntity.getCustomerType())
 			.contractType(consumersEntity.getContractType())

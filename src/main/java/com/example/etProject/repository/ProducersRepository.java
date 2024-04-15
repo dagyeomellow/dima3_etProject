@@ -12,14 +12,14 @@ import com.example.etProject.entity.ProducersEntity;
 @Repository
 public interface ProducersRepository extends JpaRepository<ProducersEntity, String> {
 
-    @Query("SELECT p.producerId FROM ProducersEntity p WHERE p.membersEntity.memberId = :memberId")
+    @Query("SELECT p.producerId FROM ProducersEntity p WHERE p.membersProducersEntity.memberId = :memberId")
     String findProducerIdByMemberId(@Param("memberId") String memberId);
 
-    @Query("SELECT p.locationX FROM ProducersEntity p WHERE p.membersEntity.memberId = :memberId")
+    @Query("SELECT p.locationX FROM ProducersEntity p WHERE p.membersProducersEntity.memberId = :memberId")
     Double findLocationXByMemberId(@Param("memberId") String memberId);
-    @Query("SELECT p.locationY FROM ProducersEntity p WHERE p.membersEntity.memberId = :memberId")
+    @Query("SELECT p.locationY FROM ProducersEntity p WHERE p.membersProducersEntity.memberId = :memberId")
     Double findLocationYByMemberId(@Param("memberId") String memberId);
-    @Query("SELECT p.installedCapacity FROM ProducersEntity p WHERE p.membersEntity.memberId = :memberId")
+    @Query("SELECT p.installedCapacity FROM ProducersEntity p WHERE p.membersProducersEntity.memberId = :memberId")
     Double findInstalledCapacityByMemberId(@Param("memberId") String memberId);
 }
 

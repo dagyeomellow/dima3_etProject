@@ -31,7 +31,7 @@ public class ProducersEntity {
     
     @OneToOne
     @JoinColumn(name = "MEMBER_ID")
-    private MembersEntity membersEntity;
+    private MembersEntity membersProducersEntity;
 
     @Column(name="LOCATION_X")
     private Double locationX;
@@ -43,7 +43,7 @@ public class ProducersEntity {
     public static ProducersEntity toEntity(ProducersDTO producersDTO, MembersEntity membersEntity){
         ProducersEntity producersEntity = ProducersEntity.builder()
             .producerId(producersDTO.getProducerId())
-            .membersEntity(membersEntity)
+            .membersProducersEntity(membersEntity)
             .installedCapacity(producersDTO.getInstalledCapacity())
             .locationX(producersDTO.getLocationX())
             .locationY(producersDTO.getLocationY())

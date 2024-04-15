@@ -125,6 +125,7 @@ public class UserService {
 	/**
 	 * 임시 메소드: 로케이션 랜덤으로 설정
 	 * 변경할 방향: Geocoding API이용해서 주소값 파라미터로 받아서 위경도 값 리턴하도록.
+	 * 만약 자바스크립트에서 해결해서 올 수 있다면, 해올것
 	 * @return
 	 */
 	public List<Double> randomLocation(){

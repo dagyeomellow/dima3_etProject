@@ -44,7 +44,7 @@ public class ConsumptionsEntity {
 	private ConsumersEntity consumersEntity;
 	
 	@Column(name = "CONS_DATE")
-	private LocalDateTime consDate;
+	private int consDate;
 	
 	@Column(name = "CONS_ELECTRICITY")
 	private double consElectricity;
