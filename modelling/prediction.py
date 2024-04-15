@@ -9,7 +9,7 @@
 
 # library
 import os
-print(os.getcwd)
+print(os.getcwd())
 import pandas as pd
 import geopandas as gpd
 from shapely.geometry import Point
