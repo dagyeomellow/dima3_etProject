@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>소비자 회원가입</title>
+    <!--폰트-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+    <!--css-->
+    <!-- <link rel="stylesheet" href="../static/css/earth.css" class="stylesheet"> -->
+    <link rel="stylesheet" href="../static/css/general.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.css">
+    <link href="../static/css/bootstrap-icons.css" rel="stylesheet">
+    <script src="../membership.js" defer></script>
+</head>
+<body>
+    <header class="navbar sticky-top flex-md-nowrap">
+        <div class="col-md-3 col-lg-3 me-0 px-3 fs-6">
+            <a class="navbar-brand" href="index.html">
+                <i class="bi bi-person"></i>
+            </a>
+        </div>
+
+        <ul class="nav-links">
+            <li><a href="#login">로그인</a></li>
+            <li><a href="#mypage">마이페이지</a></li>
+            <li><a href="#faq">자주묻는질문</a></li>
+        </ul>
+    </header>
+
+    <div class="docu">
+    <div class="form">
+        <div class="signup">
+            <h2>회 원 가 입</h2>
+            <!-- <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit, perspiciatis!</p> -->
+        </div>
+        <div class="information" id="information">
+
+            <div class="pagination">
+                <div class="number active">1</div>
+                <div class="bar"></div>
+                <div class="number">2</div>
+                <div class="bar"></div>
+                <div class="number">3</div>
+                <div class="bar"></div>
+                <div class="number">4</div>
+                <div class="bar"></div>
+            </div> <!--pagination 끝-->
+
+            <div class="steps">
+                <div class="step"> <!--기본정보-->
+                    <h4>기본정보</h4>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                        <div class="grid">
+                            <div class="col">
+                                <label for="name">이름</label>
+                                <input type="text" id="name" placeholder="이름">
+                            </div>
+                            <div class="col">
+                                <label for="email">이메일</label>
+                                <input type="email" id="email" placeholder="이메일">
+                            </div>
+                            <div class="col">
+                                <label for="id">아이디</label>
+                                <input type="id" id="id" placeholder="아이디">
+                            </div>
+                            <div class="col">
+                                <label for="password">비밀번호</label>
+                                <input type="password" id="password" placeholder="숫자/영문 8자리 이상">
+                            </div>
+
+                            <div class="col">
+                                <label for="phone">전화번호</label>
+                                <input type="phone" id="phone" placeholder="-없이 기입">
+                            </div>
+                            <div class="col">
+                                <label for="nationalId">주민번호</label>
+                                <input type="nationalId" id="nationalId" placeholder="주민번호">
+                            </div>
+                        </div><!--grid 끝-->
+                </div> <!--기본정보 끝-->
+                <div class="step"> <!--계약유형:소비자-->
+                    <h4>계약 유형 선택:</h4>
+                        <p>일반용 | 갑: 계약 전력 300kW 미만 <br>
+                            일반용 | 을: 계약 전력 300kW 이상 <br>
+                            주택용 | 저압: 계약전력 3kW 이하이며, 대부분의 주택이 여기에 해당해요!<br>
+                            주택용 | 고압: 고압 설비를 갖춘 일부 대단지 아파트가 여기에 해당해요!  </p>
+                        <select id="userType" name="userType">
+                            <option value="general">일반용</option>
+                            <option value="residential">주택용</option>
+                        </select>
+                            <div id="selectionContainer" style="display: none;">
+                                <label for="selection">선택: </label>
+                                <select id="selection" name="selection"></select>
+                            </div>
+                </div> <!--계약유형:소비자 끝-->
+                <div class="step"> <!--결제 정보 시작-->
+                    <h4>주소 입력</h4>
+                        <div class="grid">
+                            <div class="col">
+                                <label for="address">기본주소</label>
+                                <input type="text" id="address" placeholder="시/군/구">
+                            </div>
+                            <div class="col">
+                                <label for="addressadd">상세주소</label>
+                                <input type="text" id="addressadd" placeholder="동/호수">
+                            </div>
+                        </div>
+                </div> <!--결제 정보 끝-->
+                <div class="step">
+                    <div class="confirmation">
+                        <h2>회원가입 완료</h2>
+                            <p>내 계정 보러가기</p>
+                            <div>
+                                <input type="button" id="submitForm" value="mypage"></input>
+                            </div>
+                    </div>
+                </div>    
+            </div> <!--steps 마감-->
+        </div> <!--information 마감-->
+    
+        <div class="footer">
+            <button class="prev">이전</button>
+            <button class="next">다음</button>
+        </div>
+    </div>
+    </div> <!--form 마감-->
+<!-- </div> -->
+    <script>
+        // 선택바 옵션들
+        const options = {
+            general: ["갑1", "갑2"],
+            residential: ["저압", "고압"]
+        };
+        
+        // 회원 유형 선택 이벤트 처리
+        document.getElementById("userType").addEventListener("change", function() {
+            const userType = this.value;
+            const selectionDropdown = document.getElementById("selection");
+        
+        // 선택바 옵션 설정
+            selectionDropdown.innerHTML = ""; // 기존 옵션 초기화
+            options[userType].forEach(option => {
+                const optionElement = document.createElement("option");
+                optionElement.value = option;
+                optionElement.textContent = option;
+                selectionDropdown.appendChild(optionElement);
+            });
+        
+        // 선택바 보이기
+            document.getElementById("selectionContainer").style.display = "block";
+        });
+        
+        // 회원가입 폼 제출 처리
+        document.getElementById("information").addEventListener("submit", function(event) {
+            event.preventDefault(); // 폼 기본 동작 방지
+            const formData = new FormData(this);
+        // 여기서 formData를 이용하여 서버에 전송하거나 다른 처리를 할 수 있습니다.
+            console.log("회원 유형:", formData.get("userType"));
+            console.log("선택한 항목:", formData.get("selection"));
+        });
+    </script>
+    </body>
+</html>
+

@@ -1,0 +1,263 @@
+<!DOCTYPE html> <!--소비자 회원가입-->
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+
+    <!-- CSS FILES -->      
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="../static/css/apexcharts.css" rel="stylesheet">
+    <link href="../static/css/bootstrap-icons.css" rel="stylesheet">
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../static/css/tooplate-mini-finance.css" rel="stylesheet">  
+    <body>
+        <header class="navbar sticky-top flex-md-nowrap">
+            <div class="col-md-3 col-lg-3 me-0 px-3 fs-6">
+                <a class="navbar-brand" href="index.html">
+                    <i class="bi-box"></i>
+                    ET 회원가입
+                </a>
+            </div>    
+            <ul class="nav-links">
+                <li><a href="#login">로그인</a></li>
+                <li><a href="#transaction-board">자주묻는질문</a></li>
+                <li><a href="#mypage">마이페이지</a></li>
+            </ul>
+        </header>
+    
+        <div class="form">
+        <div class="signup">
+            <h2>회 원 가 입</h2>
+            <p>아래 정보들을 기입해주세요!</p>
+        </div> <!--signup끝-->
+        <div class="information">
+            <div class="pagination">
+                <div class="number active">1</div>
+                <div class="bar"></div>
+                <div class="number">2</div>
+                <div class="bar"></div>
+                <div class="number">3</div>
+                <div class="bar"></div>
+                <div class="number">4</div>
+                <div class="bar"></div>
+            </div> <!--pagination 끝-->
+
+            <div class="steps">
+                <div class="step"> <!--기본정보-->
+                    <h4>기본정보</h4>
+                    <p>아래 정보들을 기입해주세요!</p>
+                        <div class="grid">
+                            <div class="col">
+                                <label for="name">이름</label>
+                                <input type="text" id="name">
+                            </div>
+                            <div class="col">
+                                <label for="email">이메일</label>
+                                <input type="email" id="email">
+                            </div>
+                            <div class="col">
+                                <label for="id">아이디</label>
+                                <input type="id" id="id">
+                            </div>
+                            <div class="col">
+                                <label for="password">비밀번호</label>
+                                <input type="password" id="password">
+                            </div>
+                            <div class="col">
+                                <label for="nationalId">주민번호</label>
+                                <input type="nationalId" id="nationalId">
+                            </div>
+                        </div> <!--grid끝-->
+                </div> <!--기본정보 끝-->
+                <div class="step"> <!--계약유형 선택-->
+                    <h4>계약 유형 선택:</h4>
+                    <p>저압:<br>고압:</p>
+                        <select id="userType" name="userType">
+                            <option value="general">일반용</option>
+                            <option value="residential">주택용</option>
+                        </select>
+                            <div id="selectionContainer" style="display: none;">
+                                <label for="selection">선택: </label>
+                                <select id="selection" name="selection"></select>
+                            </div>
+                </div> <!--계약유형:소비자 끝; steps아직안닫힘-->
+                
+                <div class="step"> <!--보류: 결제 정보 시작-->
+                    <h4>결제정보</h4>
+                        <p>결제에 사용할 카드정보를 입력해주세요.</p>
+                        <div class="grid">
+                            <div class="col">
+                                <label for="bank">은행</label>
+                                <input type="bank" id="bank">
+                            </div>
+                            <div class="col">
+                                <label for="bankAccount">카드번호</label>
+                                <input type="bankAccount" id="bankAccount">
+                            </div>
+                            <div class="col">
+                                <label for="cvc">CVC</label>
+                                <input type="cvc" id="cvc">
+                            </div>
+                        </div>
+                </div> <!--결제 정보 끝-->
+                
+                <div class="step">
+                    <div class="agreeWrap">
+                        <span class="checkbox all-agree">
+							<input type="checkbox" id="allAgree">
+							<label for="allAgree"><span></span>전체 동의합니다.</label>
+						</span>
+						<ul id="aList" class="agree-list toggle-list">
+							<li>
+								<a href="#">
+									<span class="checkbox">
+										<input type="checkbox" id="agree" name="accept">
+										<label for="agree"><span></span>(필수)만 14세 이상입니다.</label>
+									</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span class="checkbox">
+										<input type="checkbox" id="agree01" name="accept">
+										<label for="agree01"><span></span>(필수)이용약관 동의</label>
+									</span>
+									<em class="arrow"><img src="../images/bg_arrow-down.jpg" alt=""></em>
+								</a>
+								<div class="agree-text answer">
+									<strong>서비스 이용약관</strong>
+								<a href="#">
+									<span class="checkbox">
+										<input type="checkbox" id="agree02" name="accept">
+										<label for="agree02"><span></span>(필수)개인정보 수집 및 이용 동의</label>
+									</span>
+									<em class="arrow"><img src="../images/bg_arrow-down.jpg" alt=""></em>
+								</a>
+								<div class="agree-text answer">
+									<!-- <strong class="small-tit">목적</strong> -->
+									<ul>
+										<li>목적 : 이용자식별 및 본인여부확인</li>
+									</ul>
+								    <!--  <strong class="small-tit">항목</strong> -->
+									<ul>
+										<li>항목 : 닉네임, 회원ID(이메일주소), 비밀번호, 만 14세 미만 여부</li>
+									</ul>
+									<!-- <strong class="small-tit">보유기간</strong> -->
+									<ul>
+										<li>보유기간 : 회원탈퇴 후 30일까지</li>
+									</ul>
+									<br><br>
+									<!-- <strong class="small-tit">목적</strong> -->
+									<ul>
+										<li>목적 : 유료결제, 계약이행 및 증빙자료발급, 민원 등 고객고충처리,<br> 인쇄주문및배송</li>
+									</ul>
+									<!-- <strong class="small-tit">항목</strong> -->
+									<ul>
+										<li>항목 : 결제자명, 연락처(이메일, 전화번호), 법인명, 사업자번호, 주소,<br> 대표자, 업태, 종목, IP주소, 인쇄물 수령인 및 연락처, 수령지 주소</li>
+									</ul>
+									<!-- <strong class="small-tit">보유기간</strong> -->
+									<ul>
+										<li>보유기간 : 회원탈퇴 후 30일까지</li>
+									</ul>
+								</div>
+							</li>
+							<li>
+								<a href="#">
+									<span class="checkbox">
+										<input type="checkbox" id="agree03" name="accept">
+										<label for="agree03"><span></span>(선택1)개인정보 수집 및 이용동의 (새로운 기능안내)<br>
+											<p style="padding:0 30px;font-size:13px">※동의를 거부하는 경우 서비스의 사용에는 문제가 없으나,<br>새로운 소식이나 이벤트 등을 받아보실 수 없습니다.</p></label>
+									</span>
+									<em class="arrow"><img src="../images/bg_arrow-down.jpg" alt=""></em>
+								</a>
+								<div class="agree-text answer" style="height:114px">
+									<!-- <strong class="small-tit">목적</strong>-->
+									<ul>
+										<li>목적 : 새로운 기능 및 공지사항 안내</li>
+									</ul>
+									<!-- <strong class="small-tit">항목</strong>-->
+									<ul>
+										<li>항목 : 연락처(이메일, 전화번호)</li>
+									</ul>
+									<!-- <strong class="small-tit">보유기간</strong>-->
+									<ul>
+										<li>보유기간 : 회원탈퇴 후 30일까지</li>
+									</ul>
+								</div>
+							</li>
+							<li>
+								<a href="#">
+									<span class="checkbox">
+										<input type="checkbox" id="agree04" name="accept">
+										<label for="agree04"><span></span>(선택2)개인정보 수집 및 이용동의 (마케팅)</label>
+									</span>
+									<em class="arrow"><img src="../images/bg_arrow-down.jpg" alt=""></em>
+								</a>
+								<div class="agree-text answer" style="height:135px;">
+									<!-- <strong class="small-tit">목적</strong> -->
+									<ul>
+										<li>목적 : 마케팅 및 기능업그레이드 시 참고용</li>
+									</ul>
+									<!-- <strong class="small-tit">항목</strong> -->
+									<ul>
+										<li>항목 : 연락처(이메일,휴대전화번호), 성별분류, 연령, 직종,<br> 가입경로, 사용용도</li>
+									</ul>
+									<!-- <strong class="small-tit">보유기간</strong> -->
+									<ul>
+										<li>보유기간 : 회원탈퇴 후 30일까지</li>
+									</ul>
+								</div>
+							</li>
+						</ul>
+                    </div><!--agreeWrap끝-->
+                </div><!--약관step 끝-->
+
+            </div> <!--steps 마감-->
+
+    
+        <div class="footer">
+            <button class="prev">이전</button>
+            <button class="next">다음</button>
+        </div>
+    </div> <!--information 마감-->
+</div> <!--form 마감-->
+    <script>
+        // 선택바 옵션들
+        const options = {
+            general: ["갑1", "갑2"],
+            residential: ["저압", "고압"]
+        };
+        
+        // 회원 유형 선택 이벤트 처리
+        document.getElementById("userType").addEventListener("change", function() {
+            const userType = this.value;
+            const selectionDropdown = document.getElementById("selection");
+        
+            // 선택바 옵션 설정
+            selectionDropdown.innerHTML = ""; // 기존 옵션 초기화
+            options[userType].forEach(option => {
+                const optionElement = document.createElement("option");
+                optionElement.value = option;
+                optionElement.textContent = option;
+                selectionDropdown.appendChild(optionElement);
+            });
+        
+            // 선택바 보이기
+            document.getElementById("selectionContainer").style.display = "block";
+        });
+        
+        // 회원가입 폼 제출 처리
+        document.getElementById("signupForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // 폼 기본 동작 방지
+            const formData = new FormData(this);
+            // 여기서 formData를 이용하여 서버에 전송하거나 다른 처리를 할 수 있습니다.
+            console.log("회원 유형:", formData.get("userType"));
+            console.log("선택한 항목:", formData.get("selection"));
+        });
+        </script>
+
+</body>
+</html>

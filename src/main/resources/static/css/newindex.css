@@ -1,0 +1,395 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+    font-family: "Noto Sans KR";
+    list-style:none;
+    text-decoration:none;
+}
+body{
+    /* background-image: linear-gradient(180deg, #58f888 0%, #50fb55 100%); */
+    /* background-image: linear-gradient(180deg, #61f877 0%, #61dc72 100%); */
+    /* background-image: linear-gradient(120deg, #d4fc79 0%, #96e6a1 100%);
+    /* background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)!important; */
+    background-image: linear-gradient(to top, #cd9cf2 0%, #f6f3ff 100%);
+}
+
+header{
+    position:fixed;
+    right:0;
+    top:0;
+    z-index:1000;
+    width:100%;
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+    padding: 33px 9%;
+    background:transparent;
+}
+header .navbar-brand img{
+    width: 50px; /* 원하는 크기로 조절 */
+    height: auto; /* 자동으로 높이 조절 */
+    margin-right: 10px; /* 이미지 사이 간격 조절 */
+}
+.title{
+    font-size:30px;
+    font-weight:700;
+    color: #fff;
+}
+
+.nav-links{
+    display: flex;
+}
+.nav-links a{
+    color: #4831D4;
+    margin-left:60px;
+    font-size: 15px;
+    font-weight:600;
+    border-bottom: 2px solid transparent;
+    transition: all .55s ease;
+}
+.nav-links a:hover{
+    border-bottom: 2px solid #4831D4;
+}
+/*hero section */
+section{
+    padding:0 19%;
+    /* background-image: url('../images/renewableenergy.gif'); */
+}
+.hero{
+    height:100%; 
+    width:100%;
+    min-height:100vh;
+    /* background:linear-gradient(120deg, #d4fc79 0%, #96e6a1 100%); */
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    align-items:center;
+    gap: 2rem;
+}
+/* .heroImg img {
+    max-width:100%;
+    height:auto;
+    display:block;
+    margin:0 auto;
+} */
+/* .heroImg img{
+    width: 600px;
+    height: auto;
+} */
+.heroImg img{
+    max-width:130%;
+    position: relative;
+    animation-name: floatAnimation;
+    animation-duration: 3s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    grid-column:2;
+    justify-self:end;
+}
+@keyframes floatAnimation {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+.herotext h4{
+    font-size:18px;
+    font-weight:600;
+    color: #fff;
+    margin-bottom: 10px;
+}
+.herotext h1{
+    font-family: "Noto Sans KR", sans-serif;
+    font-size:90px;
+    line-height:1;
+    color:#4831D4;
+    margin: 0 0 45px;
+}
+.herotext p{
+    color:#4831D4;
+    font-size:15px;
+    line-height:1.9;
+    margin-bottom:40px;
+}
+.word {
+    color: #4831D4;
+    font-weight: bold;
+}
+.herotext a{
+    display:inline-block;
+    color: #4831D4;
+    background: #4831D4;
+    border: 1px solid transparent;
+    padding: 12px 30px;
+    line-height: 1.4;
+    font-size:14px;
+    font-weight: 500;
+    border-radius:30px;
+    text-transform:uppercase;
+    transition:all .55s ease;
+}
+
+.herotext a:hover{
+    background: transparent;
+    border:1px solid #fff;
+    transform: translateX(8px);
+}
+
+.herotext a.getInfo {
+    background:transparent;
+    border:1px solid #fff;
+    margin-left:20px;
+}
+.herotext a.getInfo i {
+    vertical-align: middle;
+    margin-right: 5px;
+}
+
+/* social Icons */
+.icons{
+    position: absolute;
+    top:50%;
+    padding:0 9%;
+    transform: translateY(-50%);
+}
+.icons i{
+    display:block;
+    margin: 26px 0;
+    font-size: 24px;
+    color: #fff;
+    transition: all .50s ease;
+}
+.icons i:hover{
+    color:#3b6388;
+    transform: translateY(-5px;)
+}
+/*스크롤*/
+.mouse-scroll {
+    position: absolute;
+    bottom: 84px;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 1;
+    transition: opacity .35s, transform .35s;
+}
+
+/*section below*/
+.row{
+    display:flex;
+    justify-content:row;
+    gap:12px;
+}
+
+.getService {
+    font-family: Graphik, Arial, sans-serif;
+    font-size: 1rem;
+    line-height: 1.25rem;
+    font-weight: 700;
+    letter-spacing: 0;
+    display: inline-flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: center;
+    min-height: 40px;
+    padding: 0 16px;
+    transition: background .25s;
+    border: 1px solid #e6e6e6;
+    border-radius: 20px;
+    outline: 0;
+    background: #fff;
+    text-align: center;
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+    box-sizing: border-box;
+    appearance: none;
+    margin-top:auto;
+}
+.colorgreen{
+    color:#CCF381;
+}
+
+/*카드 투명하게*/
+.card-body{
+    transform:translateX(-100px);
+    max-width:700px;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-top:1px solid rgba(255,255,255,0.5);
+    border-left:1px solid rgba(255,255,255,0.5);
+    padding: 40px;
+    height:100%;
+    flex-flow:row wrap;
+    display:flex;
+    align-content:center;
+}
+.card img{
+    max-width: 100%;
+    height:auto;
+    transition: opacity .25s ease-out 16ms;
+    opacity: 1;
+}
+
+/*
+membership.html
+*/
+* {
+    margin:0px;
+    padding:0px;
+    /* box-sizing:border-box; */
+}
+body{
+    background:#fff;
+    font-family:"Roboto",sans-serif;
+    height:100vh;
+    display:grid;
+    place-items:center;
+}
+.form{
+    position: relative;
+    width:calc(100%-100px);
+    min-height:calc(100vh-280px);
+    min-height:300px;
+    background: rgba(255,255,255,0.5);
+    box-shadow: 0 15px 35px rgba(255,255,255,0.05);
+    border-radius:20px;
+    display:flex;
+    justify-content:center;
+    /* height:40px; */
+    /* max-width:400px; */
+}
+.form .signup {
+    text-align:center;
+    padding:20px;
+    display:grid;
+    gap:5px;
+}
+.form .signup p{
+    color:#555;
+}
+.form .information{
+    box-shadow: 0px 5px 5px 2px rgba(0,0,0,0.2);
+    border-radius:20px;
+    height:320px;
+    /* overflow:hidden; */
+}
+.form .information .pagination{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:15px;
+    padding:15px 20px;
+}
+.form .information .pagination .number {
+    width:60px;
+    height:60px;
+    text-align:center;
+    line-height:28px;
+    border-radius:50%;
+    background:#61f877;
+    color:#4831D4;
+    font-size:30px;
+}
+/* .form .information .pagination .bar {
+    width:50px;
+    height:4px;
+    background:#61f877;
+    border-radius:5px;
+  } */
+.form .information .pagination .active ~ div {
+    background:#ddd;
+    color:#111;
+}
+.form .steps{
+    width:400%;
+    display:flex;
+    /* white-space:nowrap;
+    overflow-x:auto; */
+}
+.form .steps .step{
+    width:98vw;
+    max-width:400px;
+    padding:5px 15px 15px;
+    overflow:hidden;
+}
+.form .steps .step h4{
+    margin-bottom:5px;
+}
+.form .steps .step p{
+    color:#555;
+    max-width:90%;
+    font-size:15px;
+}
+.form .steps .step .grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
+    margin-top:20px;
+}
+.form .steps .step .grid .col label{
+    display:block;
+    margin-bottom:5px;
+    font-weight:500;
+    font-size: 15px;
+}
+.form .steps .step .grid .col input {
+    width:100%;
+    padding: 8px;
+    border:1px solid #bbb;
+    font-size:15px;
+    border-radius:8px;
+}
+.form .steps .step .grid .col .checkbox input {
+    display:none;
+}
+.form .steps .step .grid .col .checkbox label {
+    width:100%;
+    padding:15px;
+    border:1px solid #bbb;
+    border-radius:5px;
+    margin:0;
+    cursor:pointer;
+}
+
+.step .checkbox input:checked + label {
+    background:#61f877;
+    color:#fff;
+}
+.form .steps .step .confirmation{
+    display:grid;
+    text-align:center;
+    place-items:center;
+    gap:15px;
+}
+.form .steps .step .confirmation button {
+    background:#4831D4;
+    color:#61f877;
+    padding: 10px 20px;
+    border:none;
+    outline:none;
+    font-size:15px;
+    border-radius:20px;
+    cursor:pointer;
+}
+.form .footer{
+    padding:10px 0px;
+    display:flex;
+    justify-content:space-between;
+}
+.form .footer button {
+    padding:5px 10px;
+    font-size:15px;
+    border:1px solid #bbb;
+    background:#fff;
+    border-radius:5px;
+    cursor:pointer;
+    outline:none;
+}

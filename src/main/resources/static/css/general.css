@@ -1,0 +1,178 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Noto Sans KR", sans-serif;
+    list-style: none;
+    text-decoration: none;
+}
+header {
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 1000;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 33px 9%;
+    /* background: transparent; */
+    background: rgba(230, 230, 230, 0.3);
+}
+.title{
+    font-size:30px;
+    font-weight:700;
+    color: #fff;
+}
+.nav-links{
+    display: flex;
+}
+.nav-links a{
+    color: #4831D4;
+    margin-left:60px;
+    font-size: 15px;
+    font-weight:600;
+    border-bottom: 2px solid transparent;
+    transition: all .55s ease;
+}
+.nav-links a:hover{
+    border-bottom: 2px solid #4831D4;
+}
+/*상단바 스타일 끝*/
+
+body{
+    /* background-image: linear-gradient(to top, #cd9cf2 0%, #f6f3ff 100%); */
+    font-family:"Noto Sans KR";
+    height:100vh;
+    display:grid;
+    place-items:center;
+}
+
+.form{
+    width:98%;
+    max-width:400px;
+}
+.form .signup {
+    text-align:center;
+    padding:20px;
+    display:grid;
+    gap:5px;
+}
+.form .signup p{
+    color:#555;
+}
+.form .information{
+    box-shadow:0px 5px 5px 2px rgba(0,0,0,0.2);
+    border-radius:20px;
+    height:530px;
+    overflow:hidden;
+}
+.form .information .pagination {
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:15px;
+    padding:15px 20px;
+}
+.form .information .pagination .number {
+    width:28px;
+    height:28px;
+    text-align:center;
+    line-height:28px;
+    border-radius:50%;
+    background:#4831D4;
+    color:#fff;
+    font-size:15px;
+}
+.form .information .pagination .bar {
+    width:50px;
+    height:4px;
+    background:#4831D4;
+    border-radius:5px;
+}
+.form .information .pagination .active ~ div{
+    background:#4831D4;
+    color: #111;
+}
+.form .steps{
+    width:400%;
+    display:flex;
+}
+.form .steps .step {
+    width:98vw;
+    max-width:400px;
+    padding:5px 15px 15px;
+    overflow:hidden;
+}
+.form .steps .step {
+    margin-bottom:5px;
+}
+.form .steps .step p{
+    color:#555;
+    max-width:90%;
+    font-size:15px;
+}
+.form .steps .step .grid {
+    display: grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
+    margin-top:20px;
+}
+.form .steps .step .grid .col label {
+    display:block;
+    margin-bottom:5px;
+    font-weight:500;
+    font-size:15px;
+}
+.form .steps .step .grid .col input {
+    width:100%;
+    padding:8px;
+    border:1px solid #bbb;
+    font-size:15px;
+    border-radius:8px;
+}
+.form .steps .step .grid .col .checkbox input {
+    display:none;
+}
+.form .steps .step .grid .col .checkbox label {
+    width:100%;
+    padding:15px;
+    border:1px solid #bbb;
+    border-radius:5px;
+    margin:0;
+    cursor:pointer;
+}
+.form .steps .step .grid .col .checkbox input:checked + label {
+    background:#4831D4;
+    color:#fff;
+}
+.form .steps .step .confirmation {
+    display:grid;
+    text-align:center;
+    place-items:center;
+    gap:15px;
+}
+.form .steps .step .confirmation button {
+    background:#4831D4;
+    color:#fff;
+    padding:10px 20px;
+    border:none;
+    outline:none;
+    font-size:15px;
+    border-radius:20px;
+    cursor:pointer;
+}
+.form .footer {
+    padding:15px 0px;
+    display:flex;
+    justify-content:space-between;
+}
+.form .footer button {
+    padding:5px 10px;
+    font-size:15px;
+    border:1px solid #bbb;
+    background:#fff;
+    border-radius:5px;
+    cursor:pointer;
+    outline:none;
+}
