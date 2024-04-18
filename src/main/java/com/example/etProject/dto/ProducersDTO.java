@@ -21,6 +21,7 @@ public class ProducersDTO {
     private Double locationX;
     private Double locationY;
     private Double installedCapacity;
+    private Boolean isProduce;
 
     
 }

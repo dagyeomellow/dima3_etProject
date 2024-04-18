@@ -20,7 +20,7 @@ public interface ProducersRepository extends JpaRepository<ProducersEntity, Stri
     @Query("SELECT p.locationY FROM ProducersEntity p WHERE p.membersProducersEntity.memberId = :memberId")
     Double findLocationYByMemberId(@Param("memberId") String memberId);
     @Query("SELECT p.installedCapacity FROM ProducersEntity p WHERE p.membersProducersEntity.memberId = :memberId")
-    Double findInstalledCapacityByMemberId(@Param("memberId") String memberId);
+    int findInstalledCapacityByMemberId(@Param("memberId") String memberId);
 }
 
 /*
