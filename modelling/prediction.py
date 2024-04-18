@@ -16,11 +16,14 @@ from shapely.geometry import Point
 import pickle
 import oracledb
 from statsmodels.tsa.arima.model import ARIMA
-
+import datetime as dt
+from dateutil.relativedelta import relativedelta
 # location_x: 경도(longitude), location_y: 위도(latitude)
 # return: map(키:년월, 값:추정발전량)
 
 def getSTN(location_x, location_y):
+    print("location x: ", location_x)
+    print("location y: ", location_y)
     con=oracledb.connect(user= "c##et", password= "et", dsn= "localhost:1521/orcl")
     query="SELECT * FROM WEATHER_POINT_SOLAR"
     df=pd.read_sql(query,con)
@@ -70,6 +73,7 @@ def predictRecentProduction(stn, installed_capacity):
     month_pred=stn_df.groupby('month')['pred'].sum()
     output_data=dict()
     output_data['PredictProduction']=[p for p in month_pred.values]
+    output_data['PredictProductionMonths']=[m for m in month_pred.index]
     return output_data;
 
 def predictFutureCons(member_id):
@@ -78,13 +82,15 @@ def predictFutureCons(member_id):
     query=f"SELECT * FROM CONSUMPTIONS WHERE CONSUMER_ID = (SELECT CONSUMER_ID FROM CONSUMERS WHERE MEMBER_ID = '{member_id}') ORDER BY CONS_DATE"
     df=pd.read_sql(query,con)
     data=df["CONS_ELECTRICITY"]
-    model=ARIMA(data, order=(6,1,3))
+    model=ARIMA(data, order=(12,1,3))
     model_fit=model.fit()
-
     forecast=model_fit.forecast(steps=4)
 
+    now = dt.datetime.now()
+    months=[(now + relativedelta(months=+i)).strftime('%Y%m') for i in range(4)]
     output_data=dict()
     output_data['PredictConsumption']=forecast.values.tolist()
+    output_data['PredictConsumptionMonths']=months
     
     return output_data
 
@@ -121,7 +127,9 @@ async def read(item: Item):
     cons=predictFutureCons(member_id) # 추후 3개월 소비량 예측
     print(cons)
     output_data['PredictProduction']=prod['PredictProduction'] ## 2023년 4월~ 2024년 3월까지의 예측 발전량 {"PredictProduction" : [ ]}
+    output_data['PredictProductionMonths']=prod['PredictProductionMonths']
     output_data['PredictConsumption']=cons['PredictConsumption'] ## 2024년 3,4,5,6월 예측 소비량 {"PredictConsumption" : [ ]}
+    output_data['PredictConsumptionMonths']=cons['PredictConsumptionMonths'] ## 2024년 3,4,5,6월 예측 소비량 {"PredictConsumption" : [ ]}
 
     return JSONResponse(output_data)
 

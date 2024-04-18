@@ -61,17 +61,17 @@ public class AnalysisService {
         Map<String,List> consResult= new HashMap<>();
         List consDateList = new ArrayList<>();
         List consElectricityList = new ArrayList<>();
-        List consBillsElecList = new ArrayList<>();
+        // List consBillsElecList = new ArrayList<>();
         int cnt=0;
         for (Object[] ce: consumptions){
             if (cnt>=12) break;
             consDateList.add(ce[0]);
             consElectricityList.add(ce[1]);
-            consBillsElecList.add(ce[2]);
+            // consBillsElecList.add(ce[2]);
         }
-        consResult.put("ConsumptionMonths", consDateList);
         consResult.put("ActualConsumption", consElectricityList);
-        consResult.put("ConsumptionBills", consBillsElecList);
+        consResult.put("ActualConsumptionMonths", consDateList);
+        // consResult.put("ActualConsumptionBills", consBillsElecList);
 
         return consResult;
     }
@@ -101,16 +101,14 @@ public class AnalysisService {
      * @param memberId
      * @return
      */
-    public Map<String, List> readPrediction(String memberId, Double capacity){
+    public Map<String, List> readPrediction(String memberId, int capacity){
         // 경도,위도,설비용량 조회
         Double LocationX = producersRepository.findLocationXByMemberId(memberId);
         Double LocationY = producersRepository.findLocationYByMemberId(memberId);
-        Double installedCapacity;
-        // 이미 회원가입에 설비정보가 있는 프로슈머의 경우
-        if(capacity==null){
-            installedCapacity = producersRepository.findInstalledCapacityByMemberId(memberId);
-        } else{ // 설비정보가 없어서 구매하려는 설비용량이 있는 경우
-            installedCapacity=capacity;
+        int installedCapacity;
+        installedCapacity = producersRepository.findInstalledCapacityByMemberId(memberId);
+        if (installedCapacity == -1){
+            installedCapacity= capacity;
         }
         
         Map<String, Object> producerInfo = new HashMap<>();
@@ -152,9 +150,25 @@ public class AnalysisService {
      * @param cost
      * @return
      */
-    public Map<String, List> calcBreakeven(String memberId, Double capacity, Double cost){
+    public Map<String, List> consumerAnanlysis(String memberId, int capacity, int cost){
+        // 결과 담을 객체
+        Map<String,List> respData = new HashMap<>();
+
+        // 생산량 및 소비량 예측 수행
+        Map<String,List> prediction =readPrediction(memberId, capacity);
+        // 소비량은 바로 담아주기
+        respData.put("PredictConsumption",prediction.get("PredictConsumption"));
+        respData.put("PredictConsumptionMonths", prediction.get("PredictConsumptionMonths"));
+
         // 과거 12개월치의 추정생산량 기반 월평균 생산량 도출
-        List prodPrediction =readPrediction(memberId, capacity).get("PredictProduction");
+        List<Double> predictProduction = prediction.get("PredictProduction");
+        Map<String,List> calc = calcBreakeven(memberId, capacity, cost, predictProduction);
+        respData.put("RequiredMonths",calc.get("RequiredMonths"));
+        respData.put("NetRevenues",calc.get("NetRevenues"));
+
+        return respData;
+    }
+    public Map<String,List> calcBreakeven(String memberId, int capacity, int cost, List<Double> prodPrediction ){
         double sum = 0.0;
         for (Object value : prodPrediction) {
             sum += (Double) value;
@@ -200,8 +214,8 @@ public class AnalysisService {
 
         // Map 객체에 담아서 반환
         Map<String,List> respData= new HashMap<>();
-        respData.put("requiredMonths", monthList);
-        respData.put("netRevenues", netRevenueList);
+        respData.put("RequiredMonths", monthList);
+        respData.put("NetRevenues", netRevenueList);
 
         return respData;
     }
@@ -214,44 +228,52 @@ public class AnalysisService {
      */
     public Map<String,List> getPricePrediction(String memberId){
         String consumerId = consumersRepository.findConsumerIdByMemberId(memberId);
-        List<PricePredictionEntity> entities= pricePredictionRepository.findAll();
+        String contractType = consumersRepository.findContractTypeByConsumerId(consumerId); //"고압" or "저압"
+        
+        List<PricePredictionEntity> ppEntityList= pricePredictionRepository.findAll();
+        List<String> predictMonthList = new ArrayList<>(); // 예측시점 문자열 담을 리스트 ("4월_예측","5월_예측")
+        List<Double> prog1PriceList = new ArrayList<>(); // 누진 1구간 요금 담을 리스트
+        List<Double> prog2PriceList = new ArrayList<>(); // 누진 2구간 요금 담을 리스트
+        List<Double> prog3PriceList = new ArrayList<>(); // 누진 3구간 요금 담을 리스트
 
-        List priceList = new ArrayList<>();
-        String contractType = consumersRepository.findContractTypeByConsumerId(consumerId);
-
-        int nowMonth= LocalDateTime.now().getMonth().getValue();
-
-        if (contractType.equals("저압")){
-            for (int i = 0; i<entities.size();++i){
-                List monthPrice = new ArrayList<>();
-                if ((nowMonth+i==7)||(nowMonth+i==8)){
-                    monthPrice.add(entities.get(i).getHlsUnder300());
-                    monthPrice.add(entities.get(i).getHlsBetween());
-                    monthPrice.add(entities.get(i).getHlsOver450());
-                } else {
-                    monthPrice.add(entities.get(i).getHleUnder200());
-                    monthPrice.add(entities.get(i).getHleBetween());
-                    monthPrice.add(entities.get(i).getHleOver400());
+        
+        for (PricePredictionEntity ppe: ppEntityList){
+            predictMonthList.add(ppe.getPredictMonth());
+            if(contractType.equals("저압")){
+                if (isSummer(ppe.getPredictMonth())){ // 저압 그리고 7월이나 8월인 경우
+                    prog1PriceList.add(ppe.getHlsUnder300());
+                    prog2PriceList.add(ppe.getHlsBetween());
+                    prog3PriceList.add(ppe.getHlsOver450());
+                } else{
+                    prog1PriceList.add(ppe.getHleUnder200());
+                    prog2PriceList.add(ppe.getHleBetween());
+                    prog3PriceList.add(ppe.getHleOver400());
                 }
-                priceList.add(monthPrice);
-            }
-        } else if (contractType.equals("고압")){
-            for (int i = 0; i<entities.size();++i){
-                List monthPrice = new ArrayList<>();
-                if ((nowMonth+i==7)||(nowMonth+i==8)){
-                    monthPrice.add(entities.get(i).getHhsUnder300());
-                    monthPrice.add(entities.get(i).getHhsBetween());
-                    monthPrice.add(entities.get(i).getHhsOver450());
-                } else {
-                    monthPrice.add(entities.get(i).getHheUnder200());
-                    monthPrice.add(entities.get(i).getHheBetween());
-                    monthPrice.add(entities.get(i).getHheOver400());
+            } else if(contractType.equals("고압")){
+                if(isSummer(ppe.getPredictMonth())){
+                    prog1PriceList.add(ppe.getHhsUnder300());
+                    prog2PriceList.add(ppe.getHhsBetween());
+                    prog3PriceList.add(ppe.getHhsOver450());
+                } else{
+                    prog1PriceList.add(ppe.getHheUnder200());
+                    prog2PriceList.add(ppe.getHheBetween());
+                    prog3PriceList.add(ppe.getHheOver400());
                 }
-                priceList.add(monthPrice);
             }
-        }
+        }//for문
         Map<String,List> respData = new HashMap<>();
-        respData.put("PricePrediction",priceList);
+
+        respData.put("PredictPriceMonths",predictMonthList);
+        respData.put("PredictPriceProg1", prog1PriceList);
+        respData.put("PredictPriceProg2", prog2PriceList);
+        respData.put("PredictPriceProg3", prog3PriceList);
+        
         return respData;
+    }
+    public Boolean isSummer(String predictMonth){
+        if ((predictMonth.endsWith("7")||(predictMonth.endsWith("8")))){
+            return true;
+        }
+        return false;
     }
 }

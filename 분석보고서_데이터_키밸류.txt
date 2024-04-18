@@ -1,0 +1,20 @@
+파이썬에서 넘어오는 데이터들의 키와 밸류
+PredictProduction: LGBM으로 추정된 사용자의 위치에 따른 과거 12개월치 태양광 발전량
+PredictProductionMonths: 추정 시점(년월)
+PredictConsumption: ARIMA로 예측된 사용자의 4개월치 전력 소비량
+PredictConsumptionMonths: 예측 시점(년월)
+
+레포지토리에서 넘어오는 데이터들의 키와 밸류
+ActualConsumption: 사용자의 실제 전력 소비량(3년치)
+ActualConsumptionMonths: 실제 전력 소비가 이뤄진 시점(년월, 내림차순)
+ActualConsumptionBills: 전력 소비량에 따른 요금
+
+ActualProduction: 사용자의 실제 태양광 발전량(1년치)
+
+requiredMonths: 손익분기점에 도달하는데 걸리는 누적 개월수(+12개월)
+netRevenues: 손익분기점에 도달하는데 변화하는 누점 순이익(+12개월)
+
+PreidictPriceMonths : LSTM으로 예측한 전기요금의 예측시점 년월
+PredictPriceProg1: 예측한 누진1구간 전기요금
+PredictPriceProg2: 예측한 누진2구간 전기요금
+PredictPriceProg3: 예측한 누진3구간 전기요금

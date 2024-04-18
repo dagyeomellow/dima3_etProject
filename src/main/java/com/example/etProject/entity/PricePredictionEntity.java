@@ -19,8 +19,8 @@ import lombok.Setter;
 public class PricePredictionEntity {
 
     @Id
-    @Column(name="ORDER")
-    private Long order; // 형식: 0: 202403, 1:202404, 2:202405, 3:202406
+    @Column(name="PREDICT_MONTH")
+    private String predictMonth; // 형식: 0: 202403, 1:202404, 2:202405, 3:202406
     @Column(name = "주택용_고압_기타_200이하")
     private double hheUnder200;//house high etc
     @Column(name = "주택용_고압_기타_201~400") 

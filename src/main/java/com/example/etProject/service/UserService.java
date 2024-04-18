@@ -40,10 +40,9 @@ public class UserService {
 		// Consumers에 저장
 		saveConsumer(membersEntity, customerType, contractType);
 	
-		// Producers에 저장 (설치 용량이 있는 경우에만)
-		if (installedCapacity != null) {
-			saveProducer(membersEntity, installedCapacity);
-		}
+		// Producers에 저장
+		saveProducer(membersEntity, installedCapacity);
+
 	}
 	
 
@@ -82,10 +81,19 @@ public class UserService {
 		producerDTO.setProducerId(generateKey(true));
 		producerDTO.setMemberId(membersEntity.getMemberId());
 		producerDTO.setInstalledCapacity(installedCapacity);
+		if(installedCapacity== -1){
+			producerDTO.setIsProduce(false);
+		} else{
+			producerDTO.setIsProduce(true);
+		}
+
 		List<Double> location = randomLocation();
 		producerDTO.setLocationX(location.get(0)); // 경도
 		producerDTO.setLocationY(location.get(1)); // 위도
+		
+		
 		producersRepository.save(ProducersEntity.toEntity(producerDTO, membersEntity));
+
 	}
 
 	/**

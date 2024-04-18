@@ -1,5 +1,8 @@
 package com.example.etProject.entity;
 
+import org.hibernate.annotations.ColumnDefault;
+import org.springframework.boot.context.properties.bind.DefaultValue;
+
 import com.example.etProject.dto.ProducersDTO;
 
 import jakarta.persistence.Column;
@@ -38,7 +41,10 @@ public class ProducersEntity {
     @Column(name="LOCATION_Y")
     private Double locationY;
     @Column(name="INSTALLED_CAPACITY")
+    @ColumnDefault("-1")
     private Double installedCapacity;
+    @Column(name="IS_PRODUCE")
+    private Boolean isProduce;
 
     public static ProducersEntity toEntity(ProducersDTO producersDTO, MembersEntity membersEntity){
         ProducersEntity producersEntity = ProducersEntity.builder()
@@ -47,6 +53,7 @@ public class ProducersEntity {
             .installedCapacity(producersDTO.getInstalledCapacity())
             .locationX(producersDTO.getLocationX())
             .locationY(producersDTO.getLocationY())
+            .isProduce(producersDTO.getIsProduce())
             .build();
         return producersEntity;
     }

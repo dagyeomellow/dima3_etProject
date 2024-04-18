@@ -4,26 +4,54 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script th:src="@{/script/jquery-3.7.1.min.js}"></script>
+    <script th:src="@{https://cdn.jsdelivr.net/npm/apexcharts}"></script>
+    <script th:src="@{/script/AnalysisChart.js}" defer></script>
+
+    <style>
+        .chart {
+            width: 640px;
+        }
+        </style>
 </head>
 <body>
-    <p>실제소비량(모든기간)</p>
-    <p th:text="${ConsumptionMonths}"></p>
-    <p th:text="${ActualConsumption}"></p>
-    <p th:text="${ConsumptionBills}"></p>
-    <hr>
-    <p>실제생산량(12개월전)</p>
-    <p th:text="${ActualProduction}"></p>
-    <p>추정생산량(12개월전)</p>
-    <p th:text="${PredictProduction}"></p>
-    <hr>
-    <p>손익분기점 도달에 걸리는 개월</p>
-    <p th:text="${requiredMonths}"></p>
-    <p>손익분기점까지의 순수익의 변화</p>
-    <p th:text="${netRevenues}"></p>
-    <hr>
-    <p>예측소비량(0~4개월후)</p>
-    <p th:text="${PredictConsumption}"></p>
-    <p>예측전기요금(0~4개월후)</p>
-    <p th:text="${PricePrediction}"></p>
+    <div class="datas">
+        <p>실제소비량(모든기간)</p>
+        <p th:text="${ConsumptionMonths}"></p>
+        <p th:text="${ActualConsumption}"></p>
+        <p th:text="${ConsumptionBills}"></p>
+        <hr>
+        <p>실제생산량(12개월전)</p>
+        <p th:text="${ActualProduction}"></p>
+        <p>추정생산량(12개월전)</p>
+        <p th:text="${PredictProduction}"></p>
+        <hr>
+        <p>손익분기점 도달에 걸리는 개월</p>
+        <p th:text="${requiredMonths}"></p>
+        <p>손익분기점까지의 순수익의 변화</p>
+        <p th:text="${netRevenues}"></p>
+        <hr>
+        <p>예측 시점</p>
+        <p th:text="${PredictConsumptionMonths}"></p>
+        <p>예측소비량(0~4개월후)</p>
+        <p th:text="${PredictConsumption}"></p>
+        <p>예측전기요금(0~4개월후)</p>
+        <p th:text="${PredictPriceMonths}"></p>
+        <p th:text="${PredictPriceProg1}"></p>
+        <p th:text="${PredictPriceProg2}"></p>
+        <p th:text="${PredictPriceProg3}"></p>
+    </div>
+    <div class="charts">
+        <input type="button" value="프로슈머: 분석보고서확인하기" id="reportProsumerBtn">
+        <input type="button" value="컨슈머: 분석보고서확인하기" id="reportConsumerBtn">
+        <input type="text" name="capacity" id="capacity" placeholder="설비용량">
+        <input type="text" name="cost" id="cost" placeholder="비용">
+    </div>
+    <div class="chart" id="previousConsumptionChart"></div>
+    <div class="chart" id="prosumerProductionChart"></div>
+    <div class="chart" id="consumerBreakevenChart"></div>
+    <div class="chart" id="predictExpenditureBar" ></div>
+    <div class="chart" id="predictExpenditurePie"></div>
+
 </body>
 </html>
