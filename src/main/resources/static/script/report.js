@@ -1,18 +1,35 @@
-$(function(){
-    $("#reportProsumerBtn").on("click", initProsumer);
-    $("#reportConsumerBtn").on("click", initConsumer);
-}); // 분석보고서 버튼에 클릭이벤트 추가
-
-
+$(document).ready(function(){
+    $('#chartReport').hide();    
+    $('#textReport').hide();
+    $('#requestBtn').on('click',startChart);
+    $('#requestTextBtn').on('click',startText);
+});
+function startChart(){
+    var isProsumerStr = $('#isProsumer').val(); // 문자열로 값을 가져옵니다.
+    var isProsumer = (isProsumerStr.toLowerCase() === 'true'); // 논리값으로 변환합니다.
+    if(isProsumer){
+        initProsumer();
+    } else{
+        initConsumer();
+    }
+    $('#requestReport').hide();
+    $('#chartReport').show();
+}
+function startText(){
+    $('#chartReport').hide();
+    $('#textReport').show();
+}
 /*
 init함수: 분석보고서 버튼을 누르면, 보고서 작성에 필요한 모든 데이터를 호출하는 함수
 */
 function initProsumer(){
+    console.log("프로슈머 분석시작")
     // const memberId=$("#memberId").val(); // 로그인 완료된 이후 security 되면 memberId 이용.
     let memberId="test_ath"; // ######임시로 이미 저장된 테스트 아이디 사용
     $.ajax({
-        url: '/analysis/getProsumerData', // 콘트롤러의 액션 URL
+        url: '/report/getProsumerData', // 콘트롤러의 액션 URL
         type: 'GET', // HTTP 메서드 (GET, POST 등)
+        async: true, //보노보노 띄우려면 반드시 트루
         data: {
             "memberId": memberId
             }, // 로그인 완료된 이후 넣어줄 예정
@@ -22,14 +39,17 @@ function initProsumer(){
         //     console.log('Error: ' + errorThrown);
         // }
     });// ajax: /analysis/getData
+    // 보노보노 넣기 
 }// initProsumer
 function initConsumer(){
     // const memberId=$("#memberId").val(); // 로그인 완료된 이후 security 되면 memberId 이용.
     let memberId="test_nje"; // ######임시로 이미 저장된 테스트 아이디 사용
     let capacity=$("#capacity").val();
     let cost=$("#cost").val();
+    console.log(cost);
+    console.log(capacity)
     $.ajax({
-        url: '/analysis/getConsumerData', // 콘트롤러의 액션 URL
+        url: '/report/getConsumerData', // 콘트롤러의 액션 URL
         type: 'GET', // HTTP 메서드 (GET, POST 등)
         data: {
             "memberId": memberId,
@@ -42,6 +62,7 @@ function initConsumer(){
         //     console.log('Error: ' + errorThrown);
         // }
     });// ajax: /analysis/getData
+    //보노보노넣기
 }
 
 // 분석보고서를 총 구성하는 함수
@@ -132,7 +153,9 @@ function drawActualConsumption(monthArr,consumptionArr){
         , {name: '누진 2구간',data: prog['prog2']}
         , {name: '누진 3구간',data: prog['prog3']}]
         ,chart: {
-            type: 'bar',height: 600,stacked: true
+            type: 'bar'
+            ,stacked: true
+            ,height: 400
             ,toolbar: {show: true}
             ,zoom: {enabled: true}
         }
@@ -205,7 +228,7 @@ function drawProsumerProduction(monthsArr,actualProdArr,predictProdArr){
         ],
         chart: {
             type:"line",
-            height: 750
+            height: 400
         },
         dataLabels: {
         enabled: false
@@ -288,16 +311,14 @@ function drawBreakEven(requiredMonthsList, netRevenuesList){
     yearList.push(point-1);
     netRevenuesYear.push(Math.round(netRevenuesList[point + 11]));
     yearList.push(point+11);
-    console.log(netRevenuesYear);
-    console.log(yearList)
-    console.log(point)
-    console.log(netRevenuesYear[-1])
+
     var options = {
         series: [{
         data: netRevenuesYear
         }],
         chart: {
-        type: 'line'
+        type: 'line',
+        height: 400
         },
         yaxis: [
             {
@@ -306,13 +327,6 @@ function drawBreakEven(requiredMonthsList, netRevenuesList){
                 }
             }
         ],
-        // xaxis:[
-        //     {
-        //         title:{
-        //             text:'경과개월수'
-        //         }
-        //     }
-        // ],
         annotations: {
             yaxis: [{// 0 수평축
             y: 0,
@@ -377,6 +391,7 @@ function drawPrediction(monthList,consList, price1List, price2List, price3List){
     var optionsBar = {
         chart: {
             type: 'bar',
+            height: 400,
             events: {
                 dataPointMouseEnter: function(event, chartContext, config) {
                     var index = config.dataPointIndex;
@@ -412,6 +427,7 @@ function drawPrediction(monthList,consList, price1List, price2List, price3List){
         
         chart: {
             type: 'pie'
+            , height:400
         },
         series: pieData[0],
         labels: ['누진1구간요금', '누진2구간요금', '누진3구간요금']

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>join</title>
+    <script th:src="@{/script/jquery-3.7.1.min.js}"></script>
+    <script th:src="@{/script/joinProc.js}" defer></script>
+
+    <!--폰트-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+    <!--css-->
+    <!-- <link rel="stylesheet" href="../static/css/earth.css" class="stylesheet"> -->
+    <link rel="stylesheet" th:href="@{/css/general.css}">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.css"> -->
+    <!-- <link href="../static/css/bootstrap-icons.css" rel="stylesheet"> -->
+    <!-- <script src="../static/script/membership.js" defer></script> -->
+
+    
+</head>
+<body>
+    <header class="navbar sticky-top flex-md-nowrap">
+        <div class="col-md-3 col-lg-3 me-0 px-3 fs-6">
+            <a class="navbar-brand" href="index.html">
+                <i class="bi bi-person"></i>
+            </a>
+        </div>
+
+        <ul class="nav-links">
+            <li><a href="#login">로그인</a></li>
+            <li><a href="#mypage">마이페이지</a></li>
+            <li><a href="#faq">자주묻는질문</a></li>
+        </ul>
+    </header>
+
+    <div class="contents" id="joinInfo">
+        <div class="contentWrapper welcomeContent">
+            <div class="welcomeblock singleBlock">
+                <h2 class="title">반가워요!👽</h2>
+                <p class="text">지금 회원가입 하신 후 ET의 다양한 서비스를 경험해보세요</p>
+                <div class="area">
+                    <ul class="typeList">
+                        <input type="button" value="회원가입" id="joinBtn">
+                    </ul>
+                    <p class="guideText">계정 회원가입(만 14세 이상 가능)</p>
+                </div> <!--area 마감-->
+            </div><!--welcomeblock 마감-->
+        </div><!--contentWrapper 마감-->
+    </div> <!--contents 마감-->
+
+    <div class="docu" id="joinDocu" hidden>
+        <div class="form">
+            <form th:action="@{/members/joinProc}" method="post">
+            <div class="signup">
+                <h2>회 원 가 입</h2>
+                <!-- <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit, perspiciatis!</p> -->
+            </div>
+            <div class="information" id="information">
+                <div class="pagination">
+                    <div class="number active">1</div>
+                    <div class="bar"></div>
+                    <div class="number">2</div>
+                    <div class="bar"></div>
+                    <div class="number">3</div>
+                    <div class="bar"></div>
+                    <div class="number">4</div>
+                    <div class="bar"></div>
+                </div> <!--pagination 끝-->
+
+                <div class="steps">
+                    <div class="step" id="step1" > <!--기본정보-->
+                        <h4>기본정보</h4>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                            <div class="grid">
+                                <div class="col">
+                                    <label for="name">이름</label>
+                                    <input type="text" id="memberName" name="memberName" placeholder="이름">
+                                </div>
+                                <div class="col">
+                                    <label for="email">이메일</label>
+                                    <input type="text" id="memberEmail" name="memberEmail" placeholder="이메일">
+                                </div>
+                                <div class="col">
+                                    <label for="id">아이디</label>
+                                    <input type="text" id="memberId" name="memberId" placeholder="아이디">
+                                </div>
+                                <div class="col">
+                                    <label for="password">비밀번호</label>
+                                    <input type="text" id="memberPw" name="memberPw" placeholder="숫자/영문 8자리 이상">
+                                </div>
+
+                                <div class="col">
+                                    <label for="phone">전화번호</label>
+                                    <input type="text" id="memberPhone" name="memberPhone" placeholder="-없이 기입">
+                                </div>
+                                <div class="col">
+                                    <label for="nationalId">주민번호</label>
+                                    <input type="text" id="nationalId" name="nationalId" placeholder="000000-0000000">
+                                </div>
+                            </div><!--grid 끝-->
+                    </div> <!--기본정보 끝-->
+                    <div class="step" id="step2" hidden> <!--계약유형:소비자-->
+                        <h4>계약 유형 선택:</h4>
+                            <p>일반용 | 갑: 계약 전력 300kW 미만 <br>
+                                일반용 | 을: 계약 전력 300kW 이상 <br>
+                                주택용 | 저압: 계약전력 3kW 이하이며, 대부분의 주택이 여기에 해당해요!<br>
+                                주택용 | 고압: 고압 설비를 갖춘 일부 대단지 아파트가 여기에 해당해요!  </p>
+
+                                <label>주택용<input type="radio" name="customerType" value="주택용"></label>
+                                <label>일반용<input type="radio" name="customerType" value="일반용"></label>
+                            
+                            <div id="optionContainer" hidden>
+                                <label for="selection">선택: </label>
+                                <select id="contractType" name="contractType">
+
+                                </select>
+                            </div>
+                    </div> <!--계약유형:소비자 끝-->
+
+                    <div class="step" id="step3" hidden> <!--결제 정보 시작-->
+                        <h4>주소 입력</h4>
+                            <div class="grid">
+                                <div class="col">
+                                    <label for="address">기본주소</label>
+                                    <input type="text" id="memberAddr" name="memberAddr" placeholder="시/군/구">
+                                </div>
+                                <div class="col">
+                                    <label for="addressadd">상세주소</label>
+                                    <input type="text" id="memberAddrDetail" name="memberAddrDetail" placeholder="동/호수">
+                                    <p>
+                                        태양광 발전기 설비용량
+                                        <input type="number" name="installedCapacity" placeholder="태양광 설치x -> 0">                                        
+                                    </p>
+                                    <label>
+                                        개인정보 이용동의(필수)
+                                        <input type="checkbox" name="isAgree" id="isAgree">
+                                    </label>
+                                    <input type="submit" value="회원가입" id="submitBtn">
+                                </div>
+                            </div>
+                    </div>
+
+                    <div class="step" id="step4" hidden>
+                        <div class="confirmation">
+                            <h2>회원가입 완료</h2>
+                                <p>로그인 하러가기</p>
+                                <div>
+                                    <a href="#">
+                                        <input type="button" value="로그인">
+                                    </a>
+                                </div>
+                        </div>
+                    </div>    
+                </div> <!--steps 마감-->
+            </div> <!--information 마감-->
+        </form>
+        <div class="footer">
+            <button class="prev" id="prevBtn" >이전</button>
+            <button class="next" id="nextBtn">다음</button>
+        </div>
+        </div>
+    </div> <!--joinDocu 마감-->
+    </body>
+</html>
+

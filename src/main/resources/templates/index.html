@@ -1,12 +1,133 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Energy Trading Website</title>
+    <!--폰트-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+    <!--css-->
+    <link rel="stylesheet" href="../static/css/newindex.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.css">
+    <link href="../static/css/bootstrap-icons.css" rel="stylesheet">
 </head>
+
 <body>
-    hello  hello
-    vwejonbejlnbelneblkeb
+    <header class="navbar sticky-top flex-md-nowrap">
+        <div class="col-md-3 col-lg-3 me-0 px-3 fs-6">
+            <a class="navbar-brand" href="index.html">
+                <!-- <img src="../static/images/et.png" alt="" class="src"> -->
+                <i class="bi-box"></i>
+                ET
+            </a>
+        </div>
+
+        <ul class="nav-links">
+            <li><a th:href="@{/analysis/report}">분석리포트</a></li>
+            <li><a href="#transaction-board">전력마켓</a></li>
+            <li><a href="#transaction-board">자주묻는질문</a></li>
+            <li><a th:href="@{/members/joinForm}">회원가입</a></li>
+            <li><a href="#login">로그인</a></li>
+        </ul>
+    </header>
+
+    <!--Banner Section-->
+    <section class="hero">
+            <div class="herotext">
+                <!-- <h2>나의 에너지를 바로 알고<br>
+                    쉽게 관리하기</h2> -->
+                <h1>당신의<br>
+                    에너지 세이빙 파트너, ET</h1>
+                <p>우리는 에너지의 소중함을 이해합니다.<br>
+                    <b class="word">ET</b>는 쉽고 효율적인 에너지 관리를 위한 최신 기술과 <br>
+                    사용자 친화적인 인터페이스를 제공합니다.<br> 에너지 낭비를 최소화하기 위한 분석리포트, 비용절감을 위한 전력마켓, <br>
+                    나아가서 배터리 관리까지, 우리의 서비스를 이용해보세요! </p>
+                    <!-- <a href="#">Compare</a> -->
+                    <!-- <a href="#" class="getInfo" class="getInfo"><i class="ri-play-fill"></i>더 알아보기</a> -->
+            </div>
+        
+            <div class="heroImg">
+                <!-- <img th:src="@{/images/windsolarenergy.png}"> -->
+            </div>
+
+            <div class="mouse-scroll active"> <!--스크롤 아이콘인데 뺄지 고민중-->
+                <div class="lottie--mouse_scroll">
+                    <div class="img01">
+                        <a href="#"><i class="ri-scroll-to-bottom-line"></i></a>
+                        <!-- <img src="/resources/dist/img/user/main/mouse-scroll.svg" alt="마우스 아이콘"> -->
+                    </div>
+                </div>
+            </section>
+        </div> <!--스크롤 아이콘 끝-->
+
+    <!--scroll down arrow-->
+    <div class="scroll-down">
+        <a href="#"><i class="ri-scroll-to-bottom-line"></i></a>
+    </div>
+
+    <!--social icons-->
+    <div class="icons">
+        <a href="#"><i class="ri-instagram-line"></i></a>
+        <a href="#"><i class="ri-youtube-line"></i></a>
+        <a href="#"><i class="ri-dribbble-line"></i></a>
+    </div>
+    
+    <section class="below">
+        <div class="row">
+            <div class="col-4">
+                <div class="card-body">
+                    <!-- <img src="../static/images/platform.png" alt="카드1"> -->
+                    <h3 class="card-title">01/<br>소비리포트</h3>
+                    <p class="card-text">이번 달 전기요금, 대체 왜 이렇게 많이 나왔을까?<br></p>
+                            지난 달 사용이력과 한눈에 비교할 수 있는<br>
+                    <b class="colorgreen">최적의 소비리포트</b>를 받아보세요!<br>
+                    <a href="#" class="getService">More</a>
+                </div>
+            </div> <!--첫번째 col-4 끝-->
+                <div class="col-4">
+                    <div class="card-body">
+                        <h3 class="card-title">02/<br>남는 전력 거래는 <br>여기서!</h3>
+                        <p class="card-text">쓰고 남은 에너지를 필요한 사람들에게 팔 수는 없을까?</p>
+                            <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+                        <br>가격·기간·용량을 정하고 <br>
+                        <b class="colorgreen">최적의 거래파트너</b>를 쉽고 빠르게 만나보세요!<br>
+                        <a href="#" class="getService">전력마켓 입장</a>
+                    </div>
+                </div> <!--두번째 col-4 끝-->
+                <div class="col-4">
+                    <div class="card-body">
+                        <h3 class="card-title">03/<br>태양광 발전장비 관리</h3>
+                        <p class="card-text">집이나 사무실의 태양광 전력 발전 장비를<br> 어떻게 관리해야 할까?</p>
+                            <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+                        <br>배터리 노후화·안전·클리닝 등<br>
+                        <b class="colorgreen">추가적인 컨설팅 서비스</b>로 경험해보세요!<br>
+                        <a href="#" class="getService">자세히 알아보기</a>
+                    </div>
+                </div> <!--세번째 col-4 끝-->
+        </div> <!--row 끝-->
+        </section>
+        <!-- <div class="inner">
+            <div class="sect01-cont">
+                <div class="cont1 flex-c-all fadeInUp">
+                    <div class="l">
+                        <div class="img-wrap">
+                            <img src="../static/images/card1.jpg" alt="줄어드는 소득, 늘어나는 전기요금">
+                        </div>
+                    </div>
+                    <div class="r">
+                        <div class="txt-wrap">
+                            <div class="num color-orange poppins">01</div>
+                            <h2 class="tit color-orange">이번 달 전기요금, 왜 이렇게 많이 나왔을까?</h2>
+                            <div class="txt">
+                                지난 달 사용이력과 한눈에 비교하는<br>
+                                <b class="color-orange">최적의 소비리포트</b>를 받아보세요!<br>
+				<a href="#" class="getService" class="getService"><i class="ri-play-fill"></i>소비리포트 받기</a>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+            </div>
 </body>
 </html>

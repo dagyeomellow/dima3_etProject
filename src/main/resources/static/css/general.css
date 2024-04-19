@@ -95,12 +95,12 @@ body{
     color: #111;
 }
 .form .steps{
-    width:400%;
+    /* width:400%; */
     display:flex;
 }
 .form .steps .step {
     width:98vw;
-    max-width:400px;
+    /* max-width:400px; */
     padding:5px 15px 15px;
     overflow:hidden;
 }

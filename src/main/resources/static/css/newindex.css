@@ -167,7 +167,7 @@ section{
 }
 .icons i:hover{
     color:#3b6388;
-    transform: translateY(-5px;)
+    transform: translateY(-5px);
 }
 /*스크롤*/
 .mouse-scroll {

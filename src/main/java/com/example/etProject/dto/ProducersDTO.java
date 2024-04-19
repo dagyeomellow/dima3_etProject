@@ -20,7 +20,7 @@ public class ProducersDTO {
     private String memberId;
     private Double locationX;
     private Double locationY;
-    private Double installedCapacity;
+    private int installedCapacity;
     private Boolean isProduce;
 
     
