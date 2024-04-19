@@ -47,7 +47,7 @@ public class myTestController {
         "컨슈머테스트2", "비번1", LocalDateTime.now(), "999999-9999999",
         "서울특별시 강남구", "삼성동 92-1", "ROLE_CONSUMER", true
     );
-    userService.join(membersTestConsumerDTO,"주택용","저압",(double) installedCapacity);
+    userService.join(membersTestConsumerDTO,"주택용","저압", installedCapacity);
 
     installedCapacity=6;    
     //회원가입확인용(프로슈머)
@@ -55,7 +55,7 @@ public class myTestController {
         "프로슈머테스트2", "비번1", LocalDateTime.now(), "999999-9999999",
         "서울특별시 강남구", "삼성동 92-1", "ROLE_PROSUMER", true
     );
-    userService.join(membersTestProsumerDTO,"주택용","고압",(double) installedCapacity);
+    userService.join(membersTestProsumerDTO,"주택용","고압", installedCapacity);
     
     
     return "redirect:/";
@@ -105,7 +105,7 @@ public class myTestController {
      * @param memberId
      * @return
      */
-    @GetMapping("/analysis/getProsumerData")
+    @GetMapping("/report/getProsumerData")
     @ResponseBody
     public Map<String,List> getProsumerData(
         @RequestParam(name="memberId") String memberId
@@ -138,7 +138,7 @@ public class myTestController {
         return respData;
     }
 
-    @GetMapping("/analysis/getConsumerData")
+    @GetMapping("/report/getConsumerData")
     @ResponseBody
     public Map<String,List> getConsumerData(
         @RequestParam(name="memberId") String memberId,

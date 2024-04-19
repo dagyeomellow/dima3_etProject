@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.example.etProject.entity.PricePredictionEntity;
 
 @Repository
-public interface PricePredictionRepository extends JpaRepository<PricePredictionEntity,Long> {
+public interface PricePredictionRepository extends JpaRepository<PricePredictionEntity,String> {
 
 }

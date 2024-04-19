@@ -42,7 +42,7 @@ public class ProducersEntity {
     private Double locationY;
     @Column(name="INSTALLED_CAPACITY")
     @ColumnDefault("-1")
-    private Double installedCapacity;
+    private int installedCapacity;
     @Column(name="IS_PRODUCE")
     private Boolean isProduce;
 

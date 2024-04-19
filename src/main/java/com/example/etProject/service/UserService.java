@@ -3,6 +3,7 @@ package com.example.etProject.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -17,9 +18,11 @@ import com.example.etProject.repository.MembersRepository;
 import com.example.etProject.repository.ProducersRepository;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class UserService {
 
 	private final MembersRepository membersRepository;
@@ -33,7 +36,13 @@ public class UserService {
 	 * @param contractType
 	 * @param installedCapacity
 	 */
-	public void join(MembersDTO membersDTO, String customerType, String contractType, Double installedCapacity) {
+	public void join(MembersDTO membersDTO, String customerType, String contractType, int installedCapacity) {
+		if(installedCapacity==-1){
+			membersDTO.setMemberRole("ROLE_CONSUMER");
+		} else{
+			membersDTO.setMemberRole("ROLE_PROSUMER");
+		}
+		membersDTO.setAgree(true);
 		// Members에 저장
 		MembersEntity membersEntity = saveMember(membersDTO);
 	
@@ -76,7 +85,7 @@ public class UserService {
 	 * @param membersEntity
 	 * @param installedCapacity
 	 */
-	private void saveProducer(MembersEntity membersEntity, Double installedCapacity) {
+	private void saveProducer(MembersEntity membersEntity, int installedCapacity) {
 		ProducersDTO producerDTO = new ProducersDTO();
 		producerDTO.setProducerId(generateKey(true));
 		producerDTO.setMemberId(membersEntity.getMemberId());
@@ -93,7 +102,16 @@ public class UserService {
 		
 		
 		producersRepository.save(ProducersEntity.toEntity(producerDTO, membersEntity));
+	}
 
+	public Boolean isProsumer(String memberId){
+		String memberRole= membersRepository.findMemberRoleByMemberId(memberId);
+
+
+		if(memberRole.equals("ROLE_PROSUMER")){
+			return true;
+		}
+		return false;
 	}
 
 	/**
