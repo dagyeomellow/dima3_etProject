@@ -1,133 +1,137 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Energy Trading Website</title>
-    <!--폰트-->
+    <title>index</title>
+    <link rel="apple-touch-icon" sizes="180x180" th:href="@{/img/apple-touch-icon.png}">
+    <link rel="icon" type="image/png" sizes="32x32" th:href="@{/img/favicon-32x32.png}">
+    <link rel="icon" type="image/png" sizes="16x16" th:href="@{/img/favicon-16x16.png}">
+    <link rel="shortcut icon" type="image/x-icon" th:href="@{/img/favicon.ico}">
+    <!-- <link rel="manifest" href="assets/img/favicons/manifest.json"> -->
+    <!-- <meta name="msapplication-TileImage" content="assets/img/favicons/mstile-150x150.png"> -->
+    <meta name="theme-color" content="#ffffff">
+    <!-- ===============================================-->
+    <!--    Stylesheets-->
+    <!-- ===============================================-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
-    <!--css-->
-    <link rel="stylesheet" href="../static/css/newindex.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.css">
-    <link href="../static/css/bootstrap-icons.css" rel="stylesheet">
+    <link th:href="@{/css/theme.css}" rel="stylesheet" />
+    <link th:href="@{/css/user.css}" rel="stylesheet" />
+    <!-- ===============================================-->
+    <!--    JavaScripts-->
+    <!-- ===============================================-->
+    <script th:src="@{/vendors/popper/popper.min.js}"></script>
+    <script th:src="@{/vendors/bootstrap/bootstrap.min.js}"></script>
+    <script th:src="@{/vendors/anchorjs/anchor.min.js}"></script>
+    <script th:src="@{/vendors/is/is.min.js}"></script>
+    <script th:src="@{/vendors/fontawesome/all.min.js}"></script>
+    <script th:src="@{/vendors/lodash/lodash.min.js}"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.7.0/gsap.min.js"></script>
+    <script th:src="@{/vendors/imagesloaded/imagesloaded.pkgd.js}"></script>
+    <script th:src="@{/vendors/gsap/customEase.js}"></script>
+    <script th:src="@{/vendors/gsap/scrollToPlugin.js}"></script>
+    <!--script(src=`${CWD}vendors/gsap/drawSVGPlugin.js`)-->
+    <script th:src="@{/script/jquery-3.7.1.min.js}"></script>
+    <script th:src="@{/script/theme.js}" defer></script>
+
+    <style>
+        #logo{
+            height:40%
+        }
+        
+    </style>
 </head>
 
 <body>
-    <header class="navbar sticky-top flex-md-nowrap">
-        <div class="col-md-3 col-lg-3 me-0 px-3 fs-6">
-            <a class="navbar-brand" href="index.html">
-                <!-- <img src="../static/images/et.png" alt="" class="src"> -->
-                <i class="bi-box"></i>
-                ET
-            </a>
+    <!-- 메인 메뉴 -->
+    <main class="main" id="top">
+        <!--상단 메뉴 바-->
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" data-navbar-on-scroll="light">
+            <div class="container">
+                <a class="navbar-brand" th:href="@{/}">
+                    <img th:src="@{images/logo.png}" width="112" height="70" alt="logo" id="logo">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse border-top border-lg-0 mt-4 mt-lg-0" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto pt-2 pt-lg-0 font-base align-items-center">
+                        <li class="nav-item"><a class="nav-link px-3" th:href="@{/}">와트마켓</a></li>
+                        <li class="nav-item"><a class="nav-link px-3" th:href="@{/intro/service}">서비스소개</a></li>
+                        <li class="nav-item"><a class="nav-link px-3" th:href="@{/analysis/report}">마이리포트</a></li>
+                        <li class="nav-item"><a class="nav-link pl-3" th:href="@{/}">마이페이지</a></li>
+                        <li class="nav-item"><a class="nav-link pl-3" th:href="@{/}">고객센터</a></li>
+                    </ul>
+                    <a th:href="@{/members/loginForm}" sec:authorize="isAnonymous()">
+                        <button class="btn btn-primary">로그인</button>
+                    </a>
+                    <a th:href="@{/members/logout}" sec:authorize="isAuthenticated()">
+                        <button class="btn btn-primary">로그아웃</button>
+                        <input sec:authorize="isAuthenticated()" type="hidden" name="memberId" id="memberId" th:value="${#authentication.principal.username}">
+                        <input sec:authorize="isAuthenticated()" type="hidden" name="memberRole" id="memberRole" th:value="${#authentication.authorities[0].authority}">
+                    </a>
+                </div>
+            </div>
+        </nav>
+
+        <!--표시되는 화면 -->
+        <!-- 위아래 패딩 조절하려면 pt:padding-top, pb: padding-bottom -->
+        <section class="pt-8 pb-2" id="keyVisual">
+            <div class="container">
+                <div class="row align-items-center h-100 justify-content-center justify-content-lg-start">
+                    <!-- 첫 번째 이미지: 주부와 발전자의 고민이 양옆에 담긴 이미지 -->
+                    <img id="mainimage1" th:src="@{/images/notused/blackimg.png}" alt="" style="height: 550px;">
+                    <!-- 두 번째 이미지: 회사소개와 사용자의 이익이 양옆에 담긴 이미지 -->
+                    <img id="mainimage2" th:src="@{/images/moneyWatty.png}" alt="" hidden>
+                </div>
+            </div>
+        </section><!--keyVisual-->
+
+        <!--부가항목: 실시간거래체결현황, 시뮬레이션, 베스트 후기, 회원가입-->
+        <section class="pt-7" id="subVisual"> <!--메인 이미지와의 위치 고려하려면 pt: padding-top 조절-->
+        <div class="container">
+            <div class="row mb-0"><!--첫 번째 가로줄 mb: margin-bottom-->
+                <!--col-md: 컬럼 width, text-md-start: 내용물 좌,우,중앙 정렬-> start, end, center; w: width%, h:height% -->
+                <div class="col-md-6 h-100 text-start text-md-start p-3 p-md-3 pb-2"> <!--1행1열--> 
+                    <div class="w-100 h-100 p-4 services-card-shadow rounded-5"> <!--카드뉴스처럼 보이게 하는거, p: padding-->
+                        <!--아이콘 같은거 넣고 싶으면 여기 이미지 태그 바꿔여  -->
+                        <img th:src="@{/images/notused/blackimg.png}" alt="Dashboard" style="width:95px;" />
+                        <h3 class="mt-2">실시간 거래현황</h3> <!--mt: margin-top-->
+                        <!--p태그 에다가 하나씩 올라가는거 넣으면 됩니다.(p말고 다른태그 써도 됨.)-->
+                        <p class="mb-0">컬럼의 높이는 내용물의 길이에 따라서 달라집니당.Bugsnag monitors application stability, so you can make data-driven decisions on whether you should be building new features, or fixing bugs.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 h-100 text-start text-md-start p-3 p-md-3 pb-2"> <!--1행2열-->
+                    <div class="w-100 h-100 p-4 services-card-shadow rounded-5"> <!--카드뉴스처럼 보이게 하는거-->
+                        <!--아이콘 같은거 넣고 싶으면 여기 이미지 태그 바꿔여  w: width, h:height-->
+                        <img th:src="@{/images/notused/blackimg.png}" alt="Dashboard" style="width:95px;" />
+                        <h3 class="mt-2">시뮬레이션</h3> <!--mt: margin-top-->
+                        <!--p태그 에다가 하나씩 올라가는거 넣으면 됩니다.(p말고 다른태그 써도 됨.)-->
+                        <p class="mb-0">Bugsnag monitors application stability, so you can make data-driven decisions on whether you should be building new features, or fixing bugs.</p>
+                    </div>
+                </div>
+            </div> <!--1행-->
+            <div class="row mb-0"> <!--2행-->
+                <div class="col-md-6 h-100 text-start text-md-start p-3 p-md-3 pb-2"> <!--2행1열-->
+                    <div class="w-100 h-100 p-4 services-card-shadow rounded-5">
+                        <img th:src="@{/images/notused/blackimg.png}" alt="Dashboard" style="width:250px;" />
+                        <h3 class="mt-3 lh-base">베스트 후기</h3>
+                        <p class="mb-0">The platform has multiple functionalities and key features. With our intelligent system, you can approve bookings and monitor everything in your business online.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 h-100 text-start text-md-start p-3 p-md-3 pb-2"> <!--2행2열-->
+                    <div class="w-100 h-100 p-4 services-card-shadow rounded-5" style="background-image: url(images/joinWatty.png); background-position: right bottom; background-size: 250px 250px; background-repeat: no-repeat;">
+                        <h3 class=“mt-3 lh-sm”><b><span style="font-weight: bold;color: #6f42c1"><u>와트마켓</u></span>과 함께 <br>지금 이 모든 <span style="font-weight: bold; color: #b12bb1;">혜택</span>을<br>지금 바로 누려보세요!</b></h3>
+                        <br>
+                        <!-- <p class="mb-0">Being on a digital platform is another sales channel added to strengthen your business. With our insights tools, we analyze your gears performance in any season.</p> -->
+                        <button class="btn btn-secondary mb-0">회원가입</button>
+                    </div> <!--카드뉴스-->
+                </div> <!--2행2열-->
+            </div> <!--2행-->
         </div>
-
-        <ul class="nav-links">
-            <li><a th:href="@{/analysis/report}">분석리포트</a></li>
-            <li><a href="#transaction-board">전력마켓</a></li>
-            <li><a href="#transaction-board">자주묻는질문</a></li>
-            <li><a th:href="@{/members/joinForm}">회원가입</a></li>
-            <li><a href="#login">로그인</a></li>
-        </ul>
-    </header>
-
-    <!--Banner Section-->
-    <section class="hero">
-            <div class="herotext">
-                <!-- <h2>나의 에너지를 바로 알고<br>
-                    쉽게 관리하기</h2> -->
-                <h1>당신의<br>
-                    에너지 세이빙 파트너, ET</h1>
-                <p>우리는 에너지의 소중함을 이해합니다.<br>
-                    <b class="word">ET</b>는 쉽고 효율적인 에너지 관리를 위한 최신 기술과 <br>
-                    사용자 친화적인 인터페이스를 제공합니다.<br> 에너지 낭비를 최소화하기 위한 분석리포트, 비용절감을 위한 전력마켓, <br>
-                    나아가서 배터리 관리까지, 우리의 서비스를 이용해보세요! </p>
-                    <!-- <a href="#">Compare</a> -->
-                    <!-- <a href="#" class="getInfo" class="getInfo"><i class="ri-play-fill"></i>더 알아보기</a> -->
-            </div>
-        
-            <div class="heroImg">
-                <!-- <img th:src="@{/images/windsolarenergy.png}"> -->
-            </div>
-
-            <div class="mouse-scroll active"> <!--스크롤 아이콘인데 뺄지 고민중-->
-                <div class="lottie--mouse_scroll">
-                    <div class="img01">
-                        <a href="#"><i class="ri-scroll-to-bottom-line"></i></a>
-                        <!-- <img src="/resources/dist/img/user/main/mouse-scroll.svg" alt="마우스 아이콘"> -->
-                    </div>
-                </div>
-            </section>
-        </div> <!--스크롤 아이콘 끝-->
-
-    <!--scroll down arrow-->
-    <div class="scroll-down">
-        <a href="#"><i class="ri-scroll-to-bottom-line"></i></a>
-    </div>
-
-    <!--social icons-->
-    <div class="icons">
-        <a href="#"><i class="ri-instagram-line"></i></a>
-        <a href="#"><i class="ri-youtube-line"></i></a>
-        <a href="#"><i class="ri-dribbble-line"></i></a>
-    </div>
-    
-    <section class="below">
-        <div class="row">
-            <div class="col-4">
-                <div class="card-body">
-                    <!-- <img src="../static/images/platform.png" alt="카드1"> -->
-                    <h3 class="card-title">01/<br>소비리포트</h3>
-                    <p class="card-text">이번 달 전기요금, 대체 왜 이렇게 많이 나왔을까?<br></p>
-                            지난 달 사용이력과 한눈에 비교할 수 있는<br>
-                    <b class="colorgreen">최적의 소비리포트</b>를 받아보세요!<br>
-                    <a href="#" class="getService">More</a>
-                </div>
-            </div> <!--첫번째 col-4 끝-->
-                <div class="col-4">
-                    <div class="card-body">
-                        <h3 class="card-title">02/<br>남는 전력 거래는 <br>여기서!</h3>
-                        <p class="card-text">쓰고 남은 에너지를 필요한 사람들에게 팔 수는 없을까?</p>
-                            <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
-                        <br>가격·기간·용량을 정하고 <br>
-                        <b class="colorgreen">최적의 거래파트너</b>를 쉽고 빠르게 만나보세요!<br>
-                        <a href="#" class="getService">전력마켓 입장</a>
-                    </div>
-                </div> <!--두번째 col-4 끝-->
-                <div class="col-4">
-                    <div class="card-body">
-                        <h3 class="card-title">03/<br>태양광 발전장비 관리</h3>
-                        <p class="card-text">집이나 사무실의 태양광 전력 발전 장비를<br> 어떻게 관리해야 할까?</p>
-                            <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
-                        <br>배터리 노후화·안전·클리닝 등<br>
-                        <b class="colorgreen">추가적인 컨설팅 서비스</b>로 경험해보세요!<br>
-                        <a href="#" class="getService">자세히 알아보기</a>
-                    </div>
-                </div> <!--세번째 col-4 끝-->
-        </div> <!--row 끝-->
+        <!-- end of .container-->
         </section>
-        <!-- <div class="inner">
-            <div class="sect01-cont">
-                <div class="cont1 flex-c-all fadeInUp">
-                    <div class="l">
-                        <div class="img-wrap">
-                            <img src="../static/images/card1.jpg" alt="줄어드는 소득, 늘어나는 전기요금">
-                        </div>
-                    </div>
-                    <div class="r">
-                        <div class="txt-wrap">
-                            <div class="num color-orange poppins">01</div>
-                            <h2 class="tit color-orange">이번 달 전기요금, 왜 이렇게 많이 나왔을까?</h2>
-                            <div class="txt">
-                                지난 달 사용이력과 한눈에 비교하는<br>
-                                <b class="color-orange">최적의 소비리포트</b>를 받아보세요!<br>
-				<a href="#" class="getService" class="getService"><i class="ri-play-fill"></i>소비리포트 받기</a>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
-            </div>
+    </main>
 </body>
 </html>

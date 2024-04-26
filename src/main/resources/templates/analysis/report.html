@@ -1,183 +1,355 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>report</title>
-        <!--폰트-->
-        <link rel="preconnect" th:href="@{https://fonts.googleapis.com}">
-        <link rel="preconnect" th:href="@{https://fonts.gstatic.com}" crossorigin>
-        <link th:href="@{https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap}" rel="stylesheet">
-        <!--css-->
-        <link rel="stylesheet" th:href="@{/css/newindex.css}">
-        <link th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css}" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-        <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.css}">
-        <link th:href="@{/css/bootstrap-icons.css}" rel="stylesheet">
-        <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
-        <link th:href="@{/css/apexcharts.css}" rel="stylesheet">
-        <!-- <link rel="stylesheet"
-        href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"> -->
-        <link rel="stylesheet" th:href="@{/css/reportChart.css}">
-        <!-- 스크립트 -->
-        <script th:src="@{/script/jquery-3.7.1.min.js}"></script>
-        <script th:src="@{https://cdn.jsdelivr.net/npm/apexcharts}"></script>
-        <script th:src="@{/script/report.js}" defer></script>
-        <!--style-->
-        <style>
-            .wrapper {
-                display:flex;
-            }
-            #sidebarMenu{
-                width:250px;
-                flex-shrink:0;
-                margin-top:65px;
-            }
-            .main-content{
-                flex-grow:1;
-                padding:10px; /**/
-                margin-top:65px;
-                max-width: calc(100% - 250px);
-            }
-            #sidebarMenu .nav {
-            flex-wrap: inherit;
-            }
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>report</title>
+    <link rel="apple-touch-icon" sizes="180x180" th:href="@{/img/apple-touch-icon.png}">
+    <link rel="icon" type="image/png" sizes="32x32" th:href="@{/img/favicon-32x32.png}">
+    <link rel="icon" type="image/png" sizes="16x16" th:href="@{/img/favicon-16x16.png}">
+    <link rel="shortcut icon" type="image/x-icon" th:href="@{/img/favicon.ico}">
+    <!-- <link rel="manifest" href="assets/img/favicons/manifest.json"> -->
+    <!-- <meta name="msapplication-TileImage" content="assets/img/favicons/mstile-150x150.png"> -->
+    <meta name="theme-color" content="#ffffff">
+    <!-- ===============================================-->
+    <!--    Stylesheets-->
+    <!-- ===============================================-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+    <link th:href="@{/css/theme.css}" rel="stylesheet" />
+    <link th:href="@{/css/user.css}" rel="stylesheet" />
+    <!-- ===============================================-->
+    <!--    JavaScripts-->
+    <!-- ===============================================-->
+    <script th:src="@{/vendors/popper/popper.min.js}"></script>
+    <script th:src="@{/vendors/bootstrap/bootstrap.min.js}"></script>
+    <script th:src="@{/vendors/anchorjs/anchor.min.js}"></script>
+    <script th:src="@{/vendors/is/is.min.js}"></script>
+    <script th:src="@{/vendors/fontawesome/all.min.js}"></script>
+    <script th:src="@{/vendors/lodash/lodash.min.js}"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.7.0/gsap.min.js"></script>
+    <script th:src="@{/vendors/imagesloaded/imagesloaded.pkgd.js}"></script>
+    <script th:src="@{/vendors/gsap/customEase.js}"></script>
+    <script th:src="@{/vendors/gsap/scrollToPlugin.js}"></script>
+    <!--script(src=`${CWD}vendors/gsap/drawSVGPlugin.js`)-->
+    <script th:src="@{/script/theme.js}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script th:src="@{/script/jquery-3.7.1.min.js}"></script>
+    <script th:src="@{/script/reportChart.js}" defer></script>
+    <style>
+        canvas{
+            background-color: rgba(0,0,33,0.8);
+            border: 3px solid #6f42c1;
+            border-radius: 5%;
+        }
 
-            #sidebarMenu .nav-link {
-            border-radius: 10px;
-            color: #717275;
-            font-size: 14px;
-            display: inline-block;
-            position: relative;
-            margin-top: 5px;
-            }
+        .row{
+            margin-top: 60px;
+            width:1200px;
+            height:550px;
+        }
+        .page{
+            height: 100%
+        }
+        .chart .solo{
+            height: 500px;
+            width: 642px;
+        }
+        #chart3, #chart4{
+            height: 400px;
+            width: 330px;
+        }
+        /* h4,h5{
+            text-align: center;
+        } */
+        @import url(//fonts.googleapis.com/earlyaccess/jejumyeongjo.css);
+        section{
 
-            #sidebarMenu .nav-link.active, 
-            #sidebarMenu .nav-link:hover {
-            background: #E63946;
-            color: #ffffff;
+            .jm-font{
+                font-family: 'Jeju Myeongjo', serif;/*웹 폰트 지정*/
+                color: orange;
             }
-            .nav-link {
-            display: block;
-            padding: 0.5rem 1rem;
-            font-size: var(--bs-nav-link-font-size);
-            font-weight: var(--bs-nav-link-font-weight);
-            color: var(--bs-nav-link-color);
-            text-decoration: none;
-            transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out;
-            }
+        }
+    </style>
+</head>
 
-            .main-content {
-            background: #ececec;
-            min-height: calc(100vh - 65px);
-            }
-            .content-wrapper{
-                display:flex;
-                justify-content:space-between;
-            }
-            .transaction-info,
-            .payment-info {
-                width:48%;
-            }
-        </style>
-    </head>
 <body>
-    <header class="navbar sticky-top flex-md-nowrap">
-        <div class="col-md-3 col-lg-3 me-0 px-3 fs-6">
-            <a class="navbar-brand" href="index.html">
-                <!-- <img src="../static/images/et.png" alt="" class="src"> -->
-                <i class="bi-box"></i>
-                ET
-            </a>
-        </div>
-        <ul class="nav-links">
-            <li><a href="#analysis-report">소비리포트</a></li>
-            <li><a href="#transaction-board">전력마켓</a></li>
-            <li><a href="#transaction-board">자주묻는질문</a></li>
-            <li><a href="#login">로그인</a></li>
-        </ul>
-    </header>
-
-    <!--왼쪽 사이드 바와 메인 콘텐츠 영역-->
-    <div class="container-fluid">
-        <div class="wrapper">
-            <nav id="sidebarMenu">
-                <div class="position-sticky py-4 px-3 sidebar-sticky">
-                    <ul class="nav flex-column">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="index.html">
-                                <i class="bi-house-fill me-2"></i>
-                                그래프1
-                            </a>
+    <!-- 메인 메뉴 -->
+    <main class="main" id="top">
+        <!--상단 메뉴 바-->
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" data-navbar-on-scroll="light">
+            <div class="container">
+                <a class="navbar-brand" th:href="@{/}">
+                    <img th:src="@{/img/logo.png}" width="112" height="70" alt="logo" id="logo">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse border-top border-lg-0 mt-4 mt-lg-0" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto pt-2 pt-lg-0 font-base align-items-center">
+                    <li class="nav-item"><a class="nav-link px-3" th:href="@{/intro/service}">서비스소개</a></li>
+                    <li class="nav-item"><a class="nav-link px-3" th:href="@{/analysis/report}">분석리포트</a></li>
+                    <li class="nav-item"><a class="nav-link px-3" th:href="@{/platform/salesList}">와트마켓</a></li>
+                    <li class="nav-item"><a class="nav-link pl-3 me-3" th:href="@{/}">예비메뉴</a></li>
+                    </ul>
+                    <a th:href="@{/members/loginForm}" sec:authorize="isAnonymous()">
+                        <button class="btn btn-primary">로그인</button>
+                    </a>
+                    <a th:href="@{/members/logout}" sec:authorize="isAuthenticated()">
+                        <button class="btn btn-primary">로그아웃</button>
+                        <input sec:authorize="isAuthenticated()" type="hidden" name="memberId" id="memberId" th:value="${#authentication.principal.username}">
+                        <input sec:authorize="isAuthenticated()" type="hidden" name="memberRole" id="memberRole" th:value="${#authentication.authorities[0].authority}">
+                    </a>
+                </div>
+            </div>
+        </nav>
+            <!--@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@-->
+        <section class="p-0" id="page0">
+            <div class="bg-holder d-none d-lg-block" style="background-image: url('/images/worryingBill.png'); background-position:820px 20px;background-size:contain;">
+            </div>
+            <!--/.bg-holder-->
+    
+            <div class="container">
+                <div class="row align-items-center">
+                <div class="col-12 text-lg-start text-center">
+                    <h1 class="fs-4 fw-normal mt-6"><b>갈수록 비싸지는 전기요금,<br>어떻게해야 줄일 수 있을까?</b></h1>
+                    
+                    <h4 class="fs-2 fw-normal">우리집 전기요금에 관한 많은 고민들</h4>
+                    <ul class="list-unstyled py-3">
+                        <li class="mb-3 text-900"><span class="far fa-check-circle text-700 me-2"></span>어떻게해야 전기를 절약할까?
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="index.html">
-                                <i class="bi-wallet me-2"></i>
-                                    그래프2
-                            </a>
+                        <li class="mb-3 text-900"><span class="far fa-check-circle text-700 me-2"></span>태양광 패널을 설치해볼까?
                         </li>
-                        <!--필요시 인덱스 추가-->
-                        <li class="nav-item">
-                            <a class="nav-link" href="help-center.html">
-                                <i class="bi-question-circle me-2"></i>
-                                Help Center
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <i class="bi-box-arrow-left me-2"></i>
-                                로그아웃
-                            </a>
+                        <li class="mb-3 text-900"><span class="far fa-check-circle text-700 me-2"></span>전력 거래를 해볼까?
                         </li>
                     </ul>
-                </div>
-            </nav>
-            <div class="main-content">
-                <div class="content-wrapper" id="requestReport"> <!--보고서 요청용-->
-                    보고서 소개 들어갈곳
-                    <input type="text" th:unless="${isProsumer}" id="capacity" placeholder="설치하려는 태양광 설비용량">
-                    <input type="text" th:unless="${isProsumer}" id="cost" placeholder="예상 설치 비용">
-                    <input type="button" value="분석보고서확인하기" id="requestBtn">
-                    <input type="hidden" id="isProsumer" th:value="${isProsumer}"></input>
-                </div><!--div.content-wrapper(요청페이지)-->
-                <div class="content-wrapper" id="chartReport" > <!--차트 보고서-->
-                    <div class="row mt-4 mb-4">
-                        <div class="col-md-6">
-                            <div class="box">
-                            <div id="previousConsumptionChart"></div>
-                            </div><!--div.box-->
-                        </div><!--div.col-md-6-->
+                    <p class="fs-3"><b>더 이상 혼자 고민하지 마세요</b></p>
+                    <a class="btn btn-sm my-2 btn-default" href="#" role="button">와티의 우리집 전력 분석리포트 보러가기<i class="fas fa-arrow-right ms-2"></i></a>
+                    <button class="btn btn-sm btn-primary my-4 me-1" href="#!" role="button">시작</button>
+            </div>
+        </section>
 
-                        <div class="col-md-6">
-                            <div class="box">
-                                <div th:if="${isProsumer}" id="prosumerProductionChart"></div>
-                                <div th:unless="${isProsumer}" id="consumerBreakevenChart"></div>
-                            </div><!--div.box-->
-                        </div><!--div.col-md-6-->
-                    </div><!--div.row mt-5 mb-4-->
-                    <div class="row mt-4 mb-4">
-                        <div class="col-md-6">
-                            <div class="box">
-                            <div id="predictExpenditureBar"></div>
-                            </div><!--div.box-->
-                        </div><!--div.col-md-6-->
-                        <div class="col-md-6">
-                            <div class="box">
-                            <div id="predictExpenditurePie"></div>
-                            </div><!--div.box-->
-                        </div><!--div.col-md-6-->
-                    </div> <!--div.row mt-5 mb-4-->
-                    <div class="row mt-5 mb-1">
-                        <div class="col-sd-3">
-                            <input type="button" value="텍스트보고서 보러가기" id="requestTextBtn">
-                        </div>
+        <section class="p-0" id="page1">
+            <div class="bg-holder d-none d-lg-block" style="background-image: url('/images/reportingWatty.png'); background-position:820px 20px;background-size:contain;">
+            </div>
+            <!--/.bg-holder-->
+    
+            <div class="container">
+                <div class="row align-items-center">
+                <div class="col-12 text-lg-start text-center">
+                    <h2 class="fs-4 fw-normal mt-6"><b>와티와 함께 확인할 사항들!</b></h2>
+                    <ul class="list-unstyled py-3">
+                        <li class="mb-3 text-900"><span class="far fa-check-circle text-700 me-2"></span>누진세 구간별 우리집 전력사용 패턴 분석
+                        </li>
+                        <li th:if="${#authentication.authorities[0].authority == 'ROLE_PROSUMER'}" class="mb-3 text-900">
+                            <span class="far fa-check-circle text-700 me-2"></span>우리집 태양광 발전기 상태 분석
+                        </li>
+                        <li th:unless="${#authentication.authorities[0].authority == 'ROLE_PROSUMER'}" class="mb-3 text-900">
+                            <span class="far fa-check-circle text-700 me-2"></span>태양광 설치 손익분기점 분석
+                        </li>
+                        <li class="mb-3 text-900"><span class="far fa-check-circle text-700 me-2"></span>AI로 예측한 미래 전기요금
+                        </li>
+                    </ul>
+                    <p class="fs-2"><b>5분 투자하여 우리집 전기요금을 입맛대로 디자인해봐요 </b></p>
+                    <button class="btn btn-sm btn-primary my-4 me-1" href="#!" role="button">다음</button><hr>
+                    <a class="btn btn-sm my-2 btn-default" href="#" role="button">와트 하우스가 궁금하신가요?</a>
+            </div>
+        </section>
+
+        <section class="p-0" id="page2">
+            <div class="bg-holder d-none d-lg-block" style="background-position:right top;background-size:contain;">
+            </div>
+            <!--/.bg-holder-->
+    
+            <div class="container">
+                <div class="row align-items-center">
+                <div class="col-12 text-lg-end text-end">
+                    <h2 class="fs-4 fw-normal mt-6"><b>1kWh는 얼마나 될까?</b></h2>
+                    <h4 class="fs-3 fw-normal mt-4"><b>전력량의 단위인 <u>킬로 와트 시</u>는<br>1시간 동안 소비되는 에너지의 양을 의미합니다.</b></h4>
+                    <h4 class="fs-2 fw-normal mt-4">가전제품별 한 달 평균 전력사용량</h4>
+                    <ul class="list-unstyled py-3">
+                        <li class="mb-3 text-900"><span class="far fa-check-circle text-700 me-2"></span> 냉장고(200Wh) = <b>144 kWh</b>
+                        </li>
+                        <li class="mb-3 text-900">
+                            <span class="far fa-check-circle text-700 me-2"></span>에어컨(1300Wh) = <b>390 kWh</b>
+                            <p hidden>기준:여름철 25일, 12시간/일</p>
+                        </li>
+                        <li class="mb-3 text-900"><span class="far fa-check-circle text-700 me-2"></span>형광등(25Wh) = <b>4.5 kWh</b>
+                            <p hidden>하루 6시간(주로야간) 30일 기준</p>
+                        </li>
+                    </ul>
+                    <button class="btn btn-sm btn-primary my-4 me-1" href="#!" role="button">다음</button><hr>
+                    <a class="btn btn-sm my-2 btn-default" href="#" >우리집 가전제품 전력사용량을 확인하는 방법이 궁금하신가요?</a>
+            </div>
+        </section>
+
+        <section class="p-0" id="page3">
+            <div class="bg-holder d-none d-lg-block" style="background-image: url('/images/trafficLight.jpg'); background-position:120px top;background-size:contain;"> <!--style="background-position:left top;background-size:contain;"-->
+            </div>
+            <!--/.bg-holder-->
+    
+            <div class="container">
+                <div class="row align-items-center">
+                <div class="col-12 text-lg-end text-end">
+                    <h2 class="fs-4 fw-normal mt-6"><b>누진 구간 확인하기</b></h2>
+                    <h4 class="fs-3 fw-normal mt-4">
+                        <b>와트 분석보고서는 <u><span style="color: #006600;">신</span><span style="color: #ccaa00;">호</span><span style="color: #FF0066;">등</span></u> 색에 맞추어 <br>누진 구간별 전력사용량을 보여드립니다.</b>
+                    </h4>
+                    <h4 class="fs-2 fw-normal mt-4">전력사용량별 누진요금</h4>
+                    <ul class="list-unstyled py-3">
+                        <li class="mb-3 text-900" style="color: #006600 !important;">
+                            <span class="far fa-check-circle text-700 me-2"></span>1구간: ~ 200 kWh = <b>120원/kWh</b>
+                        </li>
+                        <li class="mb-3 text-900" style="color: #ccaa00 !important;">
+                            <span class="far fa-check-circle text-700 me-2"></span>2구간: 200 ~ 400 kWh = <b>214.4원/kWh</b>
+                            <p hidden>기준:주택용 기타계절</p>
+                        </li>
+                        <li class="mb-3 text-900" style="color: #FF0066 !important;">
+                            <span class="far fa-check-circle text-700 me-2"></span>3구간 400 ~ kWh = <b>307.3원/kWh</b>
+                            <p hidden>기준: 주택용 기타계절</p>
+                        </li>
+                        <p class="fs-0 fw-normal">참고: 여름(7월,8월)의 경우 구간이 300kWh,450kWh로 나뉩니다.</p>
+                    </ul>
+                    <button class="btn btn-sm btn-primary my-4 me-1" href="#!" role="button">다음</button><hr>
+                    <a class="btn btn-sm my-2 btn-default" href="#" >누진요금제에 대해 더 궁금하신가요?</a>
+            </div>
+        </section>
+
+        <section class="p-0" id="page4">
+            <div class="bg-holder d-none d-lg-block"> <!--style="background-position:left top;background-size:contain;"-->
+            </div>
+            <!--/.bg-holder-->
+    
+            <div class="container">
+                <div class="row align-items-center">
+                <div class="col-12 text-lg-start text-start">
+                    <h2 class="fs-4 fw-normal mt-6"><b>첫 번째, 전력소비패턴 리포트</b></h2>
+                    <h5 class="fs-2 fw-normal mt-4">
+                        <b>회원가입시 입력하신 정보를 바탕으로 <br> 한국전력공사에서 당신의 최근 12개월 사용전력량을 조회합니다. </b>
+                    </h5>
+                    <h4 class="fs-2 fw-normal mt-4"><u><b>리포트 체크리스트</b></u></h4>
+                    <ul class="list-unstyled py-3">
+                        <li class="mb-3 text-900">
+                            <span class="far fa-check-circle text-700 me-2"></span>매월 얼마나 전기를 사용하는걸까?</b>
+                        </li>
+                        <li class="mb-3 text-900">
+                            <span class="far fa-check-circle text-700 me-2"></span>여름에는 다른 계절 보다 얼마나 더 많이 사용하지?</b>
+                        </li>
+                        <li class="mb-3 text-900">
+                            <span class="far fa-check-circle text-700 me-2"></span>누진 2구간과 3구간에 해당하는 사용량은 얼마나될까?</b>
+                        </li>
+                        <!-- <p class="fs-0 fw-normal"></p> -->
+                    </ul>
+                    <button class="btn btn-sm btn-primary my-4 me-1" href="#!" role="button">확인</button><hr>
+                    <!-- <a class="btn btn-sm my-2 btn-default" href="#" >누진요금제에 대해 더 궁금하신가요?</a> -->
+            </div>
+        </section>
+
+        <section id="pagechart1" class="page">
+            <div class="container">
+                <div class="row flex-center">
+                    <div class="col-md-6 text-center text-md-start">
+                    <h4 class="fw-normal fs-3" data-zanim-xs='{"delay":0.3}' data-zanim-trigger="scroll">
+                        <b>전력사용패턴 분석 결과</b>
+                    </h4>
+                    <p class="fs-0 pe-xl-8" data-zanim-xs='{"delay":0.5}' data-zanim-trigger="scroll">막대에 마우스를 가져다 되면 구체적인 수치가 나옵니다. <br>상단 네모상자를 클릭하면 특정 구간에서의 사용량만 보입니다.</p>
+                    <div class="d-flex justify-content-space-between align-item-center my-3 mt-2">
+                        <ul class="list-unstyled py-3">
+                            <li class="mb-3 text-900" id="chart1result1">
+                                <span class="far fa-check-circle text-700 me-2"></span>작년 한 해 월평균 사용량:
+                            </li>
+                            <li class="mb-3 text-900" id="chart1result2">
+                                <span class="far fa-check-circle text-700 me-2"></span>평월 대비 여름 월평균 사용량:
+                            </li>
+                            <li class="mb-3 text-900" id="chart1result3">
+                                <span class="far fa-check-circle text-700 me-2"></span>누진 2구간 총사용량: 
+                                <br><span class="far fa-check-circle text-700 me-2"></span>누진 3구간 총사용량:
+                            </li>
+                            <!-- <p class="fs-0 fw-normal"></p> -->
+                        </ul>
                     </div>
-                </div><!--div.content-wrapper(차트페이지)-->
-                <div class="content-wrapper" id="textReport" hidden> <!--텍스트 보고서-->
-                    텍스트 보고서가 들어갈곳
-                </div><!--div.content-wrapper(텍스트페이지)-->
-            </div> <!--div.main-content-->
-        </div> <!--div.wrapper-->
-    </div>
-</div>
+                        <button class="btn btn-sm btn-primary my-4 me-1" href="#!" role="button">다음</button><a class="btn btn-sm my-2 btn-default" href="#" role="button">Questions? Talk to our team<i class="fas fa-arrow-right ms-2"></i></a>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <canvas id="chart1" class="chart solo" style="height: 500px;width: 642px;"></canvas>
+                    </div> 
+                </div> <!--row end-->
+            </div> <!-- end of .container-->
+        </section> <!--section-->
+
+        <section id="pagechart2" class="page">
+            <div class="container">
+                <div class="row flex-center">
+                    <div class="col-md-6 text-center text-md-start">
+                        <h4 class="fw-normal fs-3" data-zanim-xs='{"delay":0.3}' data-zanim-trigger="scroll">
+                            <b>태양광 패널 상태 분석 결과</b>
+                        </h4>
+                        <p class="fs-0 pe-xl-8" data-zanim-xs='{"delay":0.5}' data-zanim-trigger="scroll">라인에 마우스를 가져다 되면 구체적인 수치가 나옵니다. <br>상단 네모상자를 클릭하면 오차범위를 확인할 수 있습니다.</p>
+                        <div class="d-flex justify-content-space-between align-item-center my-3 mt-2">
+                            <ul class="list-unstyled py-3">
+                                <li class="mb-3 text-900" id="chart2result1">
+                                    <span class="far fa-check-circle text-700 me-2"></span>작년 한 해 월평균 발전량:
+                                </li>
+                                <li class="mb-3 text-900" id="chart2result2">
+                                    <span class="far fa-check-circle text-700 me-2"></span>추정발전량과 실제발전량의 평균 차이:
+                                </li>
+                                <li class="mb-3 text-900" id="chart2result3">
+                                    <span class="far fa-check-circle text-700 me-2"></span>태양광 패널의 관리 상태 -
+                                </li>
+                                <!-- <p class="fs-0 fw-normal"></p> -->
+                            </ul>
+                        </div>
+                            <button class="btn btn-sm btn-primary my-4 me-1" href="#!" role="button">다음</button><a class="btn btn-sm my-2 btn-default" href="#" role="button">Questions? Talk to our team<i class="fas fa-arrow-right ms-2"></i></a>
+                        </div>
+                    <div class="col-md-6 mb-4">
+                        <canvas id="chart2" class="chart solo" style="height: 500px;width: 642px;"></canvas>
+                    </div>
+                </div> <!--row end-->
+            </div>
+            <!-- end of .container-->
+        </section> <!--section-->
+
+        <section id="pagechart3" class="page">
+            <div class="container">
+                <div class="row flex-center">
+                    <div class="col-md-9 text-center text-md-start">
+                        <h4 class="fw-normal fs-3" data-zanim-xs='{"delay":0.3}' data-zanim-trigger="scroll">
+                            <b>AI기반 우리집 전기요금 예측</b>
+                        </h4>
+                        <p class="fs-0 pe-xl-8" data-zanim-xs='{"delay":0.5}' data-zanim-trigger="scroll">1. 확인하려는 월에 마우스를 올려주세요. <br>2. 도넛에 마우스를 올리면 누진 구간이 총요금에서 차지하는 비중을 확인할 수 있습니다.</p>
+                        <div class="d-flex justify-content-space-between align-item-center my-3 mt-2">
+                            <ul class="list-unstyled py-3">
+                                <li class="mb-3 text-900" id="chart3result1">
+                                    <span class="far fa-check-circle text-700 me-2"></span>누진 1구간 비중: <br>
+                                    <span class="far fa-check-circle text-700 me-2"></span>누진 2구간 비중: <br>
+                                    <span class="far fa-check-circle text-700 me-2"></span>누진 3구간 비중: <br>
+                                </li>
+                                <!-- <li class="mb-3 text-900" id="chart2result2">
+                                    <span class="far fa-check-circle text-700 me-2"></span>누진 2,3구간이 차지하는 비중:
+                                </li> -->
+                                <!-- <li class="mb-3 text-900" id="chart3result3">
+                                    <span class="far fa-check-circle text-700 me-2"></span>
+                                </li> -->
+                                <!-- <p class="fs-0 fw-normal"></p> -->
+                                <h4 class="fw-normal fs-3" data-zanim-xs='{"delay":0.3}' data-zanim-trigger="scroll">
+                                    <b><u>와트 마켓을 통해 절감할 수 있는 비용: </u></b>
+                                </h4>
+                            </ul>
+                            
+                        </div>
+                            <button class="btn btn-sm btn-primary my-4 me-1" href="#!" role="button">다음</button><a class="btn btn-sm my-2 btn-default" href="#" role="button">Questions? Talk to our team<i class="fas fa-arrow-right ms-2"></i></a>
+                        </div>
+                    
+
+
+                        <canvas id="chart3" class="chart pair" style="height: 300px;width: 380px; margin-right: 45px;"></canvas>
+                        <canvas id="chart4" class="chart pair" style="height: 300px;width: 380px; margin-left: 45px;"></canvas>
+
+
+
+                </div> <!--row end-->
+            </div> <!-- end of .container-->
+        </section> <!--section-->
+    </main>
 </body>
 </html>

@@ -105,7 +105,7 @@ public class myTestController {
      * @param memberId
      * @return
      */
-    @GetMapping("/report/getProsumerData")
+    @GetMapping("/pending/getProsumerData")
     @ResponseBody
     public Map<String,List> getProsumerData(
         @RequestParam(name="memberId") String memberId
@@ -138,7 +138,7 @@ public class myTestController {
         return respData;
     }
 
-    @GetMapping("/report/getConsumerData")
+    @GetMapping("/pending/getConsumerData")
     @ResponseBody
     public Map<String,List> getConsumerData(
         @RequestParam(name="memberId") String memberId,

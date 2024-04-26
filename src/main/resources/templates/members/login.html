@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>index</title>
+    <link rel="apple-touch-icon" sizes="180x180" th:href="@{img/apple-touch-icon.png}">
+    <link rel="icon" type="image/png" sizes="32x32" th:href="@{img/favicon-32x32.png}">
+    <link rel="icon" type="image/png" sizes="16x16" th:href="@{img/favicon-16x16.png}">
+    <link rel="shortcut icon" type="image/x-icon" th:href="@{img/favicon.ico}">
+    <!-- <link rel="manifest" href="assets/img/favicons/manifest.json"> -->
+    <!-- <meta name="msapplication-TileImage" content="assets/img/favicons/mstile-150x150.png"> -->
+    <meta name="theme-color" content="#ffffff">
+    <!-- ===============================================-->
+    <!--    Stylesheets-->
+    <!-- ===============================================-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+    <link th:href="@{/css/theme.css}" rel="stylesheet" />
+    <link th:href="@{/css/user.css}" rel="stylesheet" />
+    <!-- ===============================================-->
+    <!--    JavaScripts-->
+    <!-- ===============================================-->
+    <script th:src="@{/vendors/popper/popper.min.js}"></script>
+    <script th:src="@{/vendors/bootstrap/bootstrap.min.js}"></script>
+    <script th:src="@{/vendors/anchorjs/anchor.min.js}"></script>
+    <script th:src="@{/vendors/is/is.min.js}"></script>
+    <script th:src="@{/vendors/fontawesome/all.min.js}"></script>
+    <script th:src="@{/vendors/lodash/lodash.min.js}"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.7.0/gsap.min.js"></script>
+    <script th:src="@{/vendors/imagesloaded/imagesloaded.pkgd.js}"></script>
+    <script th:src="@{/vendors/gsap/customEase.js}"></script>
+    <script th:src="@{/vendors/gsap/scrollToPlugin.js}"></script>
+    <!--script(src=`${CWD}vendors/gsap/drawSVGPlugin.js`)-->
+    <script th:src="@{/script/jquery-3.7.1.min.js}"></script>
+    <script th:src="@{/script/theme.js}"></script>
+    <style>
+        *{
+            padding:0;
+            margin:0;
+            border:none;
+        }
+        .login-wrapper{
+            display: grid;
+
+            width:400px;
+            height:350px;
+            padding:10px;
+            box-sizing:border-box;
+            font-size:14px;
+            font-family: "Noto Sans KR";
+        }
+        .login-wrapper > h2{
+            font-size:24px;
+            color: #6A24FE;
+            margin-bottom:20px;
+        }
+        #loginForm > input{
+            width:100%;
+            height:48px;
+            padding: 0 10px;
+            box-sizing: border-box;
+            margin-bottom: 16px;
+            border-radius:6px;
+            background-color: #f8f8f8;
+        }
+        #loginForm > input::placeholder{
+            color: #D2D2D2;
+        }
+        #loginForm > input[type="submit"]{
+            color: #fff;
+            font-size: 16px;
+            background-color: #6A24FE;
+            margin-top: 20px;
+        }
+        #loginForm > input[type="checkbox"]{
+            display: none;
+        }
+        #loginForm > label{
+            color: #999999;
+        }
+        #loginForm input[type="checkbox"] + label{
+            cursor: pointer;
+            padding-left: 26px;
+            background-image: url("checkbox.png");
+            background-repeat: no-repeat;
+            background-size: contain;
+        }
+        #loginForm input[type="checkbox"]:checked + label{
+            background-image: url("checkbox-active.png");
+            background-repeat: no-repeat;
+            background-size: contain;
+        }
+        h2{
+
+            color: #6A24FE;
+        }
+            </style>
+</head>
+
+<body>
+    <!-- 메인 메뉴 -->
+    <main class="main" id="top">
+        <!--상단 메뉴 바-->
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" data-navbar-on-scroll="light">
+            <div class="container">
+                <a class="navbar-brand" th:href="@{/}">
+                    <img th:src="@{/img/logo.png}" width="112" height="70" alt="logo" id="logo">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse border-top border-lg-0 mt-4 mt-lg-0" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto pt-2 pt-lg-0 font-base align-items-center">
+                    <li class="nav-item"><a class="nav-link px-3" th:href="@{/intro/service}">서비스소개</a></li>
+                    <li class="nav-item"><a class="nav-link px-3" th:href="@{/analysis/report}">분석리포트</a></li>
+                    <li class="nav-item"><a class="nav-link px-3" th:href="@{/platform/salesList}">와트마켓</a></li>
+                    <li class="nav-item"><a class="nav-link pl-3 me-3" th:href="@{/}">예비메뉴</a></li>
+                    </ul>
+                    <a th:href="@{/members/loginForm}" sec:authorize="isAnonymous()">
+                        <button class="btn btn-primary">로그인</button>
+                    </a>
+                    <a th:href="@{/members/logout}" sec:authorize="isAuthenticated()">
+                        <button class="btn btn-primary">로그아웃</button>
+                        <input sec:authorize="isAuthenticated()" type="hidden" name="memberId" id="memberId" th:value="${#authentication.principal.username}">
+                        <input sec:authorize="isAuthenticated()" type="hidden" name="memberRole" id="memberRole" th:value="${#authentication.authorities[0].authority}">
+                    </a>
+                </div>
+            </div>
+        </nav>
+
+        <!--표시되는 화면 -->
+        <section class="py-7 py-lg-10" id="home">
+            <!--/.bg-holder-->
+    
+            <!-- <div class="bg-holder d-none d-xxl-block hero-bg" style="background-image:url(assets/img/illustration/1.png);background-position:right top;background-size:contain;"></div> -->
+            <!--/.bg-holder-->
+            
+            <div class="container">
+                <div class="row align-items-center h-100 justify-content-center">
+                        <div class="col-5">
+                            <h2><b>어서오세요!</b></h2>
+                            <form method="post" th:action="@{/members/loginProc}" id="loginForm">
+                                <input type="text" name="memberId" placeholder="아이디">
+                                <input type="text" name="memberPw" placeholder="비밀번호">
+                                <label for="rememberCheck">
+                                    <input type="checkbox" id="rememberCheck">아이디 저장하기
+                                </label>
+                                <input class="btn btn-sm btn-primary me-1" type="submit" value="로그인">
+                            </form>
+                        </div>
+                        <div class="col-5">
+                            <img th:src="@{/img/watty.jpg}" height="480" alt="watty" id="watty">
+                        </div>
+                            <th:block th:if="${error}">
+                                <div th:text="${errMessage}" style="font-size:1em; color:red;"></div>
+                            </th:block>
+                        </div>
+                </div>
+            </div>
+
+            </section>
+        </main>
+        
+
+</body>
+</html>

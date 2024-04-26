@@ -1,6 +1,7 @@
 package com.example.etProject.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,9 +26,9 @@ public class MembersController {
     @GetMapping("/joinForm")
     public String joinProc(){
         return "/members/joinForm";
-    }
+    };
 
-    @PostMapping("/joinForm")
+    @PostMapping("/members/joinForm")
     @ResponseBody
     public String joinProc(
         @ModelAttribute MembersDTO membersDTO,
@@ -38,5 +39,16 @@ public class MembersController {
     ){
         userService.join(membersDTO,customerType,contractType, installedCapacity);
         return memberName;
-    }
+    };
+
+    @GetMapping("/loginForm")
+    public String login(
+        @RequestParam(value="error", required=false) String error,
+        @RequestParam(value="errMessage", required=false) String exception,
+        Model model
+        ){
+        model.addAttribute("error",error);
+        model.addAttribute("errMessage",exception);
+        return "/members/login";
+    };
 }

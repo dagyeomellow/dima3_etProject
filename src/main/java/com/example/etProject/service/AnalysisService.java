@@ -107,7 +107,7 @@ public class AnalysisService {
         Double LocationY = producersRepository.findLocationYByMemberId(memberId);
         int installedCapacity;
         installedCapacity = producersRepository.findInstalledCapacityByMemberId(memberId);
-        if (installedCapacity == -1){
+        if (installedCapacity <=0){
             installedCapacity= capacity;
         }
         
