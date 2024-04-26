@@ -104,18 +104,19 @@
     <!-- 메인 메뉴 -->
     <main class="main" id="top">
         <!--상단 메뉴 바-->
-        <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" data-navbar-on-scroll="light">
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top p-1" data-navbar-on-scroll="light">
+            <a class="navbar-brand" th:href="@{/}">
+                <img th:src="@{images/logo.png}" width="118" height="700" alt="logo" id="logo">
+            </a>
             <div class="container">
-                <a class="navbar-brand" th:href="@{/}">
-                    <img th:src="@{/img/logo.png}" width="112" height="70" alt="logo" id="logo">
-                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse border-top border-lg-0 mt-4 mt-lg-0" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto pt-2 pt-lg-0 font-base align-items-center">
-                    <li class="nav-item"><a class="nav-link px-3" th:href="@{/intro/service}">서비스소개</a></li>
-                    <li class="nav-item"><a class="nav-link px-3" th:href="@{/analysis/report}">분석리포트</a></li>
-                    <li class="nav-item"><a class="nav-link px-3" th:href="@{/platform/salesList}">와트마켓</a></li>
-                    <li class="nav-item"><a class="nav-link pl-3 me-3" th:href="@{/}">예비메뉴</a></li>
+                        <li class="nav-item"><a class="nav-link px-3" th:href="@{/}">와트마켓</a></li>
+                        <li class="nav-item"><a class="nav-link px-3" th:href="@{/intro/service}">서비스소개</a></li>
+                        <li class="nav-item"><a class="nav-link px-3" th:href="@{/analysis/report}">마이리포트</a></li>
+                        <li class="nav-item"><a class="nav-link pl-3" th:href="@{/}">마이페이지</a></li>
+                        <li class="nav-item"><a class="nav-link pl-3" th:href="@{/}">고객센터</a></li>
                     </ul>
                     <a th:href="@{/members/loginForm}" sec:authorize="isAnonymous()">
                         <button class="btn btn-primary">로그인</button>
@@ -150,7 +151,7 @@
                             </form>
                         </div>
                         <div class="col-5">
-                            <img th:src="@{/img/watty.jpg}" height="480" alt="watty" id="watty">
+                            <img th:src="@{/images/watty.jpg}" height="480" alt="watty" id="watty">
                         </div>
                             <th:block th:if="${error}">
                                 <div th:text="${errMessage}" style="font-size:1em; color:red;"></div>

@@ -67,7 +67,7 @@
                         <button class="btn btn-primary">로그인</button>
                     </a>
                     <a th:href="@{/members/logout}" sec:authorize="isAuthenticated()">
-                        <button class="btn btn-primary">로그아웃</button>
+                        <button class="btn btn-secondary">로그아웃</button>
                         <input sec:authorize="isAuthenticated()" type="hidden" name="memberId" id="memberId" th:value="${#authentication.principal.username}">
                         <input sec:authorize="isAuthenticated()" type="hidden" name="memberRole" id="memberRole" th:value="${#authentication.authorities[0].authority}">
                     </a>
