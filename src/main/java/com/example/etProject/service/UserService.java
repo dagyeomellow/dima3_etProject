@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.Optional;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.etProject.dto.ConsumersDTO;
@@ -28,6 +29,7 @@ public class UserService {
 	private final MembersRepository membersRepository;
 	private final ConsumersRepository consumersRepository;
 	private final ProducersRepository producersRepository;
+	private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
 	/**
 	 * 회원가입 기능
@@ -43,6 +45,12 @@ public class UserService {
 			membersDTO.setMemberRole("ROLE_PROSUMER");
 		}
 		membersDTO.setAgree(true);
+		// boolean isExist = membersRepository.existsById(membersDTO.getMemberId());
+		// if (isExist){
+		// 	return false;
+		// }
+
+		membersDTO.setMemberPw(bCryptPasswordEncoder.encode(membersDTO.getMemberPw()));
 		// Members에 저장
 		MembersEntity membersEntity = saveMember(membersDTO);
 	
@@ -102,6 +110,13 @@ public class UserService {
 		
 		
 		producersRepository.save(ProducersEntity.toEntity(producerDTO, membersEntity));
+	}
+
+	public String getConsumerId(String memberId){
+		return consumersRepository.findConsumerIdByMemberId(memberId);
+	}
+	public String getProducerId(String memberId){
+		return producersRepository.findProducerIdByMemberId(memberId);
 	}
 
 	public Boolean isProsumer(String memberId){

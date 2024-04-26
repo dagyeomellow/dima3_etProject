@@ -1,12 +1,30 @@
-$(document).ready(function(){
-    $('#chartReport').hide();    
-    $('#textReport').hide();
-    $('#requestBtn').on('click',startChart);
-    $('#requestTextBtn').on('click',startText);
+$(document).ready(function() {
+    // 초기 설정: requestReport를 보이게 하고, chartReport를 숨깁니다.
+    $('#requestReport').show();
+    $('#chartReport').hide();
+
+    // requestBtn을 클릭하면 requestReport를 숨기고, chartReport의 chart1을 보입니다.
+    $('#requestBtn').click(function() {
+        startChart();
+    });
+
+    // showchart 버튼을 클릭하면 차례대로 chart1, chart2, chart3를 보여줍니다.
+    $('#showchart').click(function() {
+        if ($('#chart1').is(':visible')) {
+            $('#chart1').hide();
+            $('#chart2').show();
+        } else if ($('#chart2').is(':visible')) {
+            $('#chart2').hide();
+            $('#chart3').show();
+        }
+    });
 });
+
 function startChart(){
-    var isProsumerStr = $('#isProsumer').val(); // 문자열로 값을 가져옵니다.
-    var isProsumer = (isProsumerStr.toLowerCase() === 'true'); // 논리값으로 변환합니다.
+    var memberRole = $('#memberRole').val(); // 문자열로 값을 가져옵니다.
+    console.log(memberRole)
+    var isProsumer = (memberRole === 'ROLE_PROSUMER'); // 논리값으로 변환합니다.
+
     if(isProsumer){
         initProsumer();
     } else{
@@ -14,22 +32,20 @@ function startChart(){
     }
     $('#requestReport').hide();
     $('#chartReport').show();
-}
-function startText(){
-    $('#chartReport').hide();
-    $('#textReport').show();
+    $('#chart1').show();
+    $('#chart2').hide();
+    $('#chart3').hide();
 }
 /*
 init함수: 분석보고서 버튼을 누르면, 보고서 작성에 필요한 모든 데이터를 호출하는 함수
 */
 function initProsumer(){
     console.log("프로슈머 분석시작")
-    // const memberId=$("#memberId").val(); // 로그인 완료된 이후 security 되면 memberId 이용.
-    let memberId="test_ath"; // ######임시로 이미 저장된 테스트 아이디 사용
+    const memberId=$("#memberId").val();
+    console.log(memberId)
     $.ajax({
-        url: '/report/getProsumerData', // 콘트롤러의 액션 URL
+        url: 'report/getProsumerData', // 콘트롤러의 액션 URL
         type: 'GET', // HTTP 메서드 (GET, POST 등)
-        async: true, //보노보노 띄우려면 반드시 트루
         data: {
             "memberId": memberId
             }, // 로그인 완료된 이후 넣어줄 예정
@@ -42,14 +58,13 @@ function initProsumer(){
     // 보노보노 넣기 
 }// initProsumer
 function initConsumer(){
-    // const memberId=$("#memberId").val(); // 로그인 완료된 이후 security 되면 memberId 이용.
-    let memberId="test_nje"; // ######임시로 이미 저장된 테스트 아이디 사용
-    let capacity=$("#capacity").val();
-    let cost=$("#cost").val();
-    console.log(cost);
+    const memberId=$("#memberId").val();
+    let capacity=parseInt($("#capacity").val());
+    let cost=parseInt($("#cost").val());
+    console.log(typeof(cost));
     console.log(capacity)
     $.ajax({
-        url: '/report/getConsumerData', // 콘트롤러의 액션 URL
+        url: 'report/getConsumerData', // 콘트롤러의 액션 URL
         type: 'GET', // HTTP 메서드 (GET, POST 등)
         data: {
             "memberId": memberId,
@@ -130,16 +145,23 @@ function getProgList(monthList,consList){
  */
 function drawActualConsumption(monthArr,consumptionArr){
     // ### 그래프에 들어갈 자료 준비
-    let monthList=[];
+    let months=[];
     let consList=[];
     // let billList=[];
     for (let i =0; i<12; ++i){
-        monthList.push(monthArr[i]); 
+        months.push(monthArr[i]); 
         consList.push(consumptionArr[i]);
     }
     // console.log(monthList.reverse())
-    monthList.reverse();
+    months.reverse();
     consList.reverse();
+    let monthList=[];
+    months.forEach((v,i)=>{
+        let year = v.toString().substring(0,4);
+        let month = v.toString().substring(4,6);
+        let stringValue = `${year}년 ${month}월`;
+        monthList.push(stringValue);
+    })
     // billList.reverse();
 
     // console.log(monthList); console.log(consList)
@@ -149,42 +171,70 @@ function drawActualConsumption(monthArr,consumptionArr){
 
     // ### 그래프 그리기
     var options = {
-        series: [{name: '누진 1구간',data: prog['prog1']}
-        , {name: '누진 2구간',data: prog['prog2']}
-        , {name: '누진 3구간',data: prog['prog3']}]
-        ,chart: {
-            type: 'bar'
-            ,stacked: true
-            ,height: 400
-            ,toolbar: {show: true}
-            ,zoom: {enabled: true}
-        }
-        ,responsive: [{breakpoint: 480
-            ,options: {
-                legend: {position: 'bottom',offsetX: -10,offsetY: 0}
-            }
-        }]
-        ,plotOptions: {bar: {
-            horizontal: false,
-            borderRadius: 10,
-            dataLabels: {
-            total: {enabled: true, style: {fontSize: '18px',fontWeight: 900}}
-            }
+        series: [
+            {name: '누진 1구간', data: prog['prog1']},
+            {name: '누진 2구간', data: prog['prog2']},
+            {name: '누진 3구간', data: prog['prog3']}
+        ],
+        chart: {
+            type: 'bar',
+            stacked: true,
+            toolbar: {show: true},
+            zoom: {enabled: true},
+            fontFamily: 'Noto Sans' // 모든 글꼴을 NotoSans로 변경
         },
+        colors: ['#00FF00', '#FFFF00', '#FF0000'],
+        responsive: [{
+            breakpoint: 480,
+            options: {
+                legend: {position: 'bottom', offsetX: -10, offsetY: 0}
+            }
+        }],
+        plotOptions: {
+            bar: {
+                horizontal: false,
+                borderRadius: 10,
+                dataLabels: {
+                    total: {
+                        enabled: true,
+                        style: {
+                            fontSize: '13px',
+                            fontWeight: 900,
+                            colors: '#330066' // 막대 안에 있는 텍스트의 색깔을 검정으로 변경
+                        },
+                    },
+                colors: '#000000'
+                },
+            },
         },
         xaxis: {
-        // type: 'String',
-        categories: monthList
+            categories: monthList,
+            labels: {
+                style: {
+                    fontSize: '12px', // x축 라벨 텍스트의 폰트 사이즈를 키움
+                    fontFamily: 'Noto Sans' // x축 라벨 텍스트의 글꼴을 NotoSans로 변경
+                }
+            }
+        },
+        yaxis: {
+            labels: {
+                formatter: function (value) {
+                    return value + ' kWh';
+                },
+                style: {
+                    fontSize: '13px', // y축 라벨 텍스트의 폰트 사이즈를 키움
+                    fontFamily: 'Noto Sans' // y축 라벨 텍스트의 글꼴을 NotoSans로 변경
+                }
+            }
         },
         legend: {
-        position: 'right',
-        offsetY: 40
+            position: 'bottom',
+            offsetY: 0
         },
         fill: {
-        opacity: 1
+            opacity: 0.7
         }
     };
-
     var chart = new ApexCharts(document.querySelector("#previousConsumptionChart"), options);
     chart.render();
 }
@@ -211,41 +261,37 @@ function drawProsumerProduction(monthsArr,actualProdArr,predictProdArr){
     // 그래프 그리기
     var options = {
         series: [{
-            name: "실제 태양광 발전량",
+            name: "실제 발전량",
             data: actualProdArr,
             type: "area"
         },
         {
-            name: "최대 추정",
+            name: "추정 최대발전량",
             data: maxProdArr,
             type: "line"
         },
         {
-            name: "최소 추정",
+            name: "추정 최소발전량",
             data: minProdArr,
             type: "line"
         }
         ],
         chart: {
             type:"line",
-            height: 400
+            height: 550
         },
         dataLabels: {
         enabled: false
         },
         stroke: {
-        curve: 'smooth',
-        dashArray: [0, 10, 10]
+        curve: 'straight',
+        dashArray: [0, 4, 4]
         },
-        colors:["#99CCCC","#FF0000","#FF0000"],
-        opacity:[0.5,0.75,0.75],
-        title: {
-        text: '당신의 태양광 패널은 안녕하십니까????',
-        align: 'left'
-        },
+        colors:["#FFFF00","#00FF00","#FF0000"],
+        opacity:[0.9,0.5,0.5],
         legend: {
         tooltipHoverFormatter: function(val, opts) {
-            return val + ' - <strong>' + opts.w.globals.series[opts.seriesIndex][opts.dataPointIndex] + '</strong>'
+            return val + '<strong>' + opts.w.globals.series[opts.seriesIndex][opts.dataPointIndex] + 'kWh</strong>'
         }
         },
         markers: {
@@ -280,9 +326,7 @@ function drawProsumerProduction(monthsArr,actualProdArr,predictProdArr){
             }
         ]
         },
-        grid: {
-        borderColor: '#f1f1f1',
-        }
+
     };
 
     var chart = new ApexCharts(document.querySelector("#prosumerProductionChart"), options);
@@ -318,7 +362,7 @@ function drawBreakEven(requiredMonthsList, netRevenuesList){
         }],
         chart: {
         type: 'line',
-        height: 400
+        height: 550
         },
         yaxis: [
             {
@@ -391,7 +435,7 @@ function drawPrediction(monthList,consList, price1List, price2List, price3List){
     var optionsBar = {
         chart: {
             type: 'bar',
-            height: 400,
+            height: 550,
             events: {
                 dataPointMouseEnter: function(event, chartContext, config) {
                     var index = config.dataPointIndex;
@@ -427,7 +471,7 @@ function drawPrediction(monthList,consList, price1List, price2List, price3List){
         
         chart: {
             type: 'pie'
-            , height:400
+            , height:550
         },
         series: pieData[0],
         labels: ['누진1구간요금', '누진2구간요금', '누진3구간요금']

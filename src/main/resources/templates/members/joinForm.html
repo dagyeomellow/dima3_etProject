@@ -15,7 +15,7 @@
     <!-- <link rel="stylesheet" href="../static/css/earth.css" class="stylesheet"> -->
     <link rel="stylesheet" th:href="@{/css/general.css}">
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.css"> -->
-    <!-- <link href="../static/css/bootstrap-icons.css" rel="stylesheet"> -->
+    <link th:href="@{/css/bootstrap-icons.css}" rel="stylesheet">
     <!-- <script src="../static/script/membership.js" defer></script> -->
 
     
@@ -23,15 +23,21 @@
 <body>
     <header class="navbar sticky-top flex-md-nowrap">
         <div class="col-md-3 col-lg-3 me-0 px-3 fs-6">
-            <a class="navbar-brand" href="index.html">
-                <i class="bi bi-person"></i>
+            <a class="navbar-brand" th:href="@{/}">
+                <img src="../static/images/et.png" alt="" class="src">
+                <i class="bi-box"></i>
+                Watt How's            
             </a>
         </div>
-
         <ul class="nav-links">
-            <li><a href="#login">로그인</a></li>
-            <li><a href="#mypage">마이페이지</a></li>
-            <li><a href="#faq">자주묻는질문</a></li>
+            <li><a href="#">서비스소개</a></li>
+            <li><a th:href="@{/analysis/report}">분석리포트</a></li>
+            <li><a href="#">와트마켓</a></li>
+            <li><a href="#">예비</a></li>
+            <li sec:authorize="isAnonymous()"><a th:href="@{/members/loginForm}">로그인</a></li>
+            <li sec:authorize="isAuthenticated()"><a th:href="@{/members/logout}">로그아웃</a></li>
+            <input sec:authorize="isAuthenticated()" type="hidden" name="memberId" id="memberId" th:value="${#authentication.principal.username}">
+            <input sec:authorize="isAuthenticated()" type="hidden" name="memberRole" id="memberRole" th:value="${#authentication.authorities}">
         </ul>
     </header>
 
@@ -145,9 +151,9 @@
                     <div class="step" id="step4" hidden>
                         <div class="confirmation">
                             <h2>회원가입 완료</h2>
-                                <p>로그인 하러가기</p>
+                                    <p>로그인 하러가기</p>
                                 <div>
-                                    <a href="#">
+                                    <a th:href="@{/members/loginForm}">
                                         <input type="button" value="로그인">
                                     </a>
                                 </div>

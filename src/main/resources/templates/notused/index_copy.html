@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Energy Trading Website</title>
+    <!--폰트-->
+    <link rel="preconnect" th:href="@{https://fonts.googleapis.com}">
+    <link rel="preconnect" th:href="@{https://fonts.gstatic.com}" crossorigin>
+    <link th:href="@{https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap}" rel="stylesheet">
+    <!--css-->
+    <link rel="stylesheet" th:href="@{/css/newindex.css}">
+    <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.css}">
+    <link th:href="@{/css/bootstrap-icons.css}" rel="stylesheet">
+</head>
+
+<body>
+    <header class="navbar sticky-top flex-md-nowrap">
+        <div class="col-md-3 col-lg-3 me-0 px-3 fs-6">
+            <a class="navbar-brand" th:href="@{/}">
+                <img src="../static/images/et.png" alt="" class="src">
+                <i class="bi-box"></i>
+                Watt How's            
+            </a>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#">서비스소개</a></li>
+            <li><a th:href="@{/analysis/report}">분석리포트</a></li>
+            <li><a href="#">와트마켓</a></li>
+            <li><a href="#">예비</a></li>
+            <li sec:authorize="isAnonymous()"><a th:href="@{/members/loginForm}">로그인</a></li>
+            <li sec:authorize="isAuthenticated()"><a th:href="@{/members/logout}">로그아웃</a></li>
+            <input sec:authorize="isAuthenticated()" type="hidden" name="memberId" id="memberId" th:value="${#authentication.principal.username}">
+            <input sec:authorize="isAuthenticated()" type="hidden" name="memberRole" id="memberRole" th:value="${#authentication.authorities}">
+        </ul>
+    </header>
+</body>
+</html>
