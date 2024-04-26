@@ -1,49 +1,22 @@
+let optimalP=$("#optimalPrice").val();
+let tradeMinPnt = $("#tradeMinPercent").val();
+let tradeMinP=Math.round(optimalP*(tradeMinPnt/100));
+let minPstr=new Intl.NumberFormat('ko-KR').format(tradeMinP) + ' 원'
+
+let tradeMinPercent = $("#tradeMinPercent").val();
+let tradeMinPrice=Math.round(optimalP*(tradeMinPercent/100));
+
+let resultPrice=$('#resultPrice').val();
+let resultPercent= Math.round((resultPrice/tradeMinPrice)*100)
+
 $(document).ready(function() {
-    // Select all divs inside #page, hide them
-    $("#page div").hide();
-
-    // Show the elements that need to be visible initially
-    $("#reportIntro, #btnBox, #startBtn, #previousConsumptionChart, #prosumerProductionChart, #predictExpenditureBar, #predictExpenditurePie").show();
-
-    // Hide all input elements inside #btnBox
-    $("#btnBox input").hide();
-
-    // Show #startBtn
-    $("#startBtn").show();
-
-    // Define an array of divs to be shown in order
-    var divs = ["#intro1", "#chart1", "#intro2", "#chart2", "#intro3", "#chart3"];
-    var currentDiv = 0;
-
-    // When #startBtn is clicked
-    $("#startBtn").click(function() {
-        $("#reportIntro").hide();
-        $(this).hide(); // Hide #startBtn
-        $(divs[currentDiv]).show(); // Show the first div in the array
-        $("#prevBtn, #nextBtn").show(); // Show #prevBtn and #nextBtn
-        $("#prevBtn").prop("disabled", true); // Disable #prevBtn
-    });
-
-    // When #nextBtn is clicked
-    $("#nextBtn").click(function() {
-        $(divs[currentDiv]).hide(); // Hide the current div
-        currentDiv++; // Move to the next div
-        $(divs[currentDiv]).show(); // Show the next div
-        $("#prevBtn").prop("disabled", false); // Enable #prevBtn
-        if (currentDiv == divs.length - 1) { // If the last div is reached
-            $(this).prop("disabled", true); // Disable #nextBtn
-            $("#endBtn").show(); // Show #endBtn
-        }
-    });
-
-    // When #prevBtn is clicked
-    $("#prevBtn").click(function() {
-        $(divs[currentDiv]).hide(); // Hide the current div
-        currentDiv--; // Move to the previous div
-        $(divs[currentDiv]).show(); // Show the previous div
-        $("#nextBtn").prop("disabled", false); // Enable #nextBtn
-        if (currentDiv == 0) { // If the first div is reached
-            $(this).prop("disabled", true); // Disable #prevBtn
-        }
-    });
+    $('#tradeMinPrice').html(`최소이득률에 따른 최소금액은 <b style="color: rgba(247, 144, 62, 0.9)"><u>${minPstr}</u></b>입니다`)
+    $("#tradeMinPercent").on('change',getMinPrice)
+    $('#resultPercent').html(`요청금액의 <b style="color: #D032D0;">${resultPercent}%</b>의 가격으로<br>거래하실 수 있습니다.`)
 });
+
+
+function getMinPrice(){
+    let minPricestr=new Intl.NumberFormat('ko-KR').format(tradeMinPrice) + ' 원'
+    $('#tradeMinPrice').html(`최소이득률에 따른 최소금액은 <b style="color: rgba(247, 144, 62, 0.9)"><u>${minPricestr}</u></b>입니다`)
+};
