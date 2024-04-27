@@ -28,7 +28,7 @@ public class MembersController {
         return "/members/joinForm";
     };
 
-    @PostMapping("/members/joinForm")
+    @PostMapping("/joinForm")
     @ResponseBody
     public String joinProc(
         @ModelAttribute MembersDTO membersDTO,

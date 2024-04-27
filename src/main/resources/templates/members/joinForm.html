@@ -3,38 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>join</title>
-    <script th:src="@{/script/jquery-3.7.1.min.js}"></script>
-    <script th:src="@{/script/joinProc.js}" defer></script>
-
-    <!--폰트-->
+    <title>회원가입</title>
+    <link rel="apple-touch-icon" sizes="180x180" th:href="@{/img/apple-touch-icon.png}">
+    <link rel="icon" type="image/png" sizes="32x32" th:href="@{/img/favicon-32x32.png}">
+    <link rel="icon" type="image/png" sizes="16x16" th:href="@{/img/favicon-16x16.png}">
+    <link rel="shortcut icon" type="image/x-icon" th:href="@{/img/favicon.ico}">
+    <!-- <link rel="manifest" href="assets/img/favicons/manifest.json"> -->
+    <!-- <meta name="msapplication-TileImage" content="assets/img/favicons/mstile-150x150.png"> -->
+    <meta name="theme-color" content="#ffffff">
+    <!-- ===============================================-->
+    <!--    Stylesheets-->
+    <!-- ===============================================-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
-    <!--css-->
-    <!-- <link rel="stylesheet" href="../static/css/earth.css" class="stylesheet"> -->
-    <link rel="stylesheet" th:href="@{/css/general.css}">
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.css"> -->
-    <link th:href="@{/css/bootstrap-icons.css}" rel="stylesheet">
+    <!-- <link rel="stylesheet" th:href="@{/css/newindex.css}"> -->
+    <link th:href="@{/css/theme.css}" rel="stylesheet" />
+    <link th:href="@{/css/user.css}" rel="stylesheet" />
+    <!-- ===============================================-->
+    <!--    JavaScripts-->
+    <!-- ===============================================-->
+    <script th:src="@{/vendors/popper/popper.min.js}"></script>
+    <script th:src="@{/vendors/bootstrap/bootstrap.min.js}"></script>
+    <script th:src="@{/vendors/anchorjs/anchor.min.js}"></script>
+    <script th:src="@{/vendors/is/is.min.js}"></script>
+    <script th:src="@{/vendors/fontawesome/all.min.js}"></script>
+    <script th:src="@{/vendors/lodash/lodash.min.js}"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.7.0/gsap.min.js"></script>
+    <script th:src="@{/vendors/imagesloaded/imagesloaded.pkgd.js}"></script>
+    <script th:src="@{/vendors/gsap/customEase.js}"></script>
+    <script th:src="@{/vendors/gsap/scrollToPlugin.js}"></script>
+    <!--script(src=`${CWD}vendors/gsap/drawSVGPlugin.js`)-->
+    <script th:src="@{/script/jquery-3.7.1.min.js}"></script>
+    <script th:src="@{/script/theme.js}" defer></script>
     <!-- <script src="../static/script/membership.js" defer></script> -->
+    <script th:src="@{/script/joinProc.js}"></script>
 
     
+    <style>
+        .number{
+            margin:3px;
+            color: #dd37a9e3;
+            font-size: 20px;
+            font-weight: 500;
+        }
+        .active{
+            margin:3px;
+            color: #e100ff;
+            font-size:larger;
+            font-weight: 900;
+
+        }
+        .bar{
+            margin:3px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .col-1{
+            margin: 0px;
+            padding: 0;
+        }
+    </style>
 </head>
 <body>
+    <main class="main">
     <nav class="navbar navbar-expand-lg navbar-light fixed-top p-1" data-navbar-on-scroll="light">
         <div class="ps-6 pt-2">
             <a class="navbar-brand" th:href="@{/}">
                 <img th:src="@{/images/logo.png}" width="118" height="70" alt="logo" id="logo" >
             </a>
         </div>
-        <div class="container">
+        <div class="container p-0 my-4">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse border-top border-lg-0 mt-4 mt-lg-0" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto pt-2 pt-lg-0 font-base align-items-center">
                     <li class="nav-item"><a class="nav-link px-3" th:href="@{/}">와트마켓</a></li>
                     <li class="nav-item"><a class="nav-link px-3" th:href="@{/intro/service}">서비스소개</a></li>
-                    <li class="nav-item"><a class="nav-link px-3" th:href="@{/analysis/consult}">와트컨설팅</a></li>
-                    <li class="nav-item"><a class="nav-link pl-3" th:href="@{/}">마이페이지</a></li>
+                    <li class="nav-item"><a class="nav-link px-3" th:href="@{/analysis/consult}">요금컨설팅</a></li>
+                    <li class="nav-item"><a class="nav-link pl-3" th:href="@{/analysis/report}">분석리포트</a></li>
                     <li class="nav-item"><a class="nav-link pl-3" th:href="@{/}">고객센터</a></li>
                 </ul>
                 <a th:href="@{/members/loginForm}" sec:authorize="isAnonymous()">
@@ -49,133 +96,164 @@
         </div>
     </nav>
 
-    <div class="contents" id="joinInfo">
-        <div class="contentWrapper welcomeContent">
-            <div class="welcomeblock singleBlock">
-                <h2 class="title">반가워요!👽</h2>
-                <p class="text">지금 회원가입 하신 후 ET의 다양한 서비스를 경험해보세요</p>
-                <div class="area">
-                    <ul class="typeList">
-                        <input type="button" value="회원가입" id="joinBtn">
-                    </ul>
-                    <p class="guideText">계정 회원가입(만 14세 이상 가능)</p>
-                </div> <!--area 마감-->
-            </div><!--welcomeblock 마감-->
-        </div><!--contentWrapper 마감-->
-    </div> <!--contents 마감-->
-
-    <div class="docu" id="joinDocu" hidden>
-        <div class="form">
-            <form th:action="@{/members/joinProc}" method="post">
-            <div class="signup">
-                <h2>회 원 가 입</h2>
-                <!-- <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit, perspiciatis!</p> -->
-            </div>
-            <div class="information" id="information">
-                <div class="pagination">
-                    <div class="number active">1</div>
-                    <div class="bar"></div>
-                    <div class="number">2</div>
-                    <div class="bar"></div>
-                    <div class="number">3</div>
-                    <div class="bar"></div>
-                    <div class="number">4</div>
-                    <div class="bar"></div>
-                </div> <!--pagination 끝-->
-
-                <div class="steps">
-                    <div class="step" id="step1" > <!--기본정보-->
-                        <h4>기본정보</h4>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                            <div class="grid">
-                                <div class="col">
-                                    <label for="name">이름</label>
-                                    <input type="text" id="memberName" name="memberName" placeholder="이름">
-                                </div>
-                                <div class="col">
-                                    <label for="email">이메일</label>
-                                    <input type="text" id="memberEmail" name="memberEmail" placeholder="이메일">
-                                </div>
-                                <div class="col">
-                                    <label for="id">아이디</label>
-                                    <input type="text" id="memberId" name="memberId" placeholder="아이디">
-                                </div>
-                                <div class="col">
-                                    <label for="password">비밀번호</label>
-                                    <input type="text" id="memberPw" name="memberPw" placeholder="숫자/영문 8자리 이상">
-                                </div>
-
-                                <div class="col">
-                                    <label for="phone">전화번호</label>
-                                    <input type="text" id="memberPhone" name="memberPhone" placeholder="-없이 기입">
-                                </div>
-                                <div class="col">
-                                    <label for="nationalId">주민번호</label>
-                                    <input type="text" id="nationalId" name="nationalId" placeholder="000000-0000000">
-                                </div>
-                            </div><!--grid 끝-->
-                    </div> <!--기본정보 끝-->
-                    <div class="step" id="step2" hidden> <!--계약유형:소비자-->
-                        <h4>계약 유형 선택:</h4>
-                            <p>일반용 | 갑: 계약 전력 300kW 미만 <br>
-                                일반용 | 을: 계약 전력 300kW 이상 <br>
-                                주택용 | 저압: 계약전력 3kW 이하이며, 대부분의 주택이 여기에 해당해요!<br>
-                                주택용 | 고압: 고압 설비를 갖춘 일부 대단지 아파트가 여기에 해당해요!  </p>
-
-                                <label>주택용<input type="radio" name="customerType" value="주택용"></label>
-                                <label>일반용<input type="radio" name="customerType" value="일반용"></label>
-                            
-                            <div id="optionContainer" hidden>
-                                <label for="selection">선택: </label>
-                                <select id="contractType" name="contractType">
-
-                                </select>
+    <!-- ============================================-->
+    <!-- <section> begin ============================-->
+    <section style="background-color: rgba(109, 124, 130, 0.147);">
+        <div class="container-md mt-4"  style="background-image: url('/images/moneyTrade.jpg'); background-size: 1200px 600px;">
+            <div class="row align-items-center py-3">
+                
+                <div class="col-md-6 text-start text-md-start" id="joinInfo">
+                    <button class="btn btn-boots-purple btn-xl" role="button" id="joinBtn"><b>지금바로 가입하기</b></button>
+                </div>  
+    
+                <div class="col-md-6 text-center text-md-center align-item-center" id="joinDocu" style="background-color: rgba(255, 255, 255, 0.67); border-radius: 10%;">
+                    <form method="post">
+                        <div id="step1" >
+                            <h4 class="fs-2 fw-bold m-2 text-center"><b>기본 정보</b></h4>
+                            <div class="input-group m-2">
+                                <span class="input-group-text d-flex justify-content-center" id="memberName" style="width:100px;"><b>이   름</b></span>
+                                <input type="text" class="form-control" placeholder="이   름" aria-label="이   름" aria-describedby="memberName">
                             </div>
-                    </div> <!--계약유형:소비자 끝-->
-
-                    <div class="step" id="step3" hidden> <!--결제 정보 시작-->
-                        <h4>주소 입력</h4>
-                            <div class="grid">
-                                <div class="col">
-                                    <label for="address">기본주소</label>
-                                    <input type="text" id="memberAddr" name="memberAddr" placeholder="시/군/구">
-                                </div>
-                                <div class="col">
-                                    <label for="addressadd">상세주소</label>
-                                    <input type="text" id="memberAddrDetail" name="memberAddrDetail" placeholder="동/호수">
-                                    <p>
-                                        태양광 발전기 설비용량
-                                        <input type="number" name="installedCapacity" placeholder="태양광 설치x -> 0">                                        
-                                    </p>
-                                    <label>
-                                        개인정보 이용동의(필수)
-                                        <input type="checkbox" name="isAgree" id="isAgree">
-                                    </label>
-                                    <input type="submit" value="회원가입" id="submitBtn">
-                                </div>
+                            <div class="input-group m-2">
+                                <span class="input-group-text d-flex justify-content-center" id="memberId" style="width:100px;"><b>아 이 디</b></span>
+                                <input type="text" class="form-control" placeholder="아 이 디" aria-label="아 이 디" aria-describedby="memberId">
                             </div>
-                    </div>
-
-                    <div class="step" id="step4" hidden>
-                        <div class="confirmation">
-                            <h2>회원가입 완료</h2>
-                                    <p>로그인 하러가기</p>
-                                <div>
-                                    <a th:href="@{/members/loginForm}">
-                                        <input type="button" value="로그인">
-                                    </a>
-                                </div>
+                            <div class="input-group m-2">
+                                <span class="input-group-text d-flex justify-content-center" id="memberPw" style="width:100px;"><b>비밀번호</b></span>
+                                <input type="password" class="form-control" placeholder="숫자/영문 8자리 이상" aria-label="비밀번호" aria-describedby="memberPw">
+                            </div>
+                            <div class="input-group m-2">
+                                <span class="input-group-text d-flex justify-content-center" id="memberPhone" style="width:100px;"><b>전화번호</b></span>
+                                <input type="text" class="form-control" placeholder="010-1234-5678" aria-label="전화번호" aria-describedby="memberPhone">
+                            </div>
                         </div>
-                    </div>    
-                </div> <!--steps 마감-->
-            </div> <!--information 마감-->
-        </form>
-        <div class="footer">
-            <button class="prev" id="prevBtn" >이전</button>
-            <button class="next" id="nextBtn">다음</button>
+                        <div id="step2">
+                            <h4 class="fs-2 fw-bold m-2 text-center"><b>계약 유형 정보</b></h4>
+                            <ul class="fs-0 pe-xl-7 list-unstyled text-start">
+                                <li class="mb-1 text-900">
+                                    <img th:src="@{/images/11.png}" alt="" class="ms-2" style="width: 20px;">
+                                    <b>주택용- 저압: 계약전력 3kW 이하로 대부분의 주택이 해당!</b>
+                                </li>
+                                <li class="mb-1 text-900">
+                                    <img th:src="@{/images/11.png}" alt="" class="ms-2" style="width: 20px;">
+                                    <b>주택용- 고압: 고압 설비를 갖춘 일부 대단지 아파트가 해당!</b>
+                                </li>
+                                <li class="mb-1 text-900">
+                                    <img th:src="@{/images/11.png}" alt="" class="ms-2" style="width: 20px;">
+                                    <b>일반용- 갑: 계약 전력 300kW 미만</b>
+                                </li>
+                                <li class="mb-1 text-900">
+                                    <img th:src="@{/images/11.png}" alt="" class="ms-2" style="width: 20px;">
+                                    <b>일반용- 을: 계약 전력 300kW 이상</b>
+                                </li>
+                            </ul>
+
+                            <div class="input-group my-3">
+
+                                <span class="input-group-text" id="nationalId">
+                                    <b>주민등록번호</b>
+                                </span>
+                                <input type="text" class="form-control " placeholder="000000-0000000" aria-label="Username" aria-describedby="nationalId">
+                                <button class="btn btn-outline-dark">휴대폰 인증</button>
+                            </div>
+                            <div class="input-group my-3" style="height: 80px;">
+                                <span class="input-group-text">
+                                    <b>주택용</b>
+                                    <input type="radio" name="customerType" value="주택용" class="form-check-input ms-3">
+                                </span>
+                                <span class="input-group-text">
+                                    <b>일반용</b>
+                                    <input type="radio" name="customerType" value="일반용" class="form-check-input ms-3">
+                                </span>
+                                <span id="optionContainer" class="input-group-text" hidden>
+                                    <b>선택: </b>
+                                    <select id="contractType" class="form-select ms-3" name="contractType">
+                                    </select>
+                                </span>
+                            </div>
+                        </div>
+                        <div id="step3">
+                            <h4 class="fs-2 fw-bold m-2 text-center"><b>태양광 발전 정보</b></h4>
+                            <div class="input-group my-1">
+                                <span class="input-group-text" id="memberAddr">
+                                    <b>주소</b>
+                                </span>
+                                <input type="text" class="form-control" placeholder="" aria-label="Username" aria-describedby="memberAddr">
+                            </div>
+
+                            <div class="input-group my-1">
+                                <span class="input-group-text" id="memberAddrDetail">
+                                    <b>상세주소</b>
+                                </span>
+                                <input type="text" class="form-control " placeholder="" aria-label="Username" aria-describedby="memberAddrDetail">
+                            </div>
+                            <div class="input-group my-3">
+                                <span class="input-group-text">
+                                    <b>태양광 보유 여부</b>
+                                </span>
+                                <span class="input-group-text">있음
+                                    <input type="radio" name="solarPanel" value="solarTrue" class="form-check-input ms-3">
+                                </span>
+                                <span class="input-group-text">없음
+                                    <input type="radio" name="solarPanel" value="solarFalse" class="form-check-input ms-3">
+                                </span>
+                            </div>
+                            <div class="input-group my-3"  id="capacity" hidden>
+
+                                <span class="input-group-text">
+                                    <b>태양광 설비용량</b>
+                                </span>
+                                <input type="number" id="installedCapacity" class="form-control ms-3" name="installedCapacity" g>
+                            </div>
+                            <div class="input-group my-3">
+                                <span class="input-group-text">
+                                    <b>개인정보 이용동의(필수)</b>
+                                    <input type="checkbox" name="isAgree" id="isAgree" class="form-check-input ms-3 mt-0">
+                                </span>
+                                <button class="btn btn-outline-dark btn-sm ms-1" role="button"><b>약관보기</b></button>
+                                <input type="submit" value="회 원 가 입" id="submitBtn" class="btn btn btn-primary btn-sm ms-7">
+                            </div>
+                            
+                        </div>
+                    </form>
+                    <div class="d-flex justify-content-center my-4">
+                        <button class="prev btn btn-info btn-sm me-3" id="prevBtn" hidden><b>이전</b></button>
+    
+                        <div class="information" id="information" hidden>
+                            <div class="pagination d-flex justify-content-center">
+                                <div class="number active text-center">1</div>
+                                <div class="bar text-center">-</div>
+                                <div class="number text-center">2</div>
+                                <div class="bar text-center">-</div>
+                                <div class="number text-center">3</div>
+                                <div class="bar text-center">-</div>
+                                <div class="number text-center">4</div>
+                            </div> <!--pagination 끝-->
+                        </div>
+                        <button class="next btn btn-info btn-sm ms-3" id="nextBtn" hidden><b>다음</b></button>
+                    </div>
+                    <!-- <p class="fs-0 pe-xl-7">Opportunity is everything. Get out there and find it with Uber.</p>
+                    <div class="d-flex justify-content-center align-item-center my-3 mt-2">
+                    <div>
+                        <h4 class="fw-normal fs-1">Route</h4>
+                        <p class="my-1 fs-0 pe-xl-8">Route among the safe roads. Find what's waiting for you.</p>
+                    </div>
+                    <div>
+                        <h4 class="fw-normal fs-1">Share</h4>
+                        <p class="my-1 fs-0 pe-xl-8">Your caring gets it's way. Let your people know.</p>
+                    </div>
+                    </div>
+                    <button class="btn btn-sm btn-primary btn-bg-purple my-4 me-1" href="#!" role="button">Get started</button><a class="btn btn-sm my-2 btn-default" href="#" role="button">Questions? Talk to our team<i class="fas fa-arrow-right ms-2"></i></a> -->
+                </div> <!--col-->
+                <div class="col-md-6" style="height: 600px;">
+                    
+                </div>
+            </div>
         </div>
-        </div>
-    </div> <!--joinDocu 마감-->
+    </section>
+        <!-- <section> close ============================-->
+        <!-- ============================================-->
+    </main>
     </body>
 </html>
 
