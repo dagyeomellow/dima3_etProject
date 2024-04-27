@@ -10,20 +10,23 @@ $(document).ready(function(){
         e.preventDefault();
         submitProc();
     });
+    $("input[type=radio][name=customerType]").on(
+        'change',typeOptions);
+    $("input[type=radio][name=solarPanel]").on('change',solarCapacity);
     
 });
 
 function init(){
     btnControl();
-    showPage();
-    typeOptions();
-
-    
+    showPage();    
 }
 
 function startJoinProc(){
     $('#joinInfo').hide();
     $('#joinDocu').show();
+    $('#information').removeAttr('hidden');
+    $('#prevBtn').removeAttr('hidden')
+    $('#nextBtn').removeAttr('hidden')
 }
 
 function showPage(){
@@ -115,65 +118,25 @@ function typeOptions(){
         residential: ["저압", "고압"]
     };
     // 회원 유형 선택 이벤트 처리
-    $("input[type=radio][name=customerType]").on(
-        'change',
-        function(){
-            const consumerType = this.value;
-            const consumerTypeKey= consumerType == "주택용" ? "residential":"general";
-            let contractType = $('#contractType');
-            contractType.empty();
-            options[consumerTypeKey].forEach(
-                option=>{
-                    const optionElement = $("<option></option>").val(option).text(option);
-                    contractType.append(optionElement);
-                }
-            ); //forEach
-            $('#optionContainer').show();
-        }//function
-    )
-}
-
-
-
-
-// 회원가입 폼 제출 처리
-// document.getElementById("information").addEventListener("submit", function(event) {
-//     event.preventDefault(); // 폼 기본 동작 방지
-//     const formData = new FormData(this);
-// // 여기서 formData를 이용하여 서버에 전송하거나 다른 처리를 할 수 있습니다.
-//     console.log("회원 유형:", formData.get("userType"));
-//     console.log("선택한 항목:", formData.get("selection"));
-// });
-
-// (function(){
-//     let currentPage=1;
-//     const prevBtn = document.querySelector(".form .footer .prev");
-//     const nextBtn = document.querySelector(".form .footer .next");
-//     // let page = 1;
-
-//     function movePage(){
-//         prevBtn.disabled=false;
-//         nextBtn.disabled=false;
-//         if(currentPage === 1){
-//             prevBtn.disabled=true;
-//         } else if(currentPage === 4){
-//             nextBtn.disabled=true;
-//         }
-//         document.querySelector(".form .pagination .active").classList.remove("active");
-//         document.querySelectorAll(".form .pagination .number")[currentPage-1].classList.add("active");
-//         const stepNode = document.querySelector(".form .steps .step");
-//         const width = ((currentPage-1)*stepNode.offsetWidth*-1)+"px";
-//         stepNode.parentNode.style.marginLeft = width;
-//     };
+    const consumerType = $("input[type=radio][name=customerType]:checked").val();
+    const consumerTypeKey= consumerType == "주택용" ? "residential":"general";
+    let contractType = $('#contractType');
+    contractType.empty();
+    options[consumerTypeKey].forEach(
+        option=>{
+            const optionElement = $("<option></option>").val(option).text(option);
+            contractType.append(optionElement);
+        }
+    ); //forEach
+    $('#optionContainer').removeAttr('hidden');
     
-
-//     prevBtn.addEventListener("click",function(){
-//         currentPage -= 1;
-//         movePage();
-//     });
-//     nextBtn.addEventListener("click",function(){
-//         console.log("넥스트 눌림")
-//         currentPage += 1;
-//         movePage();
-//     });
-// });
+}
+function solarCapacity(){
+    let solarPanel=$("input[type=radio][name=solarPanel]:checked").val();
+    console.log(solarPanel)
+    if(solarPanel=='solarTrue'){
+        $('#capacity').removeAttr('hidden');
+    } else if (solarPanel=='solarFalse'){
+        $('#capacity').attr('hidden', true);
+    }
+}

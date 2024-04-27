@@ -270,8 +270,11 @@
         </section> <!--section-->
 
         <section class="p-0 my-9" id="page6" >
-            <div class="bg-holder d-none d-lg-block" style="background-image: url('/images/solarPanel.jpg'); background-position:125px 65px;background-size:contain;" data-zanim-xs='{"delay":0.3}' data-zanim-trigger="scroll"> <!--style="background-position:left top;background-size:contain;"-->
+            <div th:if="${#authentication.authorities[0].authority=='ROLE_PROSUMER'}" class="bg-holder d-none d-lg-block" style="background-image: url('/images/solarPanel.jpg'); background-position:125px 65px;background-size:contain;" data-zanim-xs='{"delay":0.3}' data-zanim-trigger="scroll"> 
             </div>
+            <div th:unless="${#authentication.authorities[0].authority=='ROLE_PROSUMER'}" class="bg-holder d-none d-lg-block" style="background-image: url('/images/solarBreakeven.jpg'); background-position:125px 65px;background-size:contain;" data-zanim-xs='{"delay":0.3}' data-zanim-trigger="scroll"> 
+            </div>
+
             <div class="container p-0 mb-4 mt-2">
                 <div class="row align-items-center">
                     <div class="col-12 text-lg-end text-end">
@@ -287,6 +290,9 @@
                         <button class="btn btn-sm btn-boots-primary my-1 me-1 w-25" role="button" id="showThirdChart" data-zanim-xs='{"delay":1.5}' data-zanim-trigger="scroll">마지막 리포트 확인하기</button> <br>
                     </div>
                 </div>
+            </div>
+            
+            
         </section>
         
 

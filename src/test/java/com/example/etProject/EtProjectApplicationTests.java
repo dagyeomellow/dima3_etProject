@@ -1,31 +1,36 @@
 package com.example.etProject;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.Period;
-import java.util.List;
-import java.util.Random;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import com.example.etProject.dto.MembersDTO;
 import com.example.etProject.entity.MembersEntity;
 import com.example.etProject.repository.MembersRepository;
 
+import lombok.RequiredArgsConstructor;
+
 @SpringBootTest
+@RequiredArgsConstructor
 class EtProjectApplicationTests {
 
+    private final MembersRepository membersRepository;
+    private final MembersEntity MembersEntity;
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
     @Test
     void test(){
-
+        MembersDTO membersDTO = new MembersDTO("test_jdg", passwordEncoder.encode("1234"),LocalDateTime.now(),"999999-2222222","경상북도 울산시",null,"ROLE_CONSUMER",true);
+        membersRepository.save(MembersEntity.toEntity(membersDTO));
     }
 
-    }
+}
 
 
-    // @Autowired
-    // private BCryptPasswordEncoder passwordEncoder;
+    
 
     // @Test
     // void encodeExistingPasswords() {
