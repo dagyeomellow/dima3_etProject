@@ -1,22 +1,54 @@
-let optimalP=$("#optimalPrice").val();
-let tradeMinPnt = $("#tradeMinPercent").val();
-let tradeMinP=Math.round(optimalP*(tradeMinPnt/100));
-let minPstr=new Intl.NumberFormat('ko-KR').format(tradeMinP) + ' 원'
-
-let tradeMinPercent = $("#tradeMinPercent").val();
-let tradeMinPrice=Math.round(optimalP*(tradeMinPercent/100));
-
-let resultPrice=$('#resultPrice').val();
-let resultPercent= Math.round((resultPrice/tradeMinPrice)*100)
-
 $(document).ready(function() {
-    $('#tradeMinPrice').html(`최소이득률에 따른 최소금액은 <b style="color: rgba(247, 144, 62, 0.9)"><u>${minPstr}</u></b>입니다`)
-    $("#tradeMinPercent").on('change',getMinPrice)
-    $('#resultPercent').html(`요청금액의 <b style="color: #D032D0;">${resultPercent}%</b>의 가격으로<br>거래하실 수 있습니다.`)
+
+    var showSection = function(hideId, showId) {
+        $('html, body').animate({
+            scrollTop: $(showId).offset().top-105
+        }, 100); // 1000ms 동안 스크롤
+    };
+
+    var promptUser = function(message) {
+        prompt(message);
+    };
+
+// zanim.js 애니메이션 재실행
+
+    $("#startReport").click(function() {
+        showSection("#page1", "#page2");
+    });
+
+    $("#showFirstChart").click(function() {
+        showSection("#page2", "#page3");
+    });
+
+    $("#homeSolution").click(function() {
+        promptUser("상단을 연결하시겠습니까?");
+    });
+
+    $("#showPage4").click(function() {
+        showSection("#page3", "#page4");
+    });
+
+    $("#showSecondChart").click(function() {
+        showSection("#page4", "#page5");
+    });
+
+    $("#analysisConsult").click(function() {
+        promptUser("상단을 연결하시겠습니까?");
+    });
+
+    $("#showPage6").click(function() {
+        showSection("#page5", "#page6");
+    });
+
+    $("#showThirdChart").click(function() {
+        showSection("#page6", "#page7");
+    });
+
+    $("#solarConsult").click(function() {
+        promptUser("상단을 연결하시겠습니까?");
+    });
+
+    $("#showPage8").click(function() {
+        showSection("#page7", "#page8");
+    });
 });
-
-
-function getMinPrice(){
-    let minPricestr=new Intl.NumberFormat('ko-KR').format(tradeMinPrice) + ' 원'
-    $('#tradeMinPrice').html(`최소이득률에 따른 최소금액은 <b style="color: rgba(247, 144, 62, 0.9)"><u>${minPricestr}</u></b>입니다`)
-};

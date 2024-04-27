@@ -372,8 +372,8 @@
   --gohub-navbar-dark-active-color: #fff;
   --gohub-navbar-dark-disabled-color: rgba(255, 255, 255, 0.25);
   --gohub-navbar-dark-toggler-border-color: rgba(255, 255, 255, 0.1);
-  --gohub-navbar-light-color: rgba(0, 0, 0, 0.55);
-  --gohub-navbar-light-hover-color: rgba(0, 0, 0, 0.9);
+  --gohub-navbar-light-color: rgba(0, 0, 0, 0.803);
+  --gohub-navbar-light-hover-color: rgba(55, 36, 94, 0.9);
   --gohub-navbar-light-active-color: #000;
   --gohub-navbar-light-disabled-color: rgba(0, 0, 0, 0.25);
   --gohub-navbar-light-toggler-border-color: rgba(0, 0, 0, 0.1);
