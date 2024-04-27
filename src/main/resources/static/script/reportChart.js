@@ -22,7 +22,7 @@ function init(){
         },
         dataType: 'json',
         success: function(resp){
-            console.log("결과: ", resp['result']);
+            // console.log("결과: ", resp['result']);
             // AJAX 요청이 성공적으로 완료되면, 이후 함수들을 호출합니다.
             chart1();
             chart2();
@@ -42,7 +42,7 @@ function chart1(){
         success: drawActualConsumption
     })
 }
-function chart2(){
+function chart3(){
     $.ajax({
         url: 'report/getPredictProductionData',
         type: 'GET',
@@ -53,7 +53,7 @@ function chart2(){
         success: drawPredictProdcution
     })
 }
-function chart3(){
+function chart2(){
     $.ajax({
         url: 'report/getFutureData',
         type: 'GET',
@@ -73,7 +73,7 @@ function chart3(){
  */
 function calculateAverage(arr) {
     const sum = arr.reduce((acc, curr) => acc + curr, 0);
-    return sum / arr.length;
+    return Math.round(sum / arr.length);
 }
 
 function getProgList(monthList,consList){
@@ -164,9 +164,9 @@ function getExpenditure(monthList,consList, price1List, price2List, price3List){
 function getPanelStatus(predictProdAvg, actualProdAvg){
     if (predictProdAvg*1.5<actualProdAvg){
         return "주의: 지나치게 발전량이 많아요!"
-    } else if (predictProdAvg*0.85<actualProdAvg){
+    } else if (predictProdAvg*0.95<actualProdAvg){
         return "정상: 예측량과 비슷한 발전량이네요!"
-    } else if (predictProdAvg*0.7<actualProdAvg){
+    } else if (predictProdAvg*0.85<actualProdAvg){
         return "관리요망: 발전량이 낮은 수준이에요!"
     } else if (predictProdAvg*0.7>actualProdAvg){
         return "심각: 태양광 패널 상태 점검이 필요해보여요!"
@@ -564,6 +564,28 @@ window.chartBar = new Chart(ctxBar, {
             }
         }
     });
+    var totalExpenditure = 0;
+    for (var i = 0; i < pieData.length; i++) {
+        for (var j = 0; j < pieData[i].length; j++) {
+            totalExpenditure += pieData[i][j];
+        }
+    }
 
+    var prog1Expenditure = 0;
+    var prog2Expenditure = 0;
+    var prog3Expenditure = 0;
+    for (var i = 0; i < pieData.length; i++) {
+        prog1Expenditure += pieData[i][0];
+        prog2Expenditure += pieData[i][1];
+        prog3Expenditure += pieData[i][2];
+    }
+
+    var prog1Percentage = ((prog1Expenditure / totalExpenditure) * 100).toFixed(2);
+    var prog2Percentage = ((prog2Expenditure / totalExpenditure) * 100).toFixed(2);
+    var prog3Percentage = ((prog3Expenditure / totalExpenditure) * 100).toFixed(2);
+
+    $('#chart3result1').html('<span class="far fa-check-circle text-700 me-2"></span>누진 1구간 비중: ' + prog1Percentage + '%<br>' +
+                             '<span class="far fa-check-circle text-700 me-2"></span>누진 2구간 비중: ' + prog2Percentage + '%<br>' +
+                             '<span class="far fa-check-circle text-700 me-2"></span>누진 3구간 비중: ' + prog3Percentage + '%<br>');
 
 }

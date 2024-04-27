@@ -29,9 +29,14 @@ public class AnalysisController {
     private Map<String,List> prodActual=null;
     private Map<String,List> prediction=null;
     
-    @GetMapping("/report")
-    public String test(){
+    @GetMapping("/consult")
+    public String consult(){
 
+        return "/analysis/consult";
+    }
+
+    @GetMapping("/report")
+    public String report(){
         return "/analysis/report";
     }
 
