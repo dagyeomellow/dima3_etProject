@@ -37,6 +37,7 @@
     <script th:src="@{/vendors/gsap/scrollToPlugin.js}"></script>
     <!--script(src=`${CWD}vendors/gsap/drawSVGPlugin.js`)-->
     <script th:src="@{/script/jquery-3.7.1.min.js}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script th:src="@{/script/theme.js}"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script th:src="@{/script/reportChart.js}" defer></script>
@@ -138,7 +139,7 @@
                         <h4 class="fs-2 fw-bold" data-zanim-xs='{"delay":1.2}' data-zanim-trigger="scroll">
                             <b>리포트의 결과를 바탕으로<br><span style="color: rgba(39, 142, 87, 0.775);">누진 구간</span>을 조정하는 <span style="color: rgba(39, 142, 101, 0.775);">최적화 솔루션</span>을 제공합니다.</b>
                         </h4>
-                        <button class="btn btn-sm btn-boots-primary my-1 me-1 w-25" role="button" id="startReport" data-zanim-xs='{"delay":1.5}' data-zanim-trigger="scroll">분석리포트 확인하기</button> <br>
+                        <button class="btn btn-outline-primary my-1 me-1 w-25" role="button" id="startReport" data-zanim-xs='{"delay":1.5}' data-zanim-trigger="scroll">리포트 확인</button> <br>
                     </div>
                 </div>
         </section>
@@ -168,8 +169,8 @@
                             </li>
                         </ul>
                         <p class="fs-0 fw-normal" data-zanim-xs='{"delay":1.2}' data-zanim-trigger="scroll">참고: 여름(7월,8월)의 경우 구간이 300kWh,450kWh로 나뉩니다.</p>
-                        <button class="btn btn-sm btn-boots-primary my-1 me-1 w-25" role="button" id="showFirstChart" data-zanim-xs='{"delay":1.5}' data-zanim-trigger="scroll">첫 번째 리포트 확인하기</button><br>
-                        <button class="btn btn-sm btn-outline-default my-1 me-1 w-25" role="button" data-zanim-xs='{"delay":1.5}' data-zanim-trigger="scroll">한국전력공사의 누진제 정보 바로가기</button>
+                        <button class="btn btn btn-outline-primary my-1 me-1 w-25" role="button" id="showFirstChart" data-zanim-xs='{"delay":1.5}' data-zanim-trigger="scroll">첫 번째 리포트</button><br>
+                        <button class="btn btn-sm btn-default my-1 me-1 w-25" role="button" data-zanim-xs='{"delay":1.5}' data-zanim-trigger="scroll">한국전력공사의 누진제 정보 바로가기</button>
                         
                 </div>
         </section>
@@ -200,7 +201,7 @@
                         <div class="py-2" data-zanim-xs='{"delay":1.2}' data-zanim-trigger="scroll">
                             10 kWh<b>=</b> 냉장고 27시간 | 에어컨 8시간 | 컴퓨터 21시간
                         </div>
-                        <button class="btn btn-sm btn-boots-primary my-1 me-1 w-50" role="button" id="showPage4" data-zanim-xs='{"delay":1.5}' data-zanim-trigger="scroll">다음 리포트 보러가기</button><br>
+                        <button class="btn btn btn-outline-primary my-1 me-1 w-50" role="button" id="showPage4" data-zanim-xs='{"delay":1.5}' data-zanim-trigger="scroll">다음 리포트</button><br>
                         <button class="btn btn-sm btn-outline-default my-1 me-1 w-50" href="#" id="homeConsult" data-zanim-xs='{"delay":1.5}' data-zanim-trigger="scroll">가정 전력케어 무료상담</button>
                     </div>
                     <div class="col-md-6 pt-6" data-zanim-xs='{"delay":0.3}' data-zanim-trigger="scroll">
@@ -230,12 +231,12 @@
                         <h4 class="fs-2 fw-bold mt-4" data-zanim-xs='{"delay":1.2}' data-zanim-trigger="scroll">
                             <b>예측을 바탕으로<br><span style="color: rgba(231, 19, 19, 0.775);">전기요금 폭탄</span>을 미리 대비하세요.</b>
                         </h4>
-                        <button class="btn btn-sm btn-boots-primary my-1 me-1 w-25" role="button" id="showSecondChart" data-zanim-xs='{"delay":1.5}' data-zanim-trigger="scroll">두 번째 리포트 확인하기</button> <br>
+                        <button class="btn btn btn-outline-primary my-1 me-1 w-25 my-1 me-1 w-25" role="button" id="showSecondChart" data-zanim-xs='{"delay":1.5}' data-zanim-trigger="scroll">두 번째 리포트</button> <br>
                     </div>
                 </div>
         </section>
 
-        <section id="page5" class="p-0 my-9 pt-6" >
+        <section id="page5" class="p-0 my-9 pt-5" >
             <div class="container p-0 my-4" style=" margin-top: -100px !important;">
                 <div class="row flex-center">
                     <div class="col-md-9 text-center text-md-start">
@@ -256,14 +257,14 @@
                         </div>
                         <div class="d-flex py-2 justify-content-space-between align-items-center"  data-zanim-xs='{"delay":1.2}' data-zanim-trigger="scroll">
                             <p class="fs-0 pe-xl-8">차트에 마우스를 올리면 상세결과를 확인할 수 있습니다.</p>
-                            <button class="btn btn-sm btn-boots-primary w-25" role="button" id="showPage6">다음 리포트 보러가기</button>
+                            <a class="fs-0 pe-xl-8" href="#" role="button" id="analysisConsult">분석전문가 무료상담<i class="fas fa-arrow-right ms-2"></i></a>
+                            
                         </div>
                         </div>
                         <canvas id="chart3" class="chart pair" style="height: 300px;width: 380px; margin-right: 45px;" data-zanim-xs='{"delay":0.6}' data-zanim-trigger="scroll"></canvas>
                         <canvas id="chart4" class="chart pair" style="height: 300px;width: 380px; margin-left: 45px;" data-zanim-xs='{"delay":1.2}' data-zanim-trigger="scroll"></canvas>
                         <div class="col-md-9 text-center pt-2" data-zanim-xs='{"delay":1.5}' data-zanim-trigger="scroll">
-                        
-                            <a class="btn btn-sm btn-default" href="#" role="button" id="analysisConsult">분석전문가 무료상담<i class="fas fa-arrow-right ms-2"></i></a>
+                            <button class="btn btn btn-outline-primary my-1 me-1 w-25 w-25" role="button" id="showPage6">다음 리포트</button>
                         </div>
                     </div> <!--row end-->
                 </div> <!-- end of .container-->
@@ -278,16 +279,26 @@
             <div class="container p-0 mb-4 mt-2">
                 <div class="row align-items-center">
                     <div class="col-12 text-lg-end text-end">
-                        <h2 class="fs-4 fw-normal mt-6" data-zanim-xs='{"delay":0.3}' data-zanim-trigger="scroll"><b>미래를 대비하기,<br><span style="color:lightpink">태양광</span> 발전량 추정.</b></h2>
-                        <h4 class="fs-1 fw-900 mt-4" data-zanim-xs='{"delay":0.6}' data-zanim-trigger="scroll">
+                        <h2 th:if="${#authentication.authorities[0].authority=='ROLE_PROSUMER'}" class="fs-4 fw-normal mt-6" data-zanim-xs='{"delay":0.3}' data-zanim-trigger="scroll"><b>지속가능한 전력,<br><span style="color:lightpink">태양광</span> 발전량 추정.</b></h2>
+                        <h2 th:unless="${#authentication.authorities[0].authority=='ROLE_PROSUMER'}" class="fs-4 fw-normal mt-6" data-zanim-xs='{"delay":0.3}' data-zanim-trigger="scroll"><b>지속가능한 전력, <br>태양광 설치 <span style="color:lightpink">손익분기점</span> 예측.</b></h2>
+                        
+                        <h4 th:if="${#authentication.authorities[0].authority=='ROLE_PROSUMER'}" class="fs-1 fw-900 mt-4" data-zanim-xs='{"delay":0.6}' data-zanim-trigger="scroll">
                             <b>평균기온, 태양광 일사량 등 <u>날씨 정보</u>를 기반으로<br>당신의 태양광 패널의 <span style="color: lightsalmon">건강, 효율, 수명</span>을 자동으로 점검합니다.</b>
                         </h4>
-                        <p class="fs-0 m-1" data-zanim-xs='{"delay":0.9}' data-zanim-trigger="scroll">LGBM 모델은 태양광 발전량에 대한 회귀 분석을 통하여<br>당신의 태양광 발전기의 작년 한 해의 발전량을 추정합니다.</p>
+                        <h4 th:unless="${#authentication.authorities[0].authority=='ROLE_PROSUMER'}" class="fs-1 fw-900 mt-4" data-zanim-xs='{"delay":0.6}' data-zanim-trigger="scroll">
+                            <b>설치지역과 날씨, 예상발전량을 기반으로<br>태양광 패널 설치시 <span style="color: lightsalmon">순이익 시점</span>을 제공합니다.</b>
+                        </h4>
+
+                        <p th:if="${#authentication.authorities[0].authority=='ROLE_PROSUMER'}" class="fs-0 m-1" data-zanim-xs='{"delay":0.9}' data-zanim-trigger="scroll">LGBM 모델은 태양광 발전량에 대한 회귀 분석을 통하여<br>당신의 태양광 발전기의 작년 한 해의 발전량을 추정합니다.</p>
+                        <p th:unless="${#authentication.authorities[0].authority=='ROLE_PROSUMER'}" class="fs-0 m-1" data-zanim-xs='{"delay":0.9}' data-zanim-trigger="scroll">LGBM 모델은 태양광 발전량에 대한 회귀 분석을 통하여<br>태양광 발전기 설치시의 월별 발전량을 추정합니다.</p>
                         
-                        <h4 class="fs-2 fw-bold mt-4" data-zanim-xs='{"delay":1.2}' data-zanim-trigger="scroll">
+                        <h4 th:if="${#authentication.authorities[0].authority=='ROLE_PROSUMER'}" class="fs-2 fw-bold mt-4" data-zanim-xs='{"delay":1.2}' data-zanim-trigger="scroll">
                             <b>실제발전량과 추정발전량을 비교하여<br>태양광 패널과 전기요금을 동시에 <span style="color: lightcoral">최적화</span>하세요.</b>
                         </h4>
-                        <button class="btn btn-sm btn-boots-primary my-1 me-1 w-25" role="button" id="showThirdChart" data-zanim-xs='{"delay":1.5}' data-zanim-trigger="scroll">마지막 리포트 확인하기</button> <br>
+                        <h4 th:unless="${#authentication.authorities[0].authority=='ROLE_PROSUMER'}" class="fs-2 fw-bold mt-4" data-zanim-xs='{"delay":1.2}' data-zanim-trigger="scroll">
+                            <b>설치비용과 예상이익을 비교하여<br><span style="color: lightcoral">효율적인 의사결정</span>을 내리세요.</b>
+                        </h4>
+                        <button class="btn btn-outline-primary my-1 me-1 w-25" role="button" id="showThirdChart" data-zanim-xs='{"delay":1.5}' data-zanim-trigger="scroll">마지막 리포트</button> <br>
                     </div>
                 </div>
             </div>
@@ -300,11 +311,14 @@
             <div class="container p-0 my-4">
                 <div class="row flex-center">
                     <div class="col-md-6 text-start text-md-start">
-                        <h4 class="fw-normal fs-3" data-zanim-xs='{"delay":0.3}' data-zanim-trigger="scroll">
+                        <h4 th:if="${#authentication.authorities[0].authority=='ROLE_PROSUMER'}" class="fw-normal fs-3" data-zanim-xs='{"delay":0.3}' data-zanim-trigger="scroll">
                             <b>태양광 패널 상태 분석 결과</b>
                         </h4>
-                        <div class="d-flex justify-content-space-between align-item-center my-2 mt-2">
-                            <ul class="list-unstyled py-1" data-zanim-xs='{"delay":0.6}' data-zanim-trigger="scroll">
+                        <h4 th:unless="${#authentication.authorities[0].authority=='ROLE_PROSUMER'}" class="fw-normal fs-3" data-zanim-xs='{"delay":0.3}' data-zanim-trigger="scroll">
+                            <b>태양광 패널 손익 예측 결과</b>
+                        </h4>
+                        <div class="my-2 mt-2">
+                            <ul th:if="${#authentication.authorities[0].authority=='ROLE_PROSUMER'}" class="list-unstyled py-1" data-zanim-xs='{"delay":0.6}' data-zanim-trigger="scroll">
                                 <li class="mb-3 text-900" id="chart2result1">
                                     <span class="far fa-check-circle text-700 me-2"></span>작년 한 해 월평균 발전량:
                                 </li>
@@ -315,21 +329,57 @@
                                     <span class="far fa-check-circle text-700 me-2"></span>태양광 패널의 관리 상태 -
                                 </li>
                             </ul>
+                            <div th:unless="${#authentication.authorities[0].authority=='ROLE_PROSUMER'}" class="input-group" data-zanim-xs='{"delay":0.6}' data-zanim-trigger="scroll">
+                                <div class="input-group">
+                                        <span class="input-group-text">
+                                            <b>예상 설비량</b>
+                                        </span>
+                                        <span class="input-group-text">
+                                            <b>3 kW</b>
+                                            <input class="form-check-input mt-0 ms-3" type="radio" value="3" name="capacity" checked>
+                                        </span>
+                                        <span class="input-group-text">
+                                            <b>5 kW</b>
+                                            <input class="form-check-input mt-0 ms-3" type="radio" value="5" name="capacity">
+                                        </span>
+                                        <span class="input-group-text">
+                                            <b>6 kW</b>
+                                            <input class="form-check-input mt-0 ms-3" type="radio" value="6" name="capacity">
+                                        </span>
+                                        <span class="input-group-text">
+                                            <b>10 kW</b>
+                                            <input class="form-check-input mt-0 ms-3" type="radio" value="10" name="capacity">
+                                        </span>
+                                    </div>
+                            </div>
+                            <div th:unless="${#authentication.authorities[0].authority=='ROLE_PROSUMER'}" class="input-group" data-zanim-xs='{"delay":0.6}' data-zanim-trigger="scroll">
+                                <span class="input-group-text"><b>예상 설치비용</b></span>
+                                <input type="text" class="form-control" aria-label="cost" id="cost" value="600" style="width:150px">
+                                <span class="input-group-text"><b>만원</b></span>
+                            </div>
+                            <div th:unless="${#authentication.authorities[0].authority=='ROLE_PROSUMER'}" class="input-group" data-zanim-xs='{"delay":0.9}' data-zanim-trigger="scroll">
+                                <h5 class="fw-normal fs-3">
+                                    <b>와트마켓 서비스 이용시 손익분기점을 <u style="color:#6f42c1">2년 3개월</u>앞 당길 수 있습니다.</b>
+                                </h5>
+
+                            </div>
                         </div>
                         <p data-zanim-xs='{"delay":0.9}' data-zanim-trigger="scroll">라인에 마우스를 올리면 구체적인 수치가 나옵니다. <br>상단 네모상자를 클릭하면 오차범위를 확인할 수 있습니다.</p>
-                        <button class="btn btn-sm btn-boots-primary my-1 me-1 w-50" role="button" id="showPage8" data-zanim-xs='{"delay":1.2}' data-zanim-trigger="scroll">분석 리포트 마무리하기</button><br>
+                        <button class="btn btn btn-outline-primary my-1 me-1 w-50" role="button" id="showPage8" data-zanim-xs='{"delay":1.2}' data-zanim-trigger="scroll">종료하기</button><br>
                         <a class="btn btn-sm my-0 btn-default ps-0" href="#" id="solarConsult" data-zanim-xs='{"delay":1.2}' data-zanim-trigger="scroll">태양광 패널 관리 무료상담</a>
                     </div>
                     <div class="col-md-6" data-zanim-xs='{"delay":0.3}' data-zanim-trigger="scroll">
-                        <canvas id="chart2" class="chart solo" style="height: 500px;width: 642px;"></canvas>
+                        <canvas th:if="${#authentication.authorities[0].authority=='ROLE_PROSUMER'}" id="chart2" class="chart solo" style="height: 500px;width: 642px;"></canvas>
+                        <div th:unless="${#authentication.authorities[0].authority=='ROLE_PROSUMER'}" id="chart2" class="chart solo" style="height: 500px;width: 642px;"></div>
                     </div>
+
                 </div> <!--row end-->
             </div>
             <!-- end of .container-->
         </section> <!--section-->
 
 
-        <section id="page8" class="p-0 my-9 pt-7">
+        <section id="page8" class="p-0 my-9 pt-5">
             <div class="container p-0 my-4" style="background-image: url('/images/wattMarket.jpg'); background-size: 570px 575px; background-position: right top; background-repeat: no-repeat; margin-top: -75px !important;" data-zanim-xs='{"delay":0.3}' data-zanim-trigger="scroll">
                 <div class="row flex-center justify-content-center">
                     <div class="col-md-12 text-start text-md-start">
@@ -342,15 +392,12 @@
                                 <br>당신의 전기요금을 최적화하세요.</b>
                         </h6>
                         <!-- <img th:src="@{/images/wattMarket.jpg}" alt="" width="480px" height="300px"> -->
-
-                            <button class="btn btn-sm btn-outline-primary py-2 w-25" role="button" id="endReport" data-zanim-xs='{"delay":1.5}' data-zanim-trigger="scroll"><b>와트마켓 전력거래 이용하기</b></button>
+                            <button class="btn btn-outline-primary py-2 w-25" role="button" id="endReport" data-zanim-xs='{"delay":1.5}' data-zanim-trigger="scroll"><b>와트마켓 전력거래 이용하기</b></button>
 
                 </div> <!--row end-->
             </div> <!-- end of .container-->
         </section> <!--section-->
         
     </main>
-
-
 </body>
 </html>

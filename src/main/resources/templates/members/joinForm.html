@@ -98,15 +98,15 @@
 
     <!-- ============================================-->
     <!-- <section> begin ============================-->
-    <section style="background-color: rgba(109, 124, 130, 0.147);">
-        <div class="container-md mt-4"  style="background-image: url('/images/moneyTrade.jpg'); background-size: 1200px 600px;">
-            <div class="row align-items-center py-3">
+    <section>
+        <div class="container-md mt-4">
+            <div class="row align-items-center justify-content-center py-3">
                 
-                <div class="col-md-6 text-start text-md-start" id="joinInfo">
-                    <button class="btn btn-boots-purple btn-xl" role="button" id="joinBtn"><b>지금바로 가입하기</b></button>
+                <div class="col-md-6 text-center text-md-center py-7" id="joinInfo">
+                    <button class="btn btn-boots-warning btn-xl" role="button" id="joinBtn"><b>지금바로 가입하기</b></button>
                 </div>  
     
-                <div class="col-md-6 text-center text-md-center align-item-center" id="joinDocu" style="background-color: rgba(255, 255, 255, 0.67); border-radius: 10%;">
+                <div class="col-md-6 text-center text-md-center align-item-center" id="joinDocu" style="background-color: rgba(44, 168, 36, 0.67); border-radius: 10%;">
                     <form method="post">
                         <div id="step1" >
                             <h4 class="fs-2 fw-bold m-2 text-center"><b>기본 정보</b></h4>
@@ -150,10 +150,15 @@
 
                             <div class="input-group my-3">
 
-                                <span class="input-group-text" id="nationalId">
+                                <span class="input-group-text" id="sampleNationalIdFirst"><b>주민등록번호</b></span>
+                                <input type="text" class="form-control " placeholder="앞 6자리" aria-label="sampleNationalIdFirst" aria-describedby="sampleNationalIdFirst">
+                                <span class="input-group-text" id="sampleNationalIdSecond"><b>-</b></span>
+                                <input type="password" class="form-control " placeholder="뒤 7자리" aria-label="sampleNationalIdSecond" aria-describedby="sampleNationalIdSecond">
+
+                                <span class="input-group-text" id="nationalId" hidden>
                                     <b>주민등록번호</b>
                                 </span>
-                                <input type="text" class="form-control " placeholder="000000-0000000" aria-label="Username" aria-describedby="nationalId">
+                                <input type="text" class="form-control " placeholder="000000-0000000" aria-label="Username" aria-describedby="nationalId" hidden>
                                 <button class="btn btn-outline-dark">휴대폰 인증</button>
                             </div>
                             <div class="input-group my-3" style="height: 80px;">
@@ -245,9 +250,9 @@
                     </div>
                     <button class="btn btn-sm btn-primary btn-bg-purple my-4 me-1" href="#!" role="button">Get started</button><a class="btn btn-sm my-2 btn-default" href="#" role="button">Questions? Talk to our team<i class="fas fa-arrow-right ms-2"></i></a> -->
                 </div> <!--col-->
-                <div class="col-md-6" style="height: 600px;">
-                    
-                </div>
+                <!-- <div class="col-md-6" style="height: 600px;"> -->
+                    <!-- <img th:src="@{/images/moneyTrade.jpg}" alt="" height="500px"> -->
+                <!-- </div> -->
             </div>
         </div>
     </section>

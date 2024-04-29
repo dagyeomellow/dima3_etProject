@@ -7,6 +7,11 @@ const memberRole=$("#memberRole").val();
 
 $(document).ready(function() {
     init();
+    if(memberRole=='ROLE_CONSUMER'){
+        $('capacity').on('change', chart3);
+        $('cost').on('input', chart3);
+    }
+    
 });
 /**
  * 에이잭스 실행 목록
@@ -43,15 +48,34 @@ function chart1(){
     })
 }
 function chart3(){
-    $.ajax({
-        url: 'report/getPredictProductionData',
-        type: 'GET',
-        data:{
-            "memberId": memberId
-        },
-        dataType: 'json',
-        success: drawPredictProdcution
-    })
+    if(memberRole=='ROLE_PROSUMER'){
+        $.ajax({
+            url: 'report/getPredictProductionData',
+            type: 'GET',
+            data:{
+                "memberId": memberId
+            },
+            dataType: 'json',
+            success: drawPredictProdcution
+        })
+    } else if(memberRole=='ROLE_CONSUMER'){
+        let capacity =$("input[type=radio][name=capacity]:checked").val();
+        console.log(capacity)
+        let cost=$('#cost').val();
+        cost*=10000
+        console.log(cost)
+        $.ajax({
+            url: 'report/getBreakevenData',
+            type: 'GET',
+            data:{
+                "memberId": memberId,
+                "capacity": capacity,
+                "cost": cost
+            },
+            dataType: 'json',
+            success: drawBreakeven
+        })
+    }
 }
 function chart2(){
     $.ajax({
@@ -588,4 +612,191 @@ window.chartBar = new Chart(ctxBar, {
                              '<span class="far fa-check-circle text-700 me-2"></span>누진 2구간 비중: ' + prog2Percentage + '%<br>' +
                              '<span class="far fa-check-circle text-700 me-2"></span>누진 3구간 비중: ' + prog3Percentage + '%<br>');
 
+}
+
+function drawBreakeven(resp){
+    let requiredMonthsList =resp["RequiredMonths"]
+    let netRevenuesList=resp["NetRevenues"]
+    let point = 0;
+    for (let i = 0; i < netRevenuesList.length; i++) {
+        const revenue = netRevenuesList[i];
+        if (revenue > 0) {
+            point = i;
+            break;
+        }
+    }
+
+    let netRevenuesYear = [];
+    let yearList = [];
+    for (let i = 0; i <= Math.floor(point / 12); i++) {
+        netRevenuesYear.push(Math.round(netRevenuesList[i * 12]));
+        yearList.push(i*12);
+    }
+    netRevenuesYear.push(Math.round(netRevenuesList[point-1]));
+    yearList.push(point-1);
+    netRevenuesYear.push(Math.round(netRevenuesList[point + 11]));
+    yearList.push(point+11);
+
+    var options = {
+        series: [{
+            data: netRevenuesYear,
+            name: '예상 순이익', // Set data label value
+            color: '#FFB6C1' // Set line color to light pink
+        }],
+        chart: {
+            type: 'line',
+            width: 730,
+            height: 425,
+            background: '#000000', // Set chart background color to black
+            foreColor: '#ffffff', // Set chart text color to white
+            toolbar: {
+                show: false // Remove toolbar
+            },
+            border: {
+                width: 8, // Set border width
+                color: '#800080' // Set border color to purple
+            }
+        },
+        yaxis: [
+            {
+                title: {
+                    text: '기대순이익'
+                },
+                labels: {
+                    formatter: function (value) {
+                        return value.toLocaleString() + '원'; // Format y-axis as "1,000,000원"
+                    }
+                }
+            }
+        ],
+        xaxis: {
+            title: {
+                text: '소요 개월' // Set x-axis label title
+            }
+        },
+        annotations: {
+            xaxis: [{//손익분기점 표시
+                x: point-1,
+                strokeDashArray: 5,
+                borderColor: '#FF4560',
+                label: {
+                    borderColor: '#FF4560',
+                    style: {
+                        color: '#fff',
+                        background: '#FF4560',
+                        fontSize: '21px' // Set annotation text size
+                    },
+                    text: `손익분기점: ${Math.floor((point-1)/12)}년 ${point%12}개월`,
+                    offsetY: 250,
+                    offsetX: -100,
+                    orientation: 'horizontal'
+                }
+            }],
+        },
+        dataLabels: 
+        {enabled: false},
+        stroke: {curve: 'smooth'},
+        grid: {
+            padding: {
+                right: 30,
+                left: 20
+            }
+        },
+        title: {
+            text: '태양광 발전기 설치시 손익분기점',
+            align: 'center',
+            style: {
+                fontSize: '24px' // Set title size
+            }
+        },
+        labels: yearList
+    };
+    
+    var chart = new ApexCharts(document.querySelector("#chart2"), options);
+    chart.render();
+}
+
+function drawBreakeven2(resp){
+    let requiredMonthsList =resp["RequiredMonths"]
+    let netRevenuesList=resp["NetRevenues"]
+    // 데이터 준비
+    let point = 0;
+    for (let i = 0; i < netRevenuesList.length; i++) {
+        const revenue = netRevenuesList[i];
+        if (revenue > 0) {
+            point = i;
+            break;
+        }
+    }
+
+    let netRevenuesYear = [];
+    let yearList = [];
+    for (let i = 0; i <= Math.floor(point / 12); i++) {
+        netRevenuesYear.push(Math.round(netRevenuesList[i * 12]));
+        yearList.push(i*12);
+    }
+    netRevenuesYear.push(Math.round(netRevenuesList[point-1]));
+    yearList.push(point-1);
+    netRevenuesYear.push(Math.round(netRevenuesList[point + 11]));
+    yearList.push(point+11);
+
+    var ctx = document.getElementById('chart2').getContext('2d');
+if(window.chartBreak != undefined){
+    window.chartBreak.destroy();
+}
+
+window.chartBreak = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: yearList,
+        datasets: [{
+            label: '기대순이익',
+            data: netRevenuesYear,
+            borderColor: 'rgba(175,132,25,0.7)',
+            borderWidth: 3
+        }]
+    },
+    options: {
+        responsive: true,
+        title: {
+            display: true,
+            text: '손익분기점'
+        },
+        annotation: {
+            annotations: [{
+                type: 'line',
+                mode: 'horizontal',
+                scaleID: 'x-axis-0',
+                value: netRevenuesYear[netRevenuesYear.length - 1],
+                borderColor: '#FF00FF',
+                borderWidth: 10,
+                label: {
+                    enabled: true,
+                    content: `1년 기대수익: ${netRevenuesYear[netRevenuesYear.length - 1]}`
+                }
+            }, {
+                type: 'line',
+                mode: 'vertical',
+                scaleID: 'x-axis-0',
+                value: point-1,
+                borderColor: '#FF4560',
+                borderWidth: 5,
+                label: {
+                    enabled: true,
+                    content: `손익분기점: ${Math.floor((point-1)/12)}년 ${point%12}개월`
+                }
+            }, {
+                type: 'point',
+                scaleID: 'y-axis-0',
+                value: 0,
+                borderColor: '#0000FF',
+                borderWidth: 10,
+                label: {
+                    enabled: true,
+                    content: 'y=0 지점'
+                }
+            }]
+        }
+    }
+});
 }

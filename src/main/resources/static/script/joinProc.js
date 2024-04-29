@@ -1,6 +1,17 @@
 let currentPage = 1;
 
 $(document).ready(function(){
+    // sampleNationalIdFirst 또는 sampleNationalIdSecond의 값이 변경되면 실행됩니다.
+    $("input[aria-describedby='sampleNationalIdFirst'], input[aria-describedby='sampleNationalIdSecond']").on('input', function() {
+        // sampleNationalIdFirst와 sampleNationalIdSecond의 값을 가져옵니다.
+        var first = $("input[aria-describedby='sampleNationalIdFirst']").val();
+        var second = $("input[aria-describedby='sampleNationalIdSecond']").val();
+
+        // 가져온 값을 합쳐서 input#nationalId에 넣습니다.
+        $("input[aria-describedby='nationalId']").val(first + '-' + second);
+    });
+
+    
     init();
     $('#joinDocu').hide();
     $('#joinBtn').on('click', startJoinProc);

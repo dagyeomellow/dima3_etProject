@@ -100,12 +100,30 @@ public class AnalysisController {
         return respData;
     }
 
+    @GetMapping("/report/getBreakevenData")
+    @ResponseBody
+    public Map<String,List> getBreakevenData(
+        @RequestParam(name="cost") String costStr,
+        @RequestParam(name="capacity") String capacityStr,
+        @RequestParam(name="memberId") String memberId
+    ){
+        Map<String,List> respData = new HashMap<>();
+        int capacity; capacity = Integer.parseInt(capacityStr);
+        int cost; cost = Integer.parseInt(costStr);
+
+        Map<String,List> consumerPrediction= analysisService.consumerAnanlysis(memberId, capacity, cost);
+        respData.put("RequiredMonths", consumerPrediction.get("RequiredMonths"));
+        respData.put("NetRevenues", consumerPrediction.get("NetRevenues"));
+
+        return respData;
+    }
+
     /**
      * 프로슈머의 데이터를 반환하는 컨트롤러
      * @param memberId
      * @return
      */
-    @GetMapping("/report/getProsumerData")
+    @GetMapping("/pending/getProsumerData")
     @ResponseBody
     public Map<String,List> getProsumerData(
         @RequestParam(name="memberId") String memberId
@@ -139,7 +157,7 @@ public class AnalysisController {
         return respData;
     }
     
-    @GetMapping("/report/getConsumerData")
+    @GetMapping("/pending/getConsumerData")
     @ResponseBody
     public Map<String,List> getConsumerData(
         @RequestParam(name="memberId") String memberId,
