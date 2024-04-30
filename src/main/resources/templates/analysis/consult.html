@@ -78,7 +78,7 @@
                         <li class="nav-item"><a class="nav-link px-3" th:href="@{/intro/service}">서비스소개</a></li>
                         <li class="nav-item"><a class="nav-link px-3" th:href="@{/analysis/consult}">요금컨설팅</a></li>
                         <li class="nav-item"><a class="nav-link pl-3" th:href="@{/analysis/report}">분석리포트</a></li>
-                        <li class="nav-item"><a class="nav-link pl-3" th:href="@{/}">고객센터</a></li>
+                        <li class="nav-item"><a class="nav-link pl-3" th:href="@{/}">마이페이지</a></li>
                     </ul>
                     <a th:href="@{/members/loginForm}" sec:authorize="isAnonymous()">
                         <button class="btn btn-outline-primary btn-xs">로그인</button>
@@ -228,7 +228,7 @@
                 <div class="row align-items-center">
                 <div class="col-12 text-lg-start text-start">
                     <br><br><br><br><br><br>
-                    <p class="fs-2 fw-normal mt-3 ps-10"><b style="20px">당신의 최적가 매칭결과!</b>!</b></p>
+                    <p class="fs-2 fw-normal mt-3 ps-10"><b style="font-size: 20px">당신의 최적가 매칭결과!</b>!</b></p>
                     <h2 class="fs-4 fw-normal mt-3 ps-10"><b><u style="color: red;">11만 3700원</u></b></h2><br>
                     <!-- #6f42c1;-->
                     <input type="text" name="resultPrice" id="resultPrice" value="113700" hidden>

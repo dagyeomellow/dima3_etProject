@@ -9,6 +9,7 @@ $(document).ready(function(){
 
         // 가져온 값을 합쳐서 input#nationalId에 넣습니다.
         $("input[aria-describedby='nationalId']").val(first + '-' + second);
+        console.log($("input[aria-describedby='nationalId']").val());
     });
 
     

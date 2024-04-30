@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>index</title>
+    <title>service</title>
     <link rel="apple-touch-icon" sizes="180x180" th:href="@{img/apple-touch-icon.png}">
     <link rel="icon" type="image/png" sizes="32x32" th:href="@{img/favicon-32x32.png}">
     <link rel="icon" type="image/png" sizes="16x16" th:href="@{img/favicon-16x16.png}">
@@ -37,67 +37,16 @@
     <script th:src="@{/script/jquery-3.7.1.min.js}"></script>
     <script th:src="@{/script/theme.js}"></script>
     <style>
-        *{
-            padding:0;
-            margin:0;
-            border:none;
+        .service-img{
+            width:1100px;
+            height: 550px;
         }
-        .login-wrapper{
-            display: grid;
-
-            width:400px;
-            height:350px;
-            padding:10px;
-            box-sizing:border-box;
-            font-size:14px;
-            font-family: "Noto Sans KR";
+        .container{
+            padding-top: 3rem;
+            padding-bottom: 3rem;
+            padding-left: 4rem;
         }
-        .login-wrapper > h2{
-            font-size:24px;
-            color: #6A24FE;
-            margin-bottom:20px;
-        }
-        #loginForm > input{
-            width:100%;
-            height:48px;
-            padding: 0 10px;
-            box-sizing: border-box;
-            margin-bottom: 16px;
-            border-radius:6px;
-            background-color: #f8f8f8;
-        }
-        #loginForm > input::placeholder{
-            color: #D2D2D2;
-        }
-        #loginForm > input[type="submit"]{
-            color: #fff;
-            font-size: 16px;
-            background-color: #6A24FE;
-            margin-top: 20px;
-        }
-        #loginForm > input[type="checkbox"]{
-            display: none;
-        }
-        #loginForm > label{
-            color: #999999;
-        }
-        #loginForm input[type="checkbox"] + label{
-            cursor: pointer;
-            padding-left: 26px;
-            background-image: url("checkbox.png");
-            background-repeat: no-repeat;
-            background-size: contain;
-        }
-        #loginForm input[type="checkbox"]:checked + label{
-            background-image: url("checkbox-active.png");
-            background-repeat: no-repeat;
-            background-size: contain;
-        }
-        h2{
-
-            color: #6A24FE;
-        }
-            </style>
+    </style>
 </head>
 
 <body>
@@ -132,44 +81,36 @@
             </div>
         </nav>
 
-        <!--표시되는 화면 -->
-        <section class="py-7 py-lg-10" id="home">
-            <!--/.bg-holder-->
-    
-            <!-- <div class="bg-holder d-none d-xxl-block hero-bg" style="background-image:url(assets/img/illustration/1.png);background-position:right top;background-size:contain;"></div> -->
-            <!--/.bg-holder-->
-            
-            <div class="container">
-                <div class="row align-items-center h-100 justify-content-center">
-                        <div class="col-5">
-                            <h2><b>어서오세요!</b></h2>
-                            <form method="post" th:action="@{/members/loginProc}" id="loginForm">
-                                <input type="text" name="memberId" placeholder="아이디">
-                                <input type="password" name="memberPw" placeholder="비밀번호">
-                                <label for="rememberCheck">
-                                    <input type="checkbox" id="rememberCheck">아이디 저장하기
-                                </label>
-                                <input class="btn btn-sm btn-primary me-1" type="submit" value="로그인">
-                            </form>
-                            <div style="display: flex; justify-content: space-between;">
-                                <a th:href="@{/members/joinForm}"><button class="btn btn-sm btn-outline-primary me-0 m-1" role="button">회원가입</button></a>
-                                <button class="btn btn-sm btn-outline-primary ms-0 m-1" role="button">아이디/비밀번호 찾기</button>
-
-                            </div>
-                        </div>
-                        <div class="col-5">
-                            <img th:src="@{/images/watty.jpg}" height="480" alt="watty" id="watty">
-                        </div>
-                            <th:block th:if="${error}">
-                                <div th:text="${errMessage}" style="font-size:1em; color:red;"></div>
-                            </th:block>
-                        </div>
-                </div>
+        <section style="background-color: #f2f3f5;">
+            <div class="container pt-0 pb-5">
+                <img th:src="@{/images/service1.png}" class="service-img">
             </div>
+            <div class="container">
+                <img th:src="@{/images/service2.png}" class="service-img">
+            </div>
+            <div class="container">
+                <img th:src="@{/images/service3.png}" class="service-img">
+            </div>
+            <div class="container">
+                <img th:src="@{/images/service4.png}" class="service-img">
+            </div>
+            <div class="container">
+                <img th:src="@{/images/service5.png}" class="service-img">
+            </div>
+            <div class="container">
+                <img th:src="@{/images/service6.png}" class="service-img">
+            </div>
+            <div class="container">
+                <img th:src="@{/images/service7.png}" class="service-img">
+            </div>
+            <div class="container">
+                <img th:src="@{/images/service8.png}" class="service-img">
+            </div>
+            <div class="container">
+                <img th:src="@{/images/service9.png}" class="service-img">
+            </div>
+        </section>
 
-            </section>
         </main>
-        
-
 </body>
 </html>

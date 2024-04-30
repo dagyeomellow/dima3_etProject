@@ -42,59 +42,76 @@
 
     
     <style>
+        ul>li{
+            color: rgba(255, 255, 255, 0.858);
+        }
         .number{
             margin:3px;
-            color: #dd37a9e3;
             font-size: 20px;
             font-weight: 500;
+            color: white;
         }
         .active{
             margin:3px;
-            color: #e100ff;
-            font-size:larger;
+            font-size:30px;
             font-weight: 900;
+            color: black;
 
         }
         .bar{
             margin:3px;
             font-size: 20px;
             font-weight: bold;
+            color: white;
         }
         .col-1{
             margin: 0px;
             padding: 0;
         }
+
+
+        .bg-video {
+            /* height: 100vh; */
+            width: 100vw;
+            /* object-fit: cover; 추가된 부분 */
+        }
     </style>
 </head>
-<body>
+<body style="margin:0; padding:0; overflow:hidden;">
+    <video autoplay muted loop id="myVideo" style="position:fixed; " class="bg-video">
+        <source th:src="@{/video/loginFormVideo.mp4}" type="video/mp4">
+        <!-- 영상이 지원되지 않는 브라우저를 위한 메시지 -->
+        Your browser does not support HTML5 video.
+    </video>
     <main class="main">
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top p-1" data-navbar-on-scroll="light">
-        <div class="ps-6 pt-2">
-            <a class="navbar-brand" th:href="@{/}">
-                <img th:src="@{/images/logo.png}" width="118" height="70" alt="logo" id="logo" >
-            </a>
-        </div>
-        <div class="container p-0 my-4">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-            <div class="collapse navbar-collapse border-top border-lg-0 mt-4 mt-lg-0" id="navbarSupportedContent">
-                <ul class="navbar-nav ms-auto pt-2 pt-lg-0 font-base align-items-center">
-                    <li class="nav-item"><a class="nav-link px-3" th:href="@{/}">와트마켓</a></li>
-                    <li class="nav-item"><a class="nav-link px-3" th:href="@{/intro/service}">서비스소개</a></li>
-                    <li class="nav-item"><a class="nav-link px-3" th:href="@{/analysis/consult}">요금컨설팅</a></li>
-                    <li class="nav-item"><a class="nav-link pl-3" th:href="@{/analysis/report}">분석리포트</a></li>
-                    <li class="nav-item"><a class="nav-link pl-3" th:href="@{/}">고객센터</a></li>
-                </ul>
-                <a th:href="@{/members/loginForm}" sec:authorize="isAnonymous()">
-                    <button class="btn btn-outline-primary btn-xs">로그인</button>
-                </a>
-                <a th:href="@{/members/logout}" sec:authorize="isAuthenticated()">
-                    <button class="btn btn-outline-secondary btn-xs">로그아웃</button>
-                    <input sec:authorize="isAuthenticated()" type="hidden" name="memberId" id="memberId" th:value="${#authentication.principal.username}">
-                    <input sec:authorize="isAuthenticated()" type="hidden" name="memberRole" id="memberRole" th:value="${#authentication.authorities[0].authority}">
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top p-1" data-navbar-on-scroll="light">
+            <div class="ps-6 pt-2">
+                <a class="navbar-brand" th:href="@{/}">
+                    <img th:src="@{/images/logo.png}" width="118" height="70" alt="logo" id="logo" >
                 </a>
             </div>
-        </div>
-    </nav>
+            <div class="container p-0 my-4">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse border-top border-lg-0 mt-4 mt-lg-0" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto pt-2 pt-lg-0 font-base align-items-center" style="text-decoration: white">
+                        <!-- <span style="color: white"></span> -->
+                        <li class="nav-item"><a class="nav-link px-3" th:href="@{/}">와트마켓</a></li>
+                        <li class="nav-item"><a class="nav-link px-3" th:href="@{/intro/service}">서비스소개</a></li>
+                        <li class="nav-item"><a class="nav-link px-3" th:href="@{/analysis/consult}">요금컨설팅</a></li>
+                        <li class="nav-item"><a class="nav-link pl-3" th:href="@{/analysis/report}">분석리포트</a></li>
+                        <li class="nav-item"><a class="nav-link pl-3" th:href="@{/}">마이페이지</a></li>
+                    </ul>
+                    <a th:href="@{/members/loginForm}" sec:authorize="isAnonymous()">
+                        <button class="btn btn-outline-primary btn-xs">로그인</button>
+                    </a>
+                    <a th:href="@{/members/logout}" sec:authorize="isAuthenticated()">
+                        <button class="btn btn-outline-secondary btn-xs">로그아웃</button>
+                        <input sec:authorize="isAuthenticated()" type="hidden" name="memberId" id="memberId" th:value="${#authentication.principal.username}">
+                        <input sec:authorize="isAuthenticated()" type="hidden" name="memberRole" id="memberRole" th:value="${#authentication.authorities[0].authority}">
+                    </a>
+                </div>
+            </div>
+        </nav>
 
     <!-- ============================================-->
     <!-- <section> begin ============================-->
@@ -102,29 +119,29 @@
         <div class="container-md mt-4">
             <div class="row align-items-center justify-content-center py-3">
                 
-                <div class="col-md-6 text-center text-md-center py-7" id="joinInfo">
-                    <button class="btn btn-boots-warning btn-xl" role="button" id="joinBtn"><b>지금바로 가입하기</b></button>
+                <div class="col-md-6 text-center text-md-center py-11" id="joinInfo">
+                    <button class="btn btn-light btn-xl" role="button" id="joinBtn"><b>지금바로 가입하기</b></button>
                 </div>  
     
-                <div class="col-md-6 text-center text-md-center align-item-center" id="joinDocu" style="background-color: rgba(44, 168, 36, 0.67); border-radius: 10%;">
-                    <form method="post">
+                <div class="col-md-6 text-center text-md-center align-item-center pt-3" id="joinDocu" style="background-color: rgba(201, 228, 199, 0.207); border-radius: 10%;">
+                    <form method="post" >
                         <div id="step1" >
                             <h4 class="fs-2 fw-bold m-2 text-center"><b>기본 정보</b></h4>
                             <div class="input-group m-2">
                                 <span class="input-group-text d-flex justify-content-center" id="memberName" style="width:100px;"><b>이   름</b></span>
-                                <input type="text" class="form-control" placeholder="이   름" aria-label="이   름" aria-describedby="memberName">
+                                <input type="text" class="form-control" placeholder="이   름" aria-label="이   름" aria-describedby="memberName" name="memberName">
                             </div>
                             <div class="input-group m-2">
                                 <span class="input-group-text d-flex justify-content-center" id="memberId" style="width:100px;"><b>아 이 디</b></span>
-                                <input type="text" class="form-control" placeholder="아 이 디" aria-label="아 이 디" aria-describedby="memberId">
+                                <input type="text" class="form-control" placeholder="아 이 디" aria-label="아 이 디" aria-describedby="memberId" name="memberId">
                             </div>
                             <div class="input-group m-2">
                                 <span class="input-group-text d-flex justify-content-center" id="memberPw" style="width:100px;"><b>비밀번호</b></span>
-                                <input type="password" class="form-control" placeholder="숫자/영문 8자리 이상" aria-label="비밀번호" aria-describedby="memberPw">
+                                <input type="password" class="form-control" placeholder="숫자/영문 8자리 이상" aria-label="비밀번호" aria-describedby="memberPw" name="memberPw">
                             </div>
                             <div class="input-group m-2">
                                 <span class="input-group-text d-flex justify-content-center" id="memberPhone" style="width:100px;"><b>전화번호</b></span>
-                                <input type="text" class="form-control" placeholder="010-1234-5678" aria-label="전화번호" aria-describedby="memberPhone">
+                                <input type="text" class="form-control" placeholder="010-1234-5678" aria-label="전화번호" aria-describedby="memberPhone" name="memberPhone">
                             </div>
                         </div>
                         <div id="step2">
@@ -155,10 +172,10 @@
                                 <span class="input-group-text" id="sampleNationalIdSecond"><b>-</b></span>
                                 <input type="password" class="form-control " placeholder="뒤 7자리" aria-label="sampleNationalIdSecond" aria-describedby="sampleNationalIdSecond">
 
-                                <span class="input-group-text" id="nationalId" hidden>
+                                <span class="input-group-text" hidden>
                                     <b>주민등록번호</b>
                                 </span>
-                                <input type="text" class="form-control " placeholder="000000-0000000" aria-label="Username" aria-describedby="nationalId" hidden>
+                                <input type="text" class="form-control" name="nationalId" id="nationalId" placeholder="000000-0000000" aria-label="Username" aria-describedby="nationalId" hidden>
                                 <button class="btn btn-outline-dark">휴대폰 인증</button>
                             </div>
                             <div class="input-group my-3" style="height: 80px;">
@@ -183,14 +200,14 @@
                                 <span class="input-group-text" id="memberAddr">
                                     <b>주소</b>
                                 </span>
-                                <input type="text" class="form-control" placeholder="" aria-label="Username" aria-describedby="memberAddr">
+                                <input type="text" class="form-control" placeholder="" aria-label="Username" aria-describedby="memberAddr" name="memberAddr">
                             </div>
 
                             <div class="input-group my-1">
                                 <span class="input-group-text" id="memberAddrDetail">
                                     <b>상세주소</b>
                                 </span>
-                                <input type="text" class="form-control " placeholder="" aria-label="Username" aria-describedby="memberAddrDetail">
+                                <input type="text" class="form-control " placeholder="" aria-label="Username" aria-describedby="memberAddrDetail" name="memberAddrDetail">
                             </div>
                             <div class="input-group my-3">
                                 <span class="input-group-text">
@@ -208,7 +225,7 @@
                                 <span class="input-group-text">
                                     <b>태양광 설비용량</b>
                                 </span>
-                                <input type="number" id="installedCapacity" class="form-control ms-3" name="installedCapacity" g>
+                                <input type="number" id="installedCapacity" class="form-control" name="installedCapacity" >
                             </div>
                             <div class="input-group my-3">
                                 <span class="input-group-text">
@@ -216,13 +233,23 @@
                                     <input type="checkbox" name="isAgree" id="isAgree" class="form-check-input ms-3 mt-0">
                                 </span>
                                 <button class="btn btn-outline-dark btn-sm ms-1" role="button"><b>약관보기</b></button>
-                                <input type="submit" value="회 원 가 입" id="submitBtn" class="btn btn btn-primary btn-sm ms-7">
+                                <input type="submit" value="회 원 가 입" id="submitBtn" class="btn btn btn-light btn-sm ms-7">
                             </div>
-                            
                         </div>
                     </form>
+                    <div id="step4" >
+                        <div class="row justify-content-center p-4">
+                            <h2 class="py2"><b>회원가입을 환영합니다.</b></h2>
+                            <h4 class="py2"><b>와트마켓에 대해 알고 싶으신가요?</b></h4>
+                            <div class="col-8">
+                                <a th:href="@{/intro/service}">
+                                    <button class="btn btn-light pt-3" ><b>와트마켓 안내받기</b></button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                     <div class="d-flex justify-content-center my-4">
-                        <button class="prev btn btn-info btn-sm me-3" id="prevBtn" hidden><b>이전</b></button>
+                        <button class="prev btn btn-outline-light btn-sm me-3" id="prevBtn" hidden><b>이전</b></button>
     
                         <div class="information" id="information" hidden>
                             <div class="pagination d-flex justify-content-center">
@@ -235,7 +262,7 @@
                                 <div class="number text-center">4</div>
                             </div> <!--pagination 끝-->
                         </div>
-                        <button class="next btn btn-info btn-sm ms-3" id="nextBtn" hidden><b>다음</b></button>
+                        <button class="next btn btn-outline-light btn-sm ms-3" id="nextBtn" hidden><b>다음</b></button>
                     </div>
                     <!-- <p class="fs-0 pe-xl-7">Opportunity is everything. Get out there and find it with Uber.</p>
                     <div class="d-flex justify-content-center align-item-center my-3 mt-2">
