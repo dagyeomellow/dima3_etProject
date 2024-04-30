@@ -23,7 +23,7 @@ $(document).ready(function() {
         index = nextIndex;
     }
 
-    interval = setInterval(cycleImages, 2700);
+    interval = setInterval(cycleImages, 3500);
 
     $('#pause').on('click', function(){
         clearInterval(interval);
@@ -32,7 +32,7 @@ $(document).ready(function() {
         setTimeout(function(){},1000)
         interval = cycleImages();
         clearInterval(interval);
-        interval = setInterval(cycleImages, 2700);
+        interval = setInterval(cycleImages, 3500);
     })
 });
 

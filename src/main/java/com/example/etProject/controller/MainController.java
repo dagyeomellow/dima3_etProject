@@ -9,12 +9,5 @@ public class MainController {
 	public String index() {
 		return "index";
 	}
-	
-	// 회원가입
-	
-	// 마이페이지
-	
-	// 분석보고서
-	
-	// 플랫폼
+
 }
