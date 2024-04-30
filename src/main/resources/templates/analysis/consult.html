@@ -100,24 +100,28 @@
             <div class="container">
                 <div class="row align-items-center">
                 <div class="col-12 text-lg-start text-center">
-                    <h2 class="fs-4 fw-normal mt-6"><b>와티와 함께하는<br>돈 버는 포인트</b>: <u>AMT 아맞땅!</u></h2>
-                    <ul class="list-unstyled py-3">
-                        <li class="mb-3 text-1000">
+                    <br><br>
+                    <h2 class="fs-4 fw-normal mt-6"><b>와티와 함께하는<br>우리집 전기요금 최적화</b><u></u></h2>
+                    <ul class="list-unstyled py-3" style="font-size: 27px;">
+                        <li class="mb-3 text-1000"> <!-- 확인용@@-->
                             <!-- <span class="far fa-check-circle text-700 me-2"></span> 체크원-->
-                            <img class="bi bi-1-square text-700 me-2" th:src="@{/images/1-square.svg}"></img>: 와티의 꼼꼼한 <b>분석</b>(A)
-                            <br>    AI 기반으로 절약할 수 있는 최대금액을 알려드려요.
+                            <img class="bi bi-1-square text-700 me-2" th:src="@{/images/1-square.svg}"></img>: 와티의 꼼꼼한 <b>분석</b>
+                            <br>    <span style="font-size: 24px;">AI 기반으로 절약할 수 있는 최대금액을 알려드려요.</span>
                         </li>
                         <li class="mb-3 text-1000">
-                            <img class="bi bi-2-square text-700 me-2" th:src="@{/images/2-square.svg}"></img>: 와티의 똑똑한 <b>매칭</b>(M)
-                            <br>    AI 기반으로 현재 거래 중인 거래 상대방을 찾아 정확한 절약금액을 알려드려요.
+                            <img class="bi bi-2-square text-700 me-2" th:src="@{/images/2-square.svg}"></img>: 와티의 똑똑한 <b>매칭</b>
+                            <br>    <span style="font-size: 24px;">AI 기반으로 현재 거래 중인 거래 상대방 중<br> 최대 이익을 얻을 수 있는 거래를 매칭해요.</span>
                         </li>
                         <li class="mb-3 text-1000">
-                            <img class="bi bi-3-square text-700 me-2" th:src="@{/images/3-square.svg}"></img>: 와티의 빠른 <b>거래</b>(T)
-                            <br>    단 한번의 클릭으로 절약금액을 실현할 수 있도록 도와드려요.
+                            <img class="bi bi-3-square text-700 me-2" th:src="@{/images/3-square.svg}"></img>: 와티의 빠른 <b>거래</b>
+                            <br>    <span style="font-size: 24px;">단 한번의 클릭으로 절약금액을 실현할 수 있도록 도와드려요.</span>
                         </li>
+                        <button class="btn btn-sm btn-dark my-3 ms-9" href="#" role="button" id="startConsult"
+                    style="font-size: 23px;"><b>와티 컨설팅 시작하기</b></button>
                     </ul>
-                    <button class="btn btn-sm btn-dark my-3" href="#" role="button" id="startConsult"><b>와티 컨설팅 시작하기</b></button><hr>
-                    <a class="btn btn-sm my-0 btn-default" th:href="@{/intro/service}" role="button">와트 하우스가 궁금하신가요?</a>
+                    
+                    <!-- <a class="btn btn-sm my-0 btn-default" th:href="@{/intro/service}" role="button" -->
+                    <!-- style="font-size: 19px;">와트 하우스가 궁금하신가요?</a> -->
             </div>
         </section>
 
@@ -127,7 +131,8 @@
             <div class="container">
                 <div class="row align-items-center">
                 <div class="col-12 text-lg-start text-center">
-                    <h2 class="fs-4 fw-normal mt-6"><b>와티의 <b style="color: rgba(232, 26, 26, 0.9)">분석</b>이 진행 중입니다.<br>잠시만 기다려주세요.</h2>                    
+                    <br><br><br><br><br><br><br>
+                    <h2 class="fs-4 fw-normal mt-6"><b>와티의 <b style="color: darkorange">분석</b>이 진행 중입니다.<br>잠시만 기다려주세요.</h2>                    
             </div>
         </section>
 
@@ -139,13 +144,17 @@
             <div class="container">
                 <div class="row align-items-center">
                 <div class="col-12 text-lg-start text-start">
-                    <p class="fs-2 fw-normal mt-3 ps-10"><b>당신의 최대이득 예측결과!</b>!</b></p>
-                    <h2 class="fs-4 fw-normal mt-3 ps-10"><b><u style="color: rgba(14, 239, 70, 0.707);">"12만 5200원"</u></b></h2>
+                    <br><br><br>
+                    <p class="fs-2 fw-normal mt-3 ps-10" style="font-size: 30px;"><b>와티가 분석한 당신의 최대이익!</b></b></p>
+                    <h2 class="fs-4 fw-normal mt-3 ps-10"><b><u style="color: #E82E2A;">12만 5200원</u></b></h2><br>
+                    <!--rgba(14, 239, 70, 0.707);-->
                     <input type="text" name="optimalPrice" id="optimalPrice" value="125200" hidden>
-                    <p class="fs-2 fw-normal mt-3 ps-10">총 <b><u style="color: #b12bb1;">3</u></b>개월 간 최대 <b><u style="color:#b12bb1;">750kWh</u></b>를 <b><span style="color:rgba(14, 239, 70, 0.707);">판매</span></b> 가능</p>
+                    <p class="fs-2 fw-normal mt-3 ps-10">총 <b><u style="color: darkgreen;">3</u></b>개월 간 최대 <b><u style="color:  darkgreen;">750kWh</u></b> <b><span style="color: darkgreen;">판매</span></b> 가능</p>
                     <div class="ps-10">
-                        <button class="btn btn-sm btn-outline-danger my-3" href="#" role="button" id="startMatch"><b>전력거래 매칭하기</b></button>
-                        <a th:href="@{/analysis/report}"><button class="btn btn-sm btn-outline-secondary my-3"  role="button" style="margin-left: 75px;"><b>분석결과 상세보기</b></button></a>
+                        
+                        <a th:href="@{/analysis/report}"><b style="font-size: 19px; color: darkorange;">분석결과 상세보기</b></a><br><br>
+                        <!-- <a th:href="@{/analysis/report}"><button class="btn btn-sm btn-outline-secondary my-3"  role="button" style="margin-left: 75px;"><b style="font-size: 19px;">분석결과 상세보기</b></button></a> -->
+                        <button class="btn btn-sm btn-outline-danger my-3 ms-7" href="#" role="button" id="startMatch" style="font-size: 23px;"><b>전력거래 매칭하기</b></button>
                     </div>
             </div>
         </section>
@@ -166,12 +175,12 @@
                                     <div class="col-3"> 
                                         <label for="endDate" class="fs-1 fw-bold">시작일</label> 
                                         <input type="date" class="form-control" value="2024-05-04" id="startDate"> 
-                                    </div>
-                                    <div class="col-3"> 
+                                    <!--</div>
+                                    <div class="col-3">-->
                                         <label for="endDate" class="fs-1 fw-bold">종료일</label> 
                                         <input type="date" class="form-control" value="2024-08-03" id="endDate"> 
                                     </div>
-                        </li>
+                        </li><br>
                         <li class="mb-2 text-1000">
                             <div style="display: flex; align-items: center;">
                                 <div class="input-group" style="width: 300px;">
@@ -184,17 +193,18 @@
                         <li class="mb-3 text-1000">
                             <div style="display: flex; align-items: center;">
                                 <div class="input-group" style="width: 300px;">
-                                    <span class="input-group-text"><b>최소 이득률</b></span>
+                                    <span class="input-group-text"><b>최소 수익률</b></span>
                                     <input id="tradeMinPercent" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="tradeMinPercent" value="70">
                                     <span class="input-group-text">%</span>
                                 </div>
-                            </div>
-                            <p class="fs-0 fw-bold" id="tradeMinPrice">
-                                최소이득률에 따른 최소금액은 ~원 입니다.
+                            </div><br>
+                            <p class="fs-0 fw-bold" id="tradeMinPrice" style="font-size: 23px !important;">
+                                설정수익률에 따른 최저금액은 ~원 입니다.
                             </p>
                         </li>
+                        <button class="btn btn-sm btn-dark my-3 ms-9" href="#" role="button" id="doMatching" style="font-size: 25px;"><b>매칭하기</b></button><hr>
                     </ul>
-                    <button class="btn btn-sm btn-dark my-3" href="#" role="button" id="doMatching"><b>매칭하기</b></button><hr>
+                    <!-- <button class="btn btn-sm btn-dark my-3" href="#" role="button" id="doMatching" style="font-size: 20px;"><b>매칭하기</b></button><hr> -->
             </div>
         </section>
 
@@ -204,7 +214,8 @@
             <div class="container">
                 <div class="row align-items-center">
                 <div class="col-12 text-lg-start text-center">
-                    <h2 class="fs-4 fw-normal mt-6"><b>와티의 <b style="color: rgba(247, 219, 62, 0.9)">매칭</b>이 진행 중입니다.<br>잠시만 기다려주세요.</h2>                    
+                    <br><br><br><br><br><br><br>
+                    <h2 class="fs-4 fw-normal mt-6"><b>와티의 <b style="color:  darkorange">매칭</b>이 진행 중입니다.<br>잠시만 기다려주세요.</h2>                    
             </div>
         </section>
 
@@ -216,13 +227,15 @@
             <div class="container">
                 <div class="row align-items-center">
                 <div class="col-12 text-lg-start text-start">
-                    <p class="fs-2 fw-normal mt-3 ps-10"><b>당신의 최적가 매칭결과!</b>!</b></p>
-                    <h2 class="fs-4 fw-normal mt-3 ps-10"><b><u style="color: #6f42c1;">"11만 3700원"</u></b></h2>
+                    <br><br><br><br><br><br>
+                    <p class="fs-2 fw-normal mt-3 ps-10"><b style="20px">당신의 최적가 매칭결과!</b>!</b></p>
+                    <h2 class="fs-4 fw-normal mt-3 ps-10"><b><u style="color: red;">11만 3700원</u></b></h2><br>
+                    <!-- #6f42c1;-->
                     <input type="text" name="resultPrice" id="resultPrice" value="113700" hidden>
                     <p id="resultPercent" class="fs-2 fw-normal mt-3 ps-10">요청금액의 ~%의 가격으로 거래하실 수 있습니다.</p>
                     <div class="ps-10">
-                        <button class="btn btn-sm btn-outline-success my-3" href="#" role="button" id="doTrade"><b>지금 바로 거래하기</b></button>
-                        <button class="btn btn-sm btn-outline-danger my-3" href="#" role="button" style="margin-left: 75px;"><b>다른 매칭 기다리기</b></button>
+                        <button class="btn btn-sm btn-outline-success my-3 ms-1" href="#" role="button" id="doTrade" style="font-size: 21px;"><b>지금 바로 거래하기</b></button><br>
+                        <button class="btn btn-sm btn-outline-third my-3 ms-1" href="#" role="button" style="margin-left: 75px; font-size: 20px;"><b>다른 매칭 기다리기</b></button>
                     </div>
             </div>
         </section>
@@ -235,12 +248,13 @@
             <div class="container">
                 <div class="row align-items-center">
                 <div class="col-12 text-lg-start text-start">
+                    <br><br><br>
                     <h2 class="fs-4 fw-normal mt-3 ps-10"><b>이용해주셔서 감사합니다. <br>
-                    앞으로도 <b style="color:#ff1fe1f0">이득</b> 많이 보세요!</b></h2>
+                    <b style="color:#ff1fe1f0" sty></b>더 똑똑한 소비 생활, </b><br><b>와티가 지원할게요!</b></h2>
                     <div class="ps-10">
                         <p class="fs-2 fw-normal mt-3">컨설팅에 활용된 내용이 궁금하시다면?<br>
                         </p>
-                        <a class="btn btn-sm my-3 btn-outline-secondary" th:href="@{/analysis/report}" role="button">분석보고서 확인하고 무료쿠폰 받기</a>
+                        <a class="btn btn-sm btn-dark my-3" th:href="@{/analysis/report}" role="button" style="font-size: 20px;">분석보고서 확인하고 무료쿠폰 받기</a>
                     </div>
             </div>
         </section>
