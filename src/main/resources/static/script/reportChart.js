@@ -2,15 +2,14 @@
 Chart.defaults.borderColor = '#6f42c1';
 Chart.defaults.color = '#fff';
 
+
 const memberId=$("#memberId").val();
 const memberRole=$("#memberRole").val();
 
 $(document).ready(function() {
     init();
-    if(memberRole=='ROLE_CONSUMER'){
-        $('capacity').on('change', chart3);
-        $('cost').on('input', chart3);
-    }
+    
+    $('#breakevenBtn').on('click', chart2)
     
 });
 /**
@@ -30,8 +29,8 @@ function init(){
             // console.log("결과: ", resp['result']);
             // AJAX 요청이 성공적으로 완료되면, 이후 함수들을 호출합니다.
             chart1();
-            chart2();
             chart3();
+            chart2();
         }
     })
 }
@@ -47,7 +46,7 @@ function chart1(){
         success: drawActualConsumption
     })
 }
-function chart3(){
+function chart2(){
     if(memberRole=='ROLE_PROSUMER'){
         $.ajax({
             url: 'report/getPredictProductionData',
@@ -59,11 +58,9 @@ function chart3(){
             success: drawPredictProdcution
         })
     } else if(memberRole=='ROLE_CONSUMER'){
-        let capacity =$("input[type=radio][name=capacity]:checked").val();
-        console.log(capacity)
-        let cost=$('#cost').val();
-        cost*=10000
-        console.log(cost)
+        let capacity=$("input[type=radio][name=capacity]").val();
+        let cost=$('#cost').val()*10000;
+        
         $.ajax({
             url: 'report/getBreakevenData',
             type: 'GET',
@@ -73,11 +70,13 @@ function chart3(){
                 "cost": cost
             },
             dataType: 'json',
-            success: drawBreakeven
-        })
+            success: drawBreakeven,
+            
+        }),
+        waitforChart()
     }
 }
-function chart2(){
+function chart3(){
     $.ajax({
         url: 'report/getFutureData',
         type: 'GET',
@@ -191,7 +190,7 @@ function getPanelStatus(predictProdAvg, actualProdAvg){
     } else if (predictProdAvg*0.95<actualProdAvg){
         return "정상: 예측량과 비슷한 발전량이네요!"
     } else if (predictProdAvg*0.85<actualProdAvg){
-        return "관리요망: 발전량이 낮은 수준이에요!"
+        return '<span class="fs-2" style="color: #FF0066">관리요망</span> 발전량이 낮은 수준이에요!'
     } else if (predictProdAvg*0.7>actualProdAvg){
         return "심각: 태양광 패널 상태 점검이 필요해보여요!"
     }
@@ -336,8 +335,8 @@ function drawActualConsumption(resp){
     $('#chart1result1').html(`<span class="far fa-check-circle text-700 me-2"></span>작년 한 해 월평균 사용량: <b>${yearAvg} kWh</b>`);
     $('#chart1result2').html(`<span class="far fa-check-circle text-700 me-2"></span>평월 대비 여름 월평균 사용량: <b>${summerDiff} kWh</b>`);
     $('#chart1result3').html(`
-        <span class="far fa-check-circle text-700 me-2"></span>누진 2구간 총사용량: <b>${prog2Total} kWh</b>
-        <br><span class="far fa-check-circle text-700 me-2"></span>누진 3구간 총사용량: <b>${prog3Total} kWh</b>`);
+        <span class="far fa-check-circle text-700 me-2"></span>누진 3구간 총사용량: <b class="fs-2" style="color: #FF0066">${prog3Total} kWh</b>
+        <br><span class="far fa-check-circle text-700 me-2"></span>누진 2구간 총사용량: <b class="fs-2" style="color: #ccaa00">${prog2Total} kWh</b>`);
 
 
 }
@@ -608,9 +607,9 @@ window.chartBar = new Chart(ctxBar, {
     var prog2Percentage = ((prog2Expenditure / totalExpenditure) * 100).toFixed(2);
     var prog3Percentage = ((prog3Expenditure / totalExpenditure) * 100).toFixed(2);
 
-    $('#chart3result1').html('<span class="far fa-check-circle text-700 me-2"></span>누진 1구간 비중: ' + prog1Percentage + '%<br>' +
-                             '<span class="far fa-check-circle text-700 me-2"></span>누진 2구간 비중: ' + prog2Percentage + '%<br>' +
-                             '<span class="far fa-check-circle text-700 me-2"></span>누진 3구간 비중: ' + prog3Percentage + '%<br>');
+    $('#chart3result1').html('<span class="far fa-check-circle text-700 me-2"></span>누진 3구간 비중: <span style="color: #FF0066">' + prog3Percentage + '%</span><br>' +
+                             '<span class="far fa-check-circle text-700 me-2"></span>누진 2구간 비중: <span style="color: #ccaa00">' + prog2Percentage + '%</span><br>' +
+                             '<span class="far fa-check-circle text-700 me-2"></span>누진 1구간 비중: <span style="color: #66aa00">' + prog1Percentage + '%</span><br>');
 
 }
 
@@ -636,7 +635,12 @@ function drawBreakeven(resp){
     yearList.push(point-1);
     netRevenuesYear.push(Math.round(netRevenuesList[point + 11]));
     yearList.push(point+11);
+    
 
+    var chartElement = document.querySelector("#chart2");
+    if (chartElement) {
+        chartElement.innerHTML = '';
+    }
     var options = {
         series: [{
             data: netRevenuesYear,
@@ -645,9 +649,9 @@ function drawBreakeven(resp){
         }],
         chart: {
             type: 'line',
-            width: 730,
-            height: 425,
-            background: '#000000', // Set chart background color to black
+            width: 600,
+            height: 500,
+            background: 'rgba(0,0,33,0.8)', // Set chart background color to black
             foreColor: '#ffffff', // Set chart text color to white
             toolbar: {
                 show: false // Remove toolbar
@@ -714,89 +718,16 @@ function drawBreakeven(resp){
     
     var chart = new ApexCharts(document.querySelector("#chart2"), options);
     chart.render();
+
+    console.log(requiredMonthsList[requiredMonthsList.length-1])
+    let benefitmonths=(requiredMonthsList[requiredMonthsList.length-1]-12)*0.2;
+
+    $('#breakevenResult').html(`${Math.floor(benefitmonths/12)}년 ${Math.floor(benefitmonths%12)}개월`);
 }
 
-function drawBreakeven2(resp){
-    let requiredMonthsList =resp["RequiredMonths"]
-    let netRevenuesList=resp["NetRevenues"]
-    // 데이터 준비
-    let point = 0;
-    for (let i = 0; i < netRevenuesList.length; i++) {
-        const revenue = netRevenuesList[i];
-        if (revenue > 0) {
-            point = i;
-            break;
-        }
+function waitforChart(){
+    var chartElement = document.querySelector("#chart2");
+    if (chartElement) {
+        chartElement.innerHTML = '<h2 class="fs-3 pt-7"><b>불러오는 중</b></h2>';
     }
-
-    let netRevenuesYear = [];
-    let yearList = [];
-    for (let i = 0; i <= Math.floor(point / 12); i++) {
-        netRevenuesYear.push(Math.round(netRevenuesList[i * 12]));
-        yearList.push(i*12);
-    }
-    netRevenuesYear.push(Math.round(netRevenuesList[point-1]));
-    yearList.push(point-1);
-    netRevenuesYear.push(Math.round(netRevenuesList[point + 11]));
-    yearList.push(point+11);
-
-    var ctx = document.getElementById('chart2').getContext('2d');
-if(window.chartBreak != undefined){
-    window.chartBreak.destroy();
-}
-
-window.chartBreak = new Chart(ctx, {
-    type: 'line',
-    data: {
-        labels: yearList,
-        datasets: [{
-            label: '기대순이익',
-            data: netRevenuesYear,
-            borderColor: 'rgba(175,132,25,0.7)',
-            borderWidth: 3
-        }]
-    },
-    options: {
-        responsive: true,
-        title: {
-            display: true,
-            text: '손익분기점'
-        },
-        annotation: {
-            annotations: [{
-                type: 'line',
-                mode: 'horizontal',
-                scaleID: 'x-axis-0',
-                value: netRevenuesYear[netRevenuesYear.length - 1],
-                borderColor: '#FF00FF',
-                borderWidth: 10,
-                label: {
-                    enabled: true,
-                    content: `1년 기대수익: ${netRevenuesYear[netRevenuesYear.length - 1]}`
-                }
-            }, {
-                type: 'line',
-                mode: 'vertical',
-                scaleID: 'x-axis-0',
-                value: point-1,
-                borderColor: '#FF4560',
-                borderWidth: 5,
-                label: {
-                    enabled: true,
-                    content: `손익분기점: ${Math.floor((point-1)/12)}년 ${point%12}개월`
-                }
-            }, {
-                type: 'point',
-                scaleID: 'y-axis-0',
-                value: 0,
-                borderColor: '#0000FF',
-                borderWidth: 10,
-                label: {
-                    enabled: true,
-                    content: 'y=0 지점'
-                }
-            }]
-        }
-    }
-});
 }

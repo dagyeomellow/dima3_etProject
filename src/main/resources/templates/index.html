@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>index</title>
+    <title>메인화면</title>
     <link rel="apple-touch-icon" sizes="180x180" th:href="@{/img/apple-touch-icon.png}">
     <link rel="icon" type="image/png" sizes="32x32" th:href="@{/img/favicon-32x32.png}">
     <link rel="icon" type="image/png" sizes="16x16" th:href="@{/img/favicon-16x16.png}">
@@ -58,8 +58,8 @@
     <!-- 메인 메뉴 -->
     <main class="main" id="top">
         <!--상단 메뉴 바-->
-        <nav class="navbar navbar-expand-lg navbar-light fixed-top p-1" data-navbar-on-scroll="light">
-            <div class="ps-6 pt-2">
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top p-1 px-9" data-navbar-on-scroll="light">
+            <div class="ps-2 pt-2">
                 <a class="navbar-brand" th:href="@{/}">
                     <img th:src="@{/images/logo.png}" width="118" height="70" alt="logo" id="logo" >
                 </a>
@@ -71,11 +71,11 @@
                         <li class="nav-item"><a class="nav-link px-3" th:href="@{/}">와트마켓</a></li>
                         <li class="nav-item"><a class="nav-link px-3" th:href="@{/intro/service}">서비스소개</a></li>
                         <li class="nav-item"><a class="nav-link px-3" th:href="@{/analysis/consult}">요금컨설팅</a></li>
-                        <li class="nav-item"><a class="nav-link pl-3" th:href="@{/analysis/report}">분석리포트</a></li>
-                        <li class="nav-item"><a class="nav-link pl-3" th:href="@{/}">마이페이지</a></li>
+                        <li class="nav-item"><a class="nav-link px-3" th:href="@{/analysis/report}">분석리포트</a></li>
+                        <li class="nav-item"><a class="nav-link px-3" th:href="@{/}">마이페이지</a></li>
                     </ul>
                     <a th:href="@{/members/loginForm}" sec:authorize="isAnonymous()">
-                        <button class="btn btn-outline-primary btn-xs">로그인</button>
+                        <button class="btn btn-outline-primary btn-xs px-3">로그인</button>
                     </a>
                     <a th:href="@{/members/logout}" sec:authorize="isAuthenticated()">
                         <button class="btn btn-outline-secondary btn-xs">로그아웃</button>
@@ -88,7 +88,7 @@
 
         <!--표시되는 화면 -->
         <!-- 위아래 패딩 조절하려면 pt:padding-top, pb: padding-bottom -->
-        <section class="pt-9 pb-4" id="keyVisual">
+        <section class="pt-9 pb-1" id="keyVisual">
             <div class="container">
                 <div class="row align-items-center h-100 justify-content-center justify-content-lg-start">
                     <!-- 첫 번째 이미지: 주부와 발전자의 고민이 양옆에 담긴 이미지 -->
@@ -103,10 +103,10 @@
                 <div class="row pt-3" style="height: 40px;">
                     <span class="d-flex justify-content-center">
                         <button id="pause" class="mx-3 p-1">
-                            <img th:src="@{/images/pause-fill.svg}" alt="" style="height: 30px;">
+                            <img th:src="@{/images/pause-fill.svg}" alt="" style="height: 20px;">
                         </button>
                         <button id="play" class="mx-3 p-1">
-                            <img th:src="@{/images/play.svg}" alt="" id="play" style="height: 30px;">
+                            <img th:src="@{/images/play.svg}" alt="" id="play" style="height: 20px;">
 
                         </button>
                     </span>
@@ -133,9 +133,9 @@
                 <div class="col-md-6 h-100 text-center text-md-center p-1 p-md-1"> <!--1행2열-->
                     <div class="w-100 h-100 p-4 services-card-shadow rounded-5 text-center"> <!--카드뉴스처럼 보이게 하는거-->
                         <!--아이콘 같은거 넣고 싶으면 여기 이미지 태그 바꿔여  w: width, h:height-->
-                        <h4 class=""><b>할인액 조회하기</b></h4> <!--mt: margin-top-->
+                        <h4 class=""><b>절약가능금액 조회하기</b></h4> <!--mt: margin-top-->
                         <hr>
-                        <p class="mb-0"><b>요금 컨설팅 서비스를 미리 체험하여,<br>최대 얼마나 할인 받을 수 있는지 알아보세요.</b></p>
+                        <p class="mb-0"><b>요금 컨설팅 서비스를 미리 체험하여,<br>최대 얼마나 절약할 수 있는지 알아보세요.</b></p>
                         <div class="p-2" style="">
                             <button class="btn btn-xl btn-warning mt-2" role="button" id="simulation"><b>지금 알아보기</b></button>
                         </div>

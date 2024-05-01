@@ -42,8 +42,8 @@
             height: 550px;
         }
         .container{
-            padding-top: 3rem;
-            padding-bottom: 3rem;
+            padding-top: 4rem;
+            padding-bottom: 4rem;
             padding-left: 4rem;
         }
     </style>
@@ -53,8 +53,8 @@
     <!-- 메인 메뉴 -->
     <main class="main" id="top">
         <!--상단 메뉴 바-->
-        <nav class="navbar navbar-expand-lg navbar-light fixed-top p-1" data-navbar-on-scroll="light">
-            <div class="ps-6 pt-2">
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top p-1 px-9" data-navbar-on-scroll="light">
+            <div class="ps-2 pt-2">
                 <a class="navbar-brand" th:href="@{/}">
                     <img th:src="@{/images/logo.png}" width="118" height="70" alt="logo" id="logo" >
                 </a>
@@ -66,11 +66,11 @@
                         <li class="nav-item"><a class="nav-link px-3" th:href="@{/}">와트마켓</a></li>
                         <li class="nav-item"><a class="nav-link px-3" th:href="@{/intro/service}">서비스소개</a></li>
                         <li class="nav-item"><a class="nav-link px-3" th:href="@{/analysis/consult}">요금컨설팅</a></li>
-                        <li class="nav-item"><a class="nav-link pl-3" th:href="@{/analysis/report}">분석리포트</a></li>
-                        <li class="nav-item"><a class="nav-link pl-3" th:href="@{/}">마이페이지</a></li>
+                        <li class="nav-item"><a class="nav-link px-3" th:href="@{/analysis/report}">분석리포트</a></li>
+                        <li class="nav-item"><a class="nav-link px-3" th:href="@{/}">마이페이지</a></li>
                     </ul>
                     <a th:href="@{/members/loginForm}" sec:authorize="isAnonymous()">
-                        <button class="btn btn-outline-primary btn-xs">로그인</button>
+                        <button class="btn btn-outline-primary btn-xs px-3">로그인</button>
                     </a>
                     <a th:href="@{/members/logout}" sec:authorize="isAuthenticated()">
                         <button class="btn btn-outline-secondary btn-xs">로그아웃</button>
