@@ -177,11 +177,16 @@ public class AnalysisService {
 
         // 현재 전기가격 리스트 가져오기 
         LocalDate date = LocalDate.now(); // 현재날짜를 Long 형태의 202404 처럼 바꿔주기
+        if (date.getDayOfMonth() < 5) {
+            date = date.minusMonths(1); // 이전 달로 설정
+        }
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMM");
         String formattedDate = date.format(formatter);
         Long yearMonth = Long.parseLong(formattedDate);
+        log.info("프라이스엔티티는 가져왔니?!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         PricesEntity pricesEntity= pricesRepository.findHousePricesByType(yearMonth); // 현재의 가격정보 가져오기
-        // log.info("프라이스엔티티는 가져왔니?!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        log.info("프라이스엔티티는 못가져왔니?!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        log.info(pricesEntity+"");
         // 가중평균을 통한 월평균 상계전기가격 계산
         String consumerId = consumersRepository.findConsumerIdByMemberId(memberId);
         // log.info("consumerid 가져왔어!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+consumerId);

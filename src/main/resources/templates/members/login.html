@@ -104,8 +104,8 @@
     <!-- 메인 메뉴 -->
     <main class="main" id="top">
         <!--상단 메뉴 바-->
-        <nav class="navbar navbar-expand-lg navbar-light fixed-top p-1" data-navbar-on-scroll="light">
-            <div class="ps-6 pt-2">
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top p-1 px-9" data-navbar-on-scroll="light">
+            <div class="ps-2 pt-2">
                 <a class="navbar-brand" th:href="@{/}">
                     <img th:src="@{/images/logo.png}" width="118" height="70" alt="logo" id="logo" >
                 </a>
@@ -117,11 +117,11 @@
                         <li class="nav-item"><a class="nav-link px-3" th:href="@{/}">와트마켓</a></li>
                         <li class="nav-item"><a class="nav-link px-3" th:href="@{/intro/service}">서비스소개</a></li>
                         <li class="nav-item"><a class="nav-link px-3" th:href="@{/analysis/consult}">요금컨설팅</a></li>
-                        <li class="nav-item"><a class="nav-link pl-3" th:href="@{/analysis/report}">분석리포트</a></li>
-                        <li class="nav-item"><a class="nav-link pl-3" th:href="@{/}">마이페이지</a></li>
+                        <li class="nav-item"><a class="nav-link px-3" th:href="@{/analysis/report}">분석리포트</a></li>
+                        <li class="nav-item"><a class="nav-link px-3" th:href="@{/}">마이페이지</a></li>
                     </ul>
                     <a th:href="@{/members/loginForm}" sec:authorize="isAnonymous()">
-                        <button class="btn btn-outline-primary btn-xs">로그인</button>
+                        <button class="btn btn-outline-primary btn-xs px-3">로그인</button>
                     </a>
                     <a th:href="@{/members/logout}" sec:authorize="isAuthenticated()">
                         <button class="btn btn-outline-secondary btn-xs">로그아웃</button>
@@ -141,19 +141,19 @@
             
             <div class="container">
                 <div class="row align-items-center h-100 justify-content-center">
-                        <div class="col-5">
-                            <h2><b>어서오세요!</b></h2>
-                            <form method="post" th:action="@{/members/loginProc}" id="loginForm">
-                                <input type="text" name="memberId" placeholder="아이디">
-                                <input type="password" name="memberPw" placeholder="비밀번호">
+                        <div class="col-6 text-center">
+                            <h1 style="color:#6A24FE"><b>어서오세요!</b></h1>
+                            <form method="post" th:action="@{/members/loginProc}" id="loginForm" class="input-group">
+                                <input type="text" name="memberId" placeholder="아이디를 입력해주세요" class="form-control">
+                                <input type="password" name="memberPw" placeholder="비밀번호를 입력해주세요" class="form-control">
                                 <label for="rememberCheck">
                                     <input type="checkbox" id="rememberCheck">아이디 저장하기
                                 </label>
                                 <input class="btn btn-sm btn-primary me-1" type="submit" value="로그인">
                             </form>
                             <div style="display: flex; justify-content: space-between;">
-                                <a th:href="@{/members/joinForm}"><button class="btn btn-sm btn-outline-primary me-0 m-1" role="button">회원가입</button></a>
-                                <button class="btn btn-sm btn-outline-primary ms-0 m-1" role="button">아이디/비밀번호 찾기</button>
+                                <a th:href="@{/members/joinForm}"><button class="btn btn-sm btn-outline-primary me-0 m-1" role="button"><b>회원가입</b></button></a>
+                                <button class="btn btn-sm btn-outline-primary ms-0 m-1" role="button"><b>아이디/비밀번호 찾기</b></button>
 
                             </div>
                         </div>

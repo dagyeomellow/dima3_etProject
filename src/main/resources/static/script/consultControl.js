@@ -38,12 +38,11 @@ function defineButtonClickEvents() {
     });
 
     $("#doTrade").click(function() {
-        var r = confirm("결제하시겠습니까?");
-        if (r == true) {
-            alert("거래가 완료되었습니다. 한국전력공사로 거래 결과가 전송됩니다. 자세한 사항은 마이페이지를 확인해주세요.");
-            $("#page4").hide();
-            $("#page5").show();
-        }
+
+        alert("거래가 완료되었습니다. 한국전력공사로 거래 결과가 전송됩니다. 자세한 사항은 마이페이지를 확인해주세요.");
+        $("#page4").hide();
+        $("#page5").show();
+
     });
 }
 
@@ -53,7 +52,9 @@ function calculateAndDisplayMinPrice() {
     let tradeMinPrice = Math.round(optimalP * (tradeMinPercent / 100));
     let minPriceStr = new Intl.NumberFormat('ko-KR').format(tradeMinPrice) + ' 원';
 
-    $('#tradeMinPrice').html(`최소이득률에 따른 최소금액은 <b style="color: rgba(247, 144, 62, 0.9)"><u>${minPriceStr}</u></b>입니다`);
+    $('#tradeMinPrice').html(`<b>
+    설정하신 수익률에 따른 최소거래액은 <br> <b class="fs-3 ps-8" style="color: #6f42c1"><u>${minPriceStr}</u></b> 입니다
+</b>`);
     $("#tradeMinPercent").on('input', calculateAndDisplayMinPrice);
     console.log($('#tradeMinPercent').val()+"sdsd")
 }
@@ -64,5 +65,5 @@ function calculateAndDisplayResultPercent() {
     let tradeMinPrice = Math.round($("#optimalPrice").val() * ($("#tradeMinPercent").val() / 100));
     let resultPercent = Math.round((resultPrice / tradeMinPrice) * 100);
 
-    $('#resultPercent').html(`요청금액의 <b style="color: #D032D0;">${resultPercent}%</b>의 가격으로<br>거래하실 수 있습니다.`);
+    $('#resultPercent').html(`<b>설정하신 금액보다<br><span class="fs-4" style="color:#6f42c1">${resultPercent-100}%</span> 높은 가격으로 <br> <span class="">거래하실 수 있습니다.</span></b>`);
 }
