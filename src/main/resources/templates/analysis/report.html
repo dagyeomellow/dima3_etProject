@@ -137,13 +137,22 @@
                             </li>
                             <li class="mb-3 text-900">
                                 <img th:src="@{/images/3-square.svg}" alt="">
-                                사용자의 자가용 태양광발전 전환 시 수익성
+                                <span th:if="${#authentication.authorities[0].authority=='ROLE_PROSUMER'}">
+                                    사용자의 태양광 패널의 상태 추정
+                                </span>
+                                <span th:unless="${#authentication.authorities[0].authority=='ROLE_PROSUMER'}">
+                                    태양광 발전으로 전환 시 손익분기점
+                                </span>
                             </li>
                         </ul>
                         <h4 class="fs-2 fw-bold" data-zanim-xs='{"delay":1.2}' data-zanim-trigger="scroll">
-                            <b>리포트를 통해 사용자의<br><span style="color: rgba(39, 142, 87, 0.775);">누진 구간</span> <span style="color: rgba(39, 142, 101, 0.775);"> 최적화 솔루션</span>을 제공합니다.</b>
+                            <b>리포트를 통해 사용자의<br>전기요금 <span style="color: rgba(39, 142, 101, 0.775);"> 최적화 솔루션</span>을 제공합니다.</b>
                         </h4><br>
                         <button class="btn btn-outline-primary my-1 me-1 w-25" role="button" id="startReport" data-zanim-xs='{"delay":1.5}' data-zanim-trigger="scroll">리포트 확인</button> <br>
+                        <a href="#page6">
+                            <button th:if="${#authentication.authorities[0].authority=='ROLE_CONSUMER'}" class="btn btn-default my-1 me-1 w-25" role="button" data-zanim-xs='{"delay":1.5}' data-zanim-trigger="scroll">발표용 페이지이동</button> <br>
+
+                        </a>
                     </div>
                 </div>
         </section>

@@ -84,8 +84,8 @@
         Your browser does not support HTML5 video.
     </video>
     <main class="main">
-        <nav class="navbar navbar-expand-lg navbar-light fixed-top p-1" data-navbar-on-scroll="light">
-            <div class="ps-6 pt-2">
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top p-1 px-9" data-navbar-on-scroll="light">
+            <div class="ps-2 pt-2">
                 <a class="navbar-brand" th:href="@{/}">
                     <img th:src="@{/images/logo.png}" width="118" height="70" alt="logo" id="logo" >
                 </a>
@@ -93,16 +93,15 @@
             <div class="container p-0 my-4">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse border-top border-lg-0 mt-4 mt-lg-0" id="navbarSupportedContent">
-                    <ul class="navbar-nav ms-auto pt-2 pt-lg-0 font-base align-items-center" style="text-decoration: white">
-                        <!-- <span style="color: white"></span> -->
+                    <ul class="navbar-nav ms-auto pt-2 pt-lg-0 font-base align-items-center">
                         <li class="nav-item"><a class="nav-link px-3" th:href="@{/}">와트마켓</a></li>
                         <li class="nav-item"><a class="nav-link px-3" th:href="@{/intro/service}">서비스소개</a></li>
                         <li class="nav-item"><a class="nav-link px-3" th:href="@{/analysis/consult}">요금컨설팅</a></li>
-                        <li class="nav-item"><a class="nav-link pl-3" th:href="@{/analysis/report}">분석리포트</a></li>
-                        <li class="nav-item"><a class="nav-link pl-3" th:href="@{/}">마이페이지</a></li>
+                        <li class="nav-item"><a class="nav-link px-3" th:href="@{/analysis/report}">분석리포트</a></li>
+                        <li class="nav-item"><a class="nav-link px-3" th:href="@{/}">마이페이지</a></li>
                     </ul>
                     <a th:href="@{/members/loginForm}" sec:authorize="isAnonymous()">
-                        <button class="btn btn-outline-primary btn-xs">로그인</button>
+                        <button class="btn btn-outline-primary btn-xs px-3">로그인</button>
                     </a>
                     <a th:href="@{/members/logout}" sec:authorize="isAuthenticated()">
                         <button class="btn btn-outline-secondary btn-xs">로그아웃</button>
